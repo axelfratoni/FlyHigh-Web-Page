@@ -8,7 +8,11 @@
     <title>FlyHigh</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/myjs.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,6 +25,7 @@
   <body>
 
   <!-- Barra superior -->
+  <!--
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -28,48 +33,101 @@
         </div>
       </div>
     </nav>
-
+-->
   <!-- Menu con opcion e imagen de fondo -->
-  <div class="parallax">
-    <div class="mainMenu">
-      <h4> Elegí tu vuelo </h4>
-      <form class="form-inline menuOptions">
-        <div class="form-group">
-          <label for="inlineFormInput">Origen:</label>
-          <input type="text" class="form-control" id="inlineFormInput" placeholder="Ingrese su origen">
+  <div class="parallax container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 mainMenu">
+        <div class="centerText"> <h4> Elegí tu vuelo </h4> </div>
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label" for="origenInput">
+            <h5>Origen:</h5>
+          </label>
+          <div class="col-md-4">
+            <input class="form-control" type="text" id="origenInput" placeholder="Ingrese su origen">
+          </div>
+          <label class="col-md-2 col-form-label" for="destinoInput">
+            <h5>Destino</h5>
+          </label>
+          <div class="col-md-4">
+            <input class="form-control" type="text" id="destinoInput" placeholder="Ingrese su destino">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="inlineFormInput">Destino:</label>
-          <input type="text" class="form-control" id="inlineFormInput" placeholder="Ingrese su destino">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label" for="departureDate">
+            <h5>Fecha de Partida:</h5>
+          </label>
+          <div class="col-md-4">
+            <input class="form-control" type="date" id="departureDate" placeholder="Ingrese su fecha de partida" > 
+          </div>
         </div>
-      </form>
-      <div class="row menuOptions">
-        <div class="col-md-8">
-          <form class="form-inline" >
-            <div class="form-group">
-              <label for="inlineFormInput">Fecha de Partida:</label>
-              <input type="date" class="form-control" id="inlineFormInput" placeholder="Ingrese su fecha de partida">
+        <div class="row">
+          <label class="col-md-2 form-check-label">
+            <input class="form-check-input" type="radio" name="idaYvuelta" id="idaYvuelta" value="option1" checked=""> Ida
+          </label>
+          <label class="col-md-3 form-check-label">
+            <input class="form-check-input" type="radio" name="idaYvuelta" id="idaYvuelta" value="option1"> Ida y vuelta
+          </label>
+          <div class="col-md-2">
+            <h5>Adultos:</h5>
+          </div>
+          <div class="col-md-1 input-group spinner">
+            <input type="text" id="adultCount" class="form-control input-number" value="0">
+            <div class="input-group-btn-vertical">
+              <button class="btn btn-default" type="button" id="spinUp" data-target="adultCount"></button>
+              <button class="btn btn-default" type="button" id="spinDown" data-target="adultCount"></button>
             </div>
-          </form>
-        </div>
-      </div>
-      <div class="row menuOptions">
-        <div class="col-md-4">
-          <div class="checkbox menuOptions">
-            <label>
-              <input type="checkbox"> Ida y vuelta
-            </label>
+          </div>
+          <div class="col-md-2">
+            <h5>Ninos:</h5>
+          </div>
+          <div class="col-md-1 input-group spinner">
+            <input type="text" id="childCount" class="form-control input-number" value="0">
+            <div class="input-group-btn-vertical">
+              <button class="btn btn-default" type="button" id="spinUp" data-target="childCount"></button>
+              <button class="btn btn-default" type="button" id="spinDown" data-target="childCount"></button>
+            </div>
           </div>
         </div>
       </div>
-      <button type="button" class="btn menuButton btn-primary">Buscar</button>
-    </div>
 
+    </div>
   </div>
 
-  <div style="height:1000px;background-color:black;font-size:36px">
-
-</div>
+  <div style="height:1000px;background-color:black;font-size:36px"></div>
 
   </body> 
 </html>
+
+<!--
+<form class="form-inline menuOptions">
+            <div class="form-group">
+              <label for="inlineFormInput">Origen:</label>
+              <input type="text" class="form-control" id="inlineFormInput" placeholder="Ingrese su origen">
+            </div>
+            <div class="form-group">
+              <label for="inlineFormInput">Destino:</label>
+              <input type="text" class="form-control" id="inlineFormInput" placeholder="Ingrese su destino">
+            </div>
+          </form>
+          <div class="row menuOptions">
+            <div class="col-md-8">
+              <form class="form-inline" >
+                <div class="form-group">
+                  <label for="inlineFormInput">Fecha de Partida:</label>
+                  <input type="date" class="form-control" id="inlineFormInput" placeholder="Ingrese su fecha de partida">
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row menuOptions">
+            <div class="col-md-4">
+              <div class="checkbox menuOptions">
+                <label>
+                  <input type="checkbox"> Ida y vuelta
+                </label>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn menuButton btn-primary">Buscar</button>
+-->

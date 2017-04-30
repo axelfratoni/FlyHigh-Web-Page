@@ -6,46 +6,6 @@
 /*# sourceMappingURL=bootstrap.min.css.map */
 
 
-body, html {
-    height: 100%;
-}
 
-.parallax {
-    /* The image used */
-    background-image: url('../images/planeBackground.jpg');
 
-    /* Full height */
-    height: 100%; 
 
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.mainMenu {
-	position: absolute;
-  	display: block;
-  	margin-top: 12%;
-  	margin-right: 25%;
-  	margin-left: 25%;
-  	height:50%;
-  	width: 50%;
-	background-color: #ffe577;	
-	border-radius: 10px;
-	border: 3px solid;
-	border-color: #fec051;
-	text-align: center;
-  	font-size: 12px;
-  	letter-spacing: 5px;
-}
-
-.menuOptions {
-	margin-top: 5%;
-}
-
-.menuButton{
-	float: right;
-	margin-right: 10%;
-}

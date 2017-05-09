@@ -63,3 +63,8 @@ body, html {
   //margin-right:140%;
   margin-top: 35%
 }
+
+#promoBtn {
+  position: absolute;
+  bottom: 1%;
+}

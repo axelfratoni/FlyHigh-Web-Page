@@ -71,43 +71,32 @@
           <label class="col-md-2 form-check-label">
             <input class="form-check-input" type="radio" name="idaYvuelta" id="idaYvuelta" value="option1"> Ida y vuelta
           </label>
-          <div class="col-md-1">
-            <h5>Adultos:</h5>
+          <div class="col-md-2">
+            <h5 align="right">Adultos:</h5>
           </div>
-          <div class="col-md-3 row">
-            <div class="col-md-3">
-                <button class="btn btn-default btn-xs leftButton spinDown" type="button" data-target="adultCount">
-                  <small></small><span class="glyphicon glyphicon-chevron-down"></span></small>
-                </button>
-            </div>
-            <div class="col-md-5">
-              <input type="text" id="adultCount" class="form-control input-number myInputs" value="1">
-            </div>
-            <div class="col-md-1">
-                <button class="btn btn-default btn-xs rightButton spinUp" type="button" data-target="adultCount">
-                  <small></small><span class="glyphicon glyphicon-chevron-up"></span></small>
-                </button>
+          <div class="col-md-2 row">
+            <div class="input-group spinner">
+              <input type="text" id="adultCount" class="form-control" value="1" min="0" max="10">
+              <div class="input-group-btn-vertical">
+                <button id="adultCountUp" class="btn btn-default" type="button"><i class="glyphicon glyphicon-triangle-top"></i></button>
+                <button id="adultCountDown" class="btn btn-default" type="button"><i class="glyphicon glyphicon-triangle-bottom"></i></button>
+              </div>
             </div>
           </div>
-          <div class="col-md-1">
-            <h5>Ninos:</h5>
+          <div class="col-md-2">
+            <h5 align="right">Ninos:</h5>
           </div>
-          <div class="col-md-3   row">
-            <div class="col-md-3">
-                <button class="btn btn-default btn-xs leftButton spinDown" type="button" data-target="ninosCount">
-                  <small></small><span class="glyphicon glyphicon-chevron-down"></span></small>
-                </button>
-            </div>
-            <div class="col-md-5">
-              <input type="text" id="ninosCount" class="form-control input-number myInputs" value="0">
-            </div>
-            <div class="col-md-1">
-                <button class="btn btn-default btn-xs rightButton spinUp" type="button" data-target="ninosCount" name="lbtn">
-                  <small></small><span class="glyphicon glyphicon-chevron-up"></span></small>
-                </button>
+          <div class="col-md-2 row">
+            <div class="input-group spinner">
+              <input type="text" id="ninosCount" class="form-control" value="0" min="0" max="10">
+              <div class="input-group-btn-vertical">
+                <button id="ninosCountUp" class="btn btn-default" type="button"><i class="glyphicon glyphicon-triangle-top"></i></button>
+                <button id="ninosCountDown" class="btn btn-default" type="button"><i class="glyphicon glyphicon-triangle-bottom"></i></button>
+              </div>
             </div>
 
           </div>
+          
         </div>
         <div class="col-md-1 col-md-offset-10 menuOptions">
           <button type="button" class="btn btn-primary" id="searchFly">Buscar</button>
@@ -195,6 +184,10 @@
       </div>
     </div> 
   </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/myjs.js"></script>
 
   </body>
 </html>

@@ -106,6 +106,29 @@ $(document).ready(function(){
 	});
 });
 
+(function ($) {
+  $('#adultCountUp').on('click', function() {
+    if(parseInt($('#adultCount').val(), 10) < $('#adultCount').attr('max') ) {
+          $('#adultCount').val( parseInt($('#adultCount').val(), 10) + 1);
+        }
+  });
+  $('#adultCountDown').on('click', function() {
+    if(parseInt($('#adultCount').val(), 10) > $('#adultCount').attr('min')) {
+          $('#adultCount').val( parseInt($('#adultCount').val(), 10) - 1);
+        }
+  });
+  $('#ninosCountUp').on('click', function() {
+    if(parseInt($('#ninosCount').val(), 10) < $('#ninosCount').attr('max')) {
+          $('#ninosCount').val( parseInt($('#ninosCount').val(), 10) + 1);
+        }
+  });
+  $('#ninosCountDown').on('click', function() {
+    if(parseInt($('#ninosCount').val(), 10) > $('#ninosCount').attr('min')) {
+          $('#ninosCount').val( parseInt($('#ninosCount').val(), 10) - 1);
+        }
+  });
+})(jQuery);	
+
 
 // Manejo de la API de vuelos
 cities = [];

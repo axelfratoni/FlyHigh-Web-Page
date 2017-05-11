@@ -10,7 +10,9 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/mystyle.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/myjs.js"></script>
 
@@ -43,13 +45,13 @@
             <h5>Origen:</h5>
           </label>
           <div class="col-md-4">
-            <input class="form-control" type="text" id="origenInput" placeholder="Ingrese su origen">
+            <input class="form-control placeInput myInputs" id="origen" type="text" placeholder="Ingrese su origen">
           </div>
           <label class="col-md-1 col-form-label col-md-offset-1" for="destinoInput">
             <h5>Destino:</h5>
           </label>
           <div class="col-md-4">
-            <input class="form-control" type="text" id="destinoInput" placeholder="Ingrese su destino">
+            <input class="form-control placeInput myInputs" id="destino" type="text" placeholder="Ingrese su destino">
           </div>
         </div>
         <div id="fechas" class="menuOptions">
@@ -58,7 +60,7 @@
               <h5>Fecha de Partida:</h5>
             </label>
             <div class="col-md-4">
-              <input class="form-control" type="date" id="departureDate" placeholder="Ingrese su fecha de partida" >
+              <input class="form-control myInputs" type="date" id="departureDate" placeholder="Ingrese su fecha de partida" >
             </div>
           </div>
         </div>
@@ -79,7 +81,7 @@
                 </button>
             </div>
             <div class="col-md-5">
-              <input type="text" id="adultCount" class="form-control input-number" value="0">
+              <input type="text" id="adultCount" class="form-control input-number myInputs" value="1">
             </div>
             <div class="col-md-1">
                 <button class="btn btn-default btn-xs rightButton spinUp" type="button" data-target="adultCount">
@@ -97,7 +99,7 @@
                 </button>
             </div>
             <div class="col-md-5">
-              <input type="text" id="ninosCount" class="form-control input-number" value="0">
+              <input type="text" id="ninosCount" class="form-control input-number myInputs" value="0">
             </div>
             <div class="col-md-1">
                 <button class="btn btn-default btn-xs rightButton spinUp" type="button" data-target="ninosCount" name="lbtn">
@@ -108,7 +110,7 @@
           </div>
         </div>
         <div class="col-md-1 col-md-offset-10 menuOptions">
-          <button type="button" class="btn btn-primary">Buscar</button>
+          <button type="button" class="btn btn-primary" id="searchFly">Buscar</button>
         </div>
       </div>
     </div>
@@ -135,30 +137,27 @@
         <div class="row menuOptions">
           <div class="col-md-4">
             <div class="thumbnail">
-              <a href="./images/New-York.jpg" target="_blank">
-                <img src="./images/New-York.jpg" alt="Lights" style="width:100%">
-                <div class="caption">
-                  <p>Nueva York</p>
+              <a href="./images/city.jpg" target="_blank">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption" id="promo1">
                 </div>
               </a>
             </div>
           </div>
           <div class="col-md-4">
             <div class="thumbnail">
-              <a href="./images/London.jpg" target="_blank">
-                <img src="./images/London.jpg" alt="Lights" style="width:100%">
-                <div class="caption">
-                  <p>Londres</p>
+              <a href="./images/city.jpg" target="_blank">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption" id="promo2">
                 </div>
               </a>
             </div>
           </div>
           <div class="col-md-4">
             <div class="thumbnail">
-              <a href="./images/Paris.jpg" target="_blank">
-                <img src="./images/Paris.jpg" alt="Lights" style="width:100%">
-                <div class="caption">
-                  <p>Paris</p>
+              <a href="./images/city.jpg" target="_blank">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption" id="promo3">
                 </div>
               </a>
             </div>
@@ -167,30 +166,27 @@
         <div class="row">
           <div class="col-md-4">
             <div class="thumbnail">
-              <a href="./images/BuenosAires.jpg" target="_blank">
-                <img src="./images/BuenosAires.jpg" alt="Lights" style="width:100%">
-                <div class="caption">
-                  <p>Buenos Aires</p>
+              <a href="./images/city.jpg" target="_blank">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption" id="promo4">
                 </div>
               </a>
             </div>
           </div>
           <div class="col-md-4">
             <div class="thumbnail">
-              <a href="./images/Taipei.JPG" target="_blank">
-                <img src="./images/Taipei.JPG" alt="Lights" style="width:100%">
-                <div class="caption">
-                  <p>Taipei</p>
+              <a href="./images/city.jpg" target="_blank">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption" id="promo5">
                 </div>
               </a>
             </div>
           </div>
           <div class="col-md-4">
             <div class="thumbnail">
-              <a href="./images/Sydney.jpg" target="_blank">
-                <img src="./images/Sydney.jpg" alt="Lights" style="width:100%">
-                <div class="caption">
-                  <p>Sidney</p>
+              <a href="./images/city.jpg" target="_blank">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption" id="promo6">
                 </div>
               </a>
             </div>

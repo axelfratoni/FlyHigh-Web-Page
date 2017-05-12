@@ -93,20 +93,9 @@ function validatePassengers(){
 	return true;
 }
 
-function inputError(target){
-	$(target).css("border", "1px solid red");
-	$(target).css("background-color", "#FF9494");
-	$(target).css("color", "black");
-}
 
+// passenger count spinners
 $(document).ready(function(){
-	$(".myInputs").focusin(function(){
-		$(this).css("border", "");
-		$(this).css("background-color", "");
-	});
-});
-
-(function ($) {
   $('#adultCountUp').on('click', function() {
     if(parseInt($('#adultCount').val(), 10) < $('#adultCount').attr('max') ) {
           $('#adultCount').val( parseInt($('#adultCount').val(), 10) + 1);
@@ -127,7 +116,20 @@ $(document).ready(function(){
           $('#ninosCount').val( parseInt($('#ninosCount').val(), 10) - 1);
         }
   });
-})(jQuery);	
+});
+
+function inputError(target){
+	$(target).css("border", "1px solid red");
+	$(target).css("background-color", "#FF9494");
+	$(target).css("color", "black");
+}
+
+$(document).ready(function(){
+	$(".myInputs").focusin(function(){
+		$(this).css("border", "");
+		$(this).css("background-color", "");
+	});
+});
 
 
 // Manejo de la API de vuelos

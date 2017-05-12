@@ -1,10 +1,3 @@
-$(function(){
-	 $(".dropdown-menu li a").click(function(){
-		 $("#documentDropDown").text($(this).text());
-		 $("#documentDropDown").val($(this).text());
-	});
-});
-
 $(document).ready(function(){
 	$('.spinUp').click(function(){
 		var target = $(this).data("target");
@@ -58,11 +51,24 @@ $(function() {
 
 $(document).ready(function(){
 	$("#searchFly").click(function(){
-		if(validateDepartureDate() && validatePassengers() && 
-			validateOrigenDestino($("#origen").val(),"#origen") && 
+		if(validateDepartureDate() && validatePassengers() &&
+			validateOrigenDestino($("#origen").val(),"#origen") &&
 			validateOrigenDestino($("#destino").val(),"#destino"))
-		{			
-			retrieveFlights();
+		{
+			var oriID = null;
+			var desID = null;
+			for(i=0; i<cities.length-1; i++){
+				if($("#origen").val() == cities[i].name){
+					oriID = cities[i].id;
+				}
+				if($("#destino").val() == cities[i].name){
+					desID = cities[i].id;
+				}
+			}
+			var parameters = "adultos=" + $("#adultCount").val() +"&ninos=" +$("#ninosCount").val() + "&ori=" +  oriID + "&des=" + desID + "&fechaida=" + $("#departureDate").val().toString();
+			if($("#fechaLlegada"))
+				parameters = parameters + "&llegada=" + $("#fechaLlegada").val;
+			document.location.href = "ChoosePage.html?"+ parameters;
 		}
 	});
 });
@@ -71,7 +77,7 @@ function validateOrigenDestino(val,target){
 	if($.inArray(val,cityNames) < 0){
 		inputError(target);
 		return false;
-	} 
+	}
 	return true;
 }
 
@@ -89,7 +95,7 @@ function validateDepartureDate(){
 function validatePassengers(){
 	if(parseInt($("#adultCount").val()) + parseInt($("#ninosCount").val()) == 0){
 		return false
-	} 
+	}
 	return true;
 }
 
@@ -136,7 +142,7 @@ $(document).ready(function(){
 cities = [];
 cityNames = [];
 cityPage = 1;
-$(document).ready(function retrieveCities(){	
+$(document).ready(function retrieveCities(){
 	$.ajax({
           url: "http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities&page=" + cityPage,
           dataType: "jsonp",
@@ -144,19 +150,19 @@ $(document).ready(function retrieveCities(){
           		$.each(data.cities, function(index, value) {
 	        		cities.push(value);
 	        		cityNames.push(value.name);
-        		});          	
+        		});
           		if(cities.length < data.total){
           			cityPage += 1;
           			retrieveCities();
-          		} 
-          }    
-        });    
+          		}
+          }
+        });
 });
 
 airports = [];
 airportNames = [];
 airportPage = 1;
-$(document).ready(function retrieveAirports(){	
+$(document).ready(function retrieveAirports(){
 	$.ajax({
           url: "http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getairports&page=" + airportPage,
           dataType: "jsonp",
@@ -164,13 +170,13 @@ $(document).ready(function retrieveAirports(){
           		$.each(data.airports, function(index, value) {
 	        		airports.push(value);
 	        		airportNames.push(value.description);
-        		});        	
+        		});
           		if(airports.length < data.total){
           			airportPage += 1;
           			retrieveAirports();
-          		} 
-          }    
-        });    
+          		}
+          }
+        });
 });
 
 $(document).ready(function() {
@@ -189,13 +195,13 @@ $(document).ready(function retrieveDeals(){
 			$.each(data.deals, function(index,value){
 				deals.push(value);
 			});
-			deals = shuffleArray(deals);	
+			deals = shuffleArray(deals);
 			for (var i = 1; i < 7; i ++){
 				$("#promo" + i).append((deals[i-1].city.name.split(","))[0]);
 				$("#promo" + i).append('<span id="precio' + i + '">   $' + deals[i-1].price + '</span>');
 				$("#precio" + i).css("color", "green");
 				$("#precio" + i).css("font-weight", "bold");
-			}		
+			}
 		}
 	});
 });
@@ -208,41 +214,4 @@ function shuffleArray(array) {
         array[j] = temp;
     }
     return array;
-}
-
-flights = [];
-function retrieveFlights(){
-	var depDate = $("#departureDate").val();
-	var adultCount = $("#adultCount").val();
-	var ninosCount = $("#ninosCount").val();
-	var infantCount = 0;
-	var oriID = null;
-	var desID = null;
-	for(i=0; i<cities.length-1; i++){
-		if($("#origen").val() == cities[i].name){
-			oriID = cities[i].id;
-		}
-		if($("#destino").val() == cities[i].name){
-			desID = cities[i].id;
-		}
-	}
-	console.log("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + infantCount);
-	$.ajax({
-		url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + infantCount,
-		dataType: "jsonp",
-		success: function(data){
-			$.each(data.flights, function(index,value){
-				flights.push(value);
-			});
-			for (var i = 0; i < flights.length-1; i++) {
-				console.log("Vuelo " + i);
-				console.log("Airline: " + flights[i].outbound_routes);
-				console.log("Duration: " + String(flights[i].outbound_routes.duration));
-				console.log("Precio: $" + flights[i].price.adults.base_fare);
-				console.log(" ");
-			}
-			console.log("asd");
-		}
-	});
-		
 }

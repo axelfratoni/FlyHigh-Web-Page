@@ -23,36 +23,28 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <div class="container-fluid ">
-    <div class="row">
-      <div class="col-md-12 flightStyle" id="flightsDiv">
-       <template id="flightTemplate">
-        <body style="background-size: cover;">
-          <div class="container-fluid">
+  <div class="container-fluid" id="flightsDiv">
+   <template id="flightTemplate">
+    <body style="background-size: cover;">
+      <div class="flightStyle">
+        <div class="row">
+          <img class="col-md-2" src="" alt="Airport logo" width="42" height="42" id="airportLogo"></img>
+          <div class="col-md-8">
             <div class="row">
-              <div class="col-md-12 flightStyle">
-                <div class="row">
-                  <img class="col-md-2" src="" alt="Airport logo" width="42" height="42" id="airportLogo"></img>
-                  <div class="col-md-8">
-                    <div class="row">
-                      <div class="col-md-2 col-md-offset-1"><p>Sale: </p></div>
-                      <div class="col-md-2 col-md-offset-1" id="departureHourInfo"><p></p></div>
-                      <div class="col-md-2 col-md-offset-1"><p>Duracion:</p></div>
-                      <div class="col-md-3 centerText" id="duration"><p></p></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-2 col-md-offset-1"><p>Llega: </p></div>
-                      <div class="col-md-2 col-md-offset-1" id="arrivalHourInfo"><p></p></div>
-                    </div>
-                  </div>
-                    <div class="col-md-2 col-md-offset-1" id="price"><h4></h4></div>
-                  </div>
-                </div>
-              </div>
+              <div class="col-md-2 col-md-offset-1"><p>Sale: </p></div>
+              <div class="col-md-2 col-md-offset-1" id="departureHourInfo"><p></p></div>
+              <div class="col-md-2 col-md-offset-1"><p>Duracion:</p></div>
+              <div class="col-md-3 centerText" id="duration"><p></p></div>
             </div>
-          </body>
-        </template>
-      </div>
-    </div>
+            <div class="row">
+              <div class="col-md-2 col-md-offset-1"><p>Llega: </p></div>
+              <div class="col-md-2 col-md-offset-1" id="arrivalHourInfo"><p></p></div>
+            </div>
+          </div>
+            <div class="col-md-2 col-md-offset-1" id="price"><h4>asd</h4></div>
+          </div>
+        </div>
+      </body>
+    </template>
   </div>
 </html>

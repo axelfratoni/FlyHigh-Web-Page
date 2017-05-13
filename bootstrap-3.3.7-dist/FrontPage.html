@@ -10,9 +10,11 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/mystyle.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="awesomplete-gh-pages/awesomplete.css" />
+    <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="awesomplete-gh-pages/awesomplete.js" async></script>
+    <!--<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/myjs.js"></script>
 
@@ -45,13 +47,15 @@
             <h5>Origen:</h5>
           </label>
           <div class="col-md-4">
-            <input class="form-control placeInput myInputs" id="origen" type="text" placeholder="Ingrese su origen">
+            <input class="form-control placeInput myInputs" id="origen" type="text" placeholder="Ingrese su origen" data-target="#clearOri">
+            <span id="clearOri" class="glyphicon glyphicon-remove searchclear" data-target="#origen"></span>
           </div>
           <label class="col-md-1 col-form-label col-md-offset-1" for="destinoInput">
             <h5>Destino:</h5>
           </label>
           <div class="col-md-4">
-            <input class="form-control placeInput myInputs" id="destino" type="text" placeholder="Ingrese su destino">
+            <input class="form-control placeInput myInputs" id="destino" type="text" placeholder="Ingrese su destino" data-target="#clearDes">
+            <span id="clearDes" class="glyphicon glyphicon-remove searchclear" data-target="#destino"></span>
           </div>
         </div>
         <div id="fechas" class="menuOptions">
@@ -61,6 +65,14 @@
             </label>
             <div class="col-md-4">
               <input class="form-control myInputs" type="date" id="departureDate" placeholder="Ingrese su fecha de partida" >
+            </div>
+          </div>
+          <div class="form-group row" id="fechaLlegada">
+            <label class="col-md-3 col-form-label" for="arrivalDate">
+              <h5>Fecha de Llegada:</h5>
+            </label>
+            <div class="col-md-4">
+              <input class="form-control myInputs" type="date" id="arrivalDate" placeholder="Ingrese su fecha de llegada" >
             </div>
           </div>
         </div>

@@ -83,6 +83,23 @@ body, html {
   bottom: 1%;
 }
 
+#fechaLlegada {
+  display: none;
+}
+
+.searchclear {
+    position: absolute;
+    right: 17%;
+    top: 0;
+    bottom: 0;
+    height: 14px;
+    margin: auto;
+    font-size: 14px;
+    cursor: pointer;
+    display: none;
+    color: #696969;
+}
+
 .errorMessage{
    display:none;
    background-color: #FF9494;
@@ -126,3 +143,8 @@ body, html {
   top: 0;
   left: 4px;
 }
+
+.awesomplete mark {
+  background: blue;
+  font-weight: bold;
+} 

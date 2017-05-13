@@ -22,13 +22,14 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$("#idaYvuelta").change(function(){
-		$( "#fechas" ).append($('<div class="form-group row" id="fechaLlegada"><label class="col-md-3 col-form-label" for="arrivalDate"><h5>Fecha de Llegada:</h5></label><div class="col-md-4"><input class="form-control" type="date" id="arrivalDate" placeholder="Ingrese su fecha de llegada" ></div></div>').hide().fadeIn(1000));
+		$( "#fechaLlegada" ).css("display", "block");
+		$( "#fechaLlegada" ).hide().fadeIn(1000);
 	});
 });
 
 $(document).ready(function(){
 	$("#ida").change(function(){
-		$( "#fechaLlegada" ).fadeOut(function() {$(this).remove();});
+		$( "#fechaLlegada" ).fadeOut(function() {$(this).css("display", "none");});
 	});
 });
 
@@ -51,10 +52,12 @@ $(function() {
 
 $(document).ready(function(){
 	$("#searchFly").click(function(){
-		if(validateDepartureDate() && validatePassengers() &&
-			validateOrigenDestino($("#origen").val(),"#origen") &&
-			validateOrigenDestino($("#destino").val(),"#destino"))
-		{
+		var oriVal = validateOrigenDestino($("#origen").val(),"#origen");
+		var desVal = validateOrigenDestino($("#destino").val(),"#destino");
+		var depDateVal = validateDepartureDate();
+		var arrDateVal = validateArrivalDate();
+		var passVal = validatePassengers();
+		if(oriVal && desVal && depDateVal && arrDateVal && passVal){
 			var oriID = null;
 			var desID = null;
 			for(i=0; i<cities.length-1; i++){
@@ -66,15 +69,15 @@ $(document).ready(function(){
 				}
 			}
 			var parameters = "adultos=" + $("#adultCount").val() +"&ninos=" +$("#ninosCount").val() + "&ori=" +  oriID + "&des=" + desID + "&fechaida=" + $("#departureDate").val().toString();
-			if($("#fechaLlegada"))
-				parameters = parameters + "&llegada=" + $("#fechaLlegada").val;
+			if ($("#arrivalDate").css("display") != "block")
+				parameters = parameters + "&llegada=" + ($("#arrivalDate").val()).split("-")[0];
 			document.location.href = "ChoosePage.html?"+ parameters;
 		}
 	});
 });
 
 function validateOrigenDestino(val,target){
-	if($.inArray(val,cityNames) < 0){
+	if($.inArray(val,optionNames) < 0){
 		inputError(target);
 		return false;
 	}
@@ -92,12 +95,39 @@ function validateDepartureDate(){
 	return true;
 }
 
+function validateArrivalDate(){
+	if ($("#arrivalDate").css("display") == "block")
+		return true
+	arrDate = ($("#arrivalDate").val()).split("-");
+ 	arrDate = new Date(parseInt(arrDate[0]),parseInt(arrDate[1])-1,parseInt(arrDate[2]));
+ 	depDate = ($("#departureDate").val()).split("-");
+ 	depDate = new Date(parseInt(depDate[0]),parseInt(depDate[1])-1,parseInt(depDate[2]));
+ 	if (isNaN(arrDate.getTime()) || !(!(arrDate.getFullYear() - depDate.getFullYear() <= 0 && arrDate.getMonth() - depDate.getMonth() <= 0) || arrDate.getDate() - depDate.getDate() >= 2)){
+		inputError("#arrivalDate");
+		return false;
+	}
+	return true;
+}
+
 function validatePassengers(){
 	if(parseInt($("#adultCount").val()) + parseInt($("#ninosCount").val()) == 0){
 		return false
 	}
 	return true;
 }
+
+function inputError(target){
+	$(target).css("border", "1px solid red");
+	$(target).css("background-color", "#FF9494");
+	$(target).css("color", "black");
+}
+
+$(document).ready(function(){
+	$(".myInputs").focusin(function(){
+		$(this).css("border", "");
+		$(this).css("background-color", "");
+	});
+});
 
 
 // passenger count spinners
@@ -124,23 +154,9 @@ $(document).ready(function(){
   });
 });
 
-function inputError(target){
-	$(target).css("border", "1px solid red");
-	$(target).css("background-color", "#FF9494");
-	$(target).css("color", "black");
-}
-
-$(document).ready(function(){
-	$(".myInputs").focusin(function(){
-		$(this).css("border", "");
-		$(this).css("background-color", "");
-	});
-});
-
-
 // Manejo de la API de vuelos
 cities = [];
-cityNames = [];
+optionNames = [];
 cityPage = 1;
 $(document).ready(function retrieveCities(){
 	$.ajax({
@@ -149,7 +165,7 @@ $(document).ready(function retrieveCities(){
           success: function(data){
           		$.each(data.cities, function(index, value) {
 	        		cities.push(value);
-	        		cityNames.push(value.name);
+	        		optionNames.push(value.name);
         		});
           		if(cities.length < data.total){
           			cityPage += 1;
@@ -160,7 +176,7 @@ $(document).ready(function retrieveCities(){
 });
 
 airports = [];
-airportNames = [];
+optionNames = [];
 airportPage = 1;
 $(document).ready(function retrieveAirports(){
 	$.ajax({
@@ -169,7 +185,7 @@ $(document).ready(function retrieveAirports(){
           success: function(data){
           		$.each(data.airports, function(index, value) {
 	        		airports.push(value);
-	        		airportNames.push(value.description);
+	        		optionNames.push(value.description);
         		});
           		if(airports.length < data.total){
           			airportPage += 1;
@@ -180,12 +196,40 @@ $(document).ready(function retrieveAirports(){
 });
 
 $(document).ready(function() {
-	$(".placeInput").autocomplete({
+	/*$(".placeInput").autocomplete({
 		minLength:1,
 		source: cityNames
+	});*/
+	new Awesomplete(document.getElementById("origen"), {
+		list: optionNames,
+		minChars: 3,
+		autoFirst: true}
+	);
+
+	new Awesomplete(document.getElementById("destino"), {
+		list: optionNames,
+		minChars: 3,
+		autoFirst: true}
+	);
+});
+
+$(document).ready(function() {
+	$(".placeInput").on("change paste keyup click", function(){
+		if($(this).val() != ''){
+			$($(this).data("target")).css("display","block");
+		} else {
+			$($(this).data("target")).css("display","none");
+		}
 	});
 });
 
+$(document).ready(function() {
+	$(".searchclear").click(function(){
+		$($(this).data("target")).val('');
+		$(this).css("display","none");
+	});
+});
+	
 deals = [];
 $(document).ready(function retrieveDeals(){
 	$.ajax({

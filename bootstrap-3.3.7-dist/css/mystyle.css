@@ -28,10 +28,11 @@ body, html {
   background-color: white;
   border-color: black;
   height: 100%;
-  margin-top: 9%;
+  margin-bottom: 3%;
+  margin-top: 3%;
 }
 
-.mainMenu, .filterMenu {
+.mainMenu, .filterMenu, .flightMenu {
   margin-top: 9%;
   background-color: #ffe577;
   border-radius: 10px;
@@ -39,6 +40,10 @@ body, html {
   border-color: #fec051;
   font-size: 12px;
   letter-spacing: 2px;
+}
+
+.flightMenu {
+  margin-top: 2%;
 }
 
 .filterMenu {
@@ -155,6 +160,6 @@ body, html {
 } 
 
 .pre-scrollable {
-    max-height: 550px;
+    max-height: 500px;
     overflow-y: scroll;
 }

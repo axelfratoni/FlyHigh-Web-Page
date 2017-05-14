@@ -1,50 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>FlyHigh</title>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/mystyle.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/flights.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <div class="container-fluid" id="flightsDiv">
-   <template id="flightTemplate">
-    <body style="background-size: cover;">
-      <div class="flightStyle">
-        <div class="row">
-          <img class="col-md-2" src="" alt="Airport logo" width="42" height="42" id="airportLogo"></img>
-          <div class="col-md-8">
-            <div class="row">
-              <div class="col-md-2 col-md-offset-1"><p>Sale: </p></div>
-              <div class="col-md-2 col-md-offset-1" id="departureHourInfo"><p></p></div>
-              <div class="col-md-2 col-md-offset-1"><p>Duracion:</p></div>
-              <div class="col-md-3 centerText" id="duration"><p></p></div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 col-md-offset-1"><p>Llega: </p></div>
-              <div class="col-md-2 col-md-offset-1" id="arrivalHourInfo"><p></p></div>
-            </div>
-          </div>
-            <div class="col-md-2 col-md-offset-1" id="price"><h4>asd</h4></div>
-          </div>
-        </div>
-      </body>
-    </template>
+<div class="flightStyle">
+  <div class="row">
+    <img class="col-md-1 airportLogo" src="" alt="Airport logo" width="42" height="42"></img>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-1 col-md-offset-1"><p>Sale: </p></div>
+        <div class="col-md-3 col-md-offset-1 departureHourInfo"></div>
+        <div class="col-md-2"><p>Duracion:</p></div>
+        <div class="col-md-3 centerText duration"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-1 col-md-offset-1"><p>Llega: </p></div>
+        <div class="col-md-3 col-md-offset-1 arrivalHourInfo" ></div>
+        <div class="col-md-2 col-md-offset-3"><p>Precio:</p></div>
+        <div class="col-md-1 price"></div>
+      </div>
+    </div>
   </div>
-</html>
+</div>  

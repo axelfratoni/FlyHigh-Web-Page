@@ -1,16 +1,23 @@
 flights = [];
 
 function loadFlights(){
-	console.log("aguante el paco");
-	var flightsList = document.getElementById('flightsDiv');
 	for(var i = 0; i < flights.length-1; i++){
 		var flight = flights[i];
-		var tmpl = document.getElementById('flightTemplate').content.cloneNode(true);
-		tmpl.querySelector('#airportLogo').source = flight.outbound_routes[0].segments[0].airline.id;
-		tmpl.querySelector('#departureHourInfo').innerText = parseHour(flight.outbound_routes[0].segments[0].departure.date.split(" ")[1]) + " hs";
-		tmpl.querySelector('#arrivalHourInfo').innerText = parseHour(flight.outbound_routes[0].segments[0].arrival.date.split(" ")[1]) + " hs";
-		tmpl.querySelector('#duration').innerText = flight.outbound_routes[0].segments[0].duration + " hs";
-		flightsList.appendChild(tmpl);
+		$("#vuelosDiv").append('<div id="vuelo' + i + '"><div id="template' + i + '"></div></div>');
+		(function(i,flight){
+			$("#template" + i).load("FlightsTemplate.html", function(){
+				var data = parseHour(flight.outbound_routes[0].segments[0].departure.date.split(" ")[1]) + " hs";
+				$(this).find(".departureHourInfo").append('<p>'+ data +'</p>');
+				data = parseHour(flight.outbound_routes[0].segments[0].arrival.date.split(" ")[1]) + " hs";
+				$(this).find(".arrivalHourInfo").append('<p>'+ data +'</p>');
+				data = flight.outbound_routes[0].segments[0].duration + " hs";
+				$(this).find(".duration").append('<p>'+ data +'</p>');
+				data = flight.price.total.total;
+				$(this).find(".price").append('<p class="rightText">'+ data +'</p>');
+				data = flight.outbound_routes[0].segments[0].airline.id;
+				$(this).find(".airportLogo").attr("src",data);
+			});
+		})(i,flight);
 	}
 };
 

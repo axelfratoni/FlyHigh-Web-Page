@@ -88,10 +88,10 @@
           </div>
           <div class="col-md-2 row">
             <div class="input-group spinner">
-              <input type="text" id="adultCount" class="form-control" value="1" min="0" max="10">
+              <input type="text" id="adultCount" class="form-control psgrCount" value="1" min="0" max="10">
               <div class="input-group-btn-vertical">
-                <button id="adultCountUp" class="btn btn-default" type="button"><i class="glyphicon glyphicon-triangle-top"></i></button>
-                <button id="adultCountDown" class="btn btn-default" type="button"><i class="glyphicon glyphicon-triangle-bottom"></i></button>
+                <button id="adultCountUp" class="btn btn-default psgrCount" type="button"><i class="glyphicon glyphicon-triangle-top"></i></button>
+                <button id="adultCountDown" class="btn btn-default psgrCount" type="button"><i class="glyphicon glyphicon-triangle-bottom"></i></button>
               </div>
             </div>
           </div>
@@ -100,10 +100,10 @@
           </div>
           <div class="col-md-2 row">
             <div class="input-group spinner">
-              <input type="text" id="ninosCount" class="form-control" value="0" min="0" max="10">
+              <input type="text" id="ninosCount" class="form-control psgrCount" value="0" min="0" max="10">
               <div class="input-group-btn-vertical">
-                <button id="ninosCountUp" class="btn btn-default" type="button"><i class="glyphicon glyphicon-triangle-top"></i></button>
-                <button id="ninosCountDown" class="btn btn-default" type="button"><i class="glyphicon glyphicon-triangle-bottom"></i></button>
+                <button id="ninosCountUp" class="btn btn-default psgrCount" type="button"><i class="glyphicon glyphicon-triangle-top"></i></button>
+                <button id="ninosCountDown" class="btn btn-default psgrCount" type="button"><i class="glyphicon glyphicon-triangle-bottom"></i></button>
               </div>
             </div>
 
@@ -115,6 +115,12 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div id="errorBanner" class="col-md-8 col-md-offset-2">
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-1 col-md-offset-1" id="promoBtn">
         <a href="#promo" class="smoothScroll">
@@ -131,7 +137,7 @@
     </div>
   </div>
 
-  <div class="container-fluid parallax" id="promo" style="height: 1000px;">
+  <div class="container-fluid parallax" id="promo" style="height: 4000px;">
     <div class="row">
       <div id=promos class="col-md-10 col-md-offset-1 mainMenu">
         <h1 class="centerText">Promociones</h1>

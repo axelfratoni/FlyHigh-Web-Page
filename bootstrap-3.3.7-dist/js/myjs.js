@@ -50,8 +50,11 @@ $(function() {
   });
 });
 
+var errormessage = "";
+
 $(document).ready(function(){
 	$("#searchFly").click(function(){
+		errormessage = "";
 		var oriVal = validateOrigenDestino($("#origen").val(),"#origen");
 		var desVal = validateOrigenDestino($("#destino").val(),"#destino");
 		var depDateVal = validateDepartureDate();
@@ -72,6 +75,26 @@ $(document).ready(function(){
 			if ($("#arrivalDate").css("display") != "block")
 				parameters = parameters + "&llegada=" + ($("#arrivalDate").val()).split("-")[0];
 			document.location.href = "ChoosePage.html?"+ parameters;
+		} else {
+			if(oriVal == 0) {
+				errormessage += "Elija un aeropuerto de origen. "
+			}
+			if(desVal == 0) {
+				errormessage += "Elija un aeropuerto de destino. "
+			}
+			if(depDateVal == 0) {
+				errormessage += "Elija una fecha valida de partida. "
+			}
+			if(arrDateVal == 0) {
+				errormessage += "Elija una fecha valida de llegada. "
+			}
+			if(passVal == 0) {
+				errormessage += "Elija una cantidad valida de pasajeros. "
+			}
+			$("#errorBanner").html("<div class=\"alert alert-danger alert-dismissable\">\
+          		<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">×</a>\
+          		<strong>Error:</strong> " + errormessage +
+        		"</div>");
 		}
 	});
 });
@@ -111,6 +134,7 @@ function validateArrivalDate(){
 
 function validatePassengers(){
 	if(parseInt($("#adultCount").val()) + parseInt($("#ninosCount").val()) == 0){
+		inputError(".psgrCount");
 		return false
 	}
 	return true;
@@ -129,6 +153,12 @@ $(document).ready(function(){
 	});
 });
 
+$(document).ready(function() {
+	$(".psgrCount").focusin(function() {
+		$(".psgrCount").css("border", "");
+		$(".psgrCount").css("background-color", "");
+	});
+});
 
 // passenger count spinners
 $(document).ready(function(){

@@ -230,32 +230,46 @@ $(document).ready(function() {
 	});
 });
 	
-deals = [];
-$(document).ready(function retrieveDeals(){
+$(document).ready(function retrieveDeals() {
 	$.ajax({
 		url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getlastminuteflightdeals&from=BUE",
 		dataType: "jsonp",
 		success: function(data){
-			$.each(data.deals, function(index,value){
-				deals.push(value);
+			var counter;
+
+			$("#promos").append("<div class=\"row menuOptions\">");
+
+			$.each(data.deals, function(index,value) {
+
+				if(index == 0) {
+					$("#promos").append("<div class=\"row menuOptions\">"); // la primera row estaba asi 
+				} else if(index % 3 == 0) {
+					$("#promos").append("<div class=\"row\">");
+				}
+
+				$("#promos").append("<div class=\"col-md-4\">\
+					<div class=\"thumbnail\">\
+					<a href=\"./images/" + (value.city.name.split(","))[0] + ".jpg\" target=\"_blank\">\
+					<img src=\"./images/" + (value.city.name.split(","))[0] + ".jpg\" alt=" + (value.city.name.split(","))[0] + " style=\"width:100%\">\
+					 <div class=\"caption\" id=\"promo1\">"
+					+ (value.city.name.split(","))[0] +
+					"<span class=\"precio\"> $" + value.price + "</span>\
+					</div>\
+					</div>\
+					</a>\
+					</div>\
+					</div>");
+
+				if(index % 3 == 2) {
+					$("#promos").append("</div>");
+				}
+
+				counter = index;
 			});
-			deals = shuffleArray(deals);
-			for (var i = 1; i < 7; i ++){
-				$("#promo" + i).append((deals[i-1].city.name.split(","))[0]);
-				$("#promo" + i).append('<span id="precio' + i + '">   $' + deals[i-1].price + '</span>');
-				$("#precio" + i).css("color", "green");
-				$("#precio" + i).css("font-weight", "bold");
+
+			if(counter % 3 != 2) {
+				$("#promos").append("</div>");
 			}
 		}
 	});
 });
-
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
-}

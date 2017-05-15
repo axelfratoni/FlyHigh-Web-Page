@@ -168,3 +168,7 @@ body, html {
     color: green;
     font-weight: bold;
 }
+
+#errorBanner {
+  margin-top: 30px;
+}

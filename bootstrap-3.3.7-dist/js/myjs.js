@@ -260,46 +260,72 @@ $(document).ready(function() {
 	});
 });
 	
+deals = []
+dealsReady = false;
+dealIndex = 2;
 $(document).ready(function retrieveDeals() {
 	$.ajax({
 		url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getlastminuteflightdeals&from=BUE",
 		dataType: "jsonp",
 		success: function(data){
-			var counter;
-
-			$("#promos").append("<div class=\"row menuOptions\">");
-
-			$.each(data.deals, function(index,value) {
-
-				if(index == 0) {
-					$("#promos").append("<div class=\"row menuOptions\">"); // la primera row estaba asi 
-				} else if(index % 3 == 0) {
-					$("#promos").append("<div class=\"row\">");
-				}
-
-				$("#promos").append("<div class=\"col-md-4\">\
-					<div class=\"thumbnail\">\
-					<a href=\"./images/" + (value.city.name.split(","))[0] + ".jpg\" target=\"_blank\">\
-					<img src=\"./images/" + (value.city.name.split(","))[0] + ".jpg\" alt=" + (value.city.name.split(","))[0] + " style=\"width:100%\">\
-					 <div class=\"caption\" id=\"promo1\">"
-					+ (value.city.name.split(","))[0] +
-					"<span class=\"precio\"> $" + value.price + "</span>\
-					</div>\
-					</div>\
-					</a>\
-					</div>\
-					</div>");
-
-				if(index % 3 == 2) {
-					$("#promos").append("</div>");
-				}
-
-				counter = index;
+			
+			$.each(data.deals, function(index,value){
+				deals.push(value);
 			});
+			deals = shuffleArray(deals);
 
-			if(counter % 3 != 2) {
-				$("#promos").append("</div>");
+			for(var i=1; i<7; i++){
+					var data = "./images/" + deals[i-1].city.name.split(",")[0] + ".jpg";
+					$("#promo"+i).find("a").attr("href", data);
+					$("#promo"+i).find("img").attr("src", data);
+					data = deals[i-1].city.name.split(",")[0];
+					$("#promo"+i).find("p").text(data);
+					data = deals[i-1].price;
+					$("#promo"+i).find("p").append('<span class="dealPrice">   $' + deals[i-1].price + '</span>');
 			}
+			$(".dealPrice").css("color", "green");
+			$(".dealPrice").css("font-weight", "bold");
+			dealsReady = true;
 		}
 	});
+});
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+$(document).ready(function(){
+	setInterval(function(){
+		if(dealsReady){
+			if(dealIndex > deals.length - 6){
+				dealIndex = 1;
+			}
+
+			for(var i=0; i<6; i++){
+				a = ((dealIndex -1 + i) % deals.length) + 1;
+				(function(a,i){
+					$("#promo"+(i+1)).fadeOut(function(){
+						var data = "./images/" + deals[a-1].city.name.split(",")[0] + ".jpg";
+						$("#promo"+(i+1)).find("a").attr("href", data);
+						$("#promo"+(i+1)).find("img").attr("src", data);
+						data = deals[a-1].city.name.split(",")[0];
+						$("#promo"+(i+1)).find("p").text(data);
+						data = deals[a-1].price;
+						$("#promo"+(i+1)).find("p").append('<span class="dealPrice">   $' + deals[a-1].price + '</span>');
+					});
+					$("#promo"+(i+2)).fadeOut();
+					$("#promo"+(i+1)).fadeIn();
+					$(".dealPrice").css("color", "green");
+					$(".dealPrice").css("font-weight", "bold");
+				})(a,i);
+			}
+			dealIndex += 1;
+		}
+	},6000);
 });

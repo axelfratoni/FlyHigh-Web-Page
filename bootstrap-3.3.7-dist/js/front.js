@@ -72,8 +72,8 @@ $(document).ready(function(){
 				}
 			}
 			var parameters = "adultos=" + $("#adultCount").val() +"&ninos=" +$("#ninosCount").val() + "&ori=" +  oriID + "&des=" + desID + "&fechaida=" + $("#departureDate").val().toString();
-			if ($("#arrivalDate").css("display") != "block")
-				parameters = parameters + "&llegada=" + ($("#arrivalDate").val()).split("-")[0];
+			if ($("#idaYvuelta").is(':checked'))
+				parameters = parameters + "&llegada=" + ($("#arrivalDate").val()).toString();
 			document.location.href = "ChoosePage.html?"+ parameters;
 		} else {
 			if(oriVal == 0) {
@@ -119,7 +119,7 @@ function validateDepartureDate(){
 }
 
 function validateArrivalDate(){
-	if ($("#arrivalDate").css("display") == "block")
+	if ($("#ida").is(':checked'))
 		return true
 	arrDate = ($("#arrivalDate").val()).split("-");
  	arrDate = new Date(parseInt(arrDate[0]),parseInt(arrDate[1])-1,parseInt(arrDate[2]));

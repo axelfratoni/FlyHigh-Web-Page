@@ -20,7 +20,9 @@ function loadFlights(){
 				data = flight.outbound_routes[0].segments[0].airline.id;
 				$(this).find(".airportLogo").attr("src",data);
 				$(this).find(".buy").append(function(){
-					return $('<button class="btn btn-warning" data-target="'+ i +'">Comprar</button>').click(handleBuy);
+					if (getParameterByName('llegada') == null)
+						return $('<button class="btn btn-warning" data-target="'+ i +'">Comprar</button>').click(handleBuy);
+					return $('<button class="btn btn-warning" data-target="'+ i +'">Elegir y buscar vuelta</button>').click(handleVuelta);
 				});  
 			});
 		})(i,flight);
@@ -67,17 +69,28 @@ $(document).ready(function(){
 
 function handleBuy(){
 	var flight = flights[$(this).data("target")];
-	console.log(parseInt(flight.price.total.total));	
+	console.log(parseInt(flight.price.total.total));
 }
 
-$(document).ready(function(){
-	var depDate = getParameterByName('fechaida');
+function handleVuelta(){
+	var arrDate = getParameterByName('llegada');
 	var adultCount = getParameterByName('adultos');
 	var ninosCount = getParameterByName('ninos');
 	var infantCount = 0;
 	var oriID = getParameterByName('ori');
 	var desID = getParameterByName('des');
-	console.log(depDate);
+	var parameters = "adultos=" + adultCount +"&ninos=" + ninosCount + "&ori=" +  desID + "&des=" + oriID + "&fechaida=" + arrDate;
+	document.location.href = "ChoosePage.html?"+ parameters;
+}
+
+$(document).ready(function(){
+	var depDate = getParameterByName('fechaida');
+	var arrDate = getParameterByName('llegada');
+	var adultCount = getParameterByName('adultos');
+	var ninosCount = getParameterByName('ninos');
+	var infantCount = 0;
+	var oriID = getParameterByName('ori');
+	var desID = getParameterByName('des');
 
 	console.log("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + infantCount);
 	$.ajax({

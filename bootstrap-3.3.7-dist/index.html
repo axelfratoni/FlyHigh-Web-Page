@@ -100,6 +100,7 @@
           </div>
           <div class="col-md-2">
             <h5 align="right">Ninos:</h5>
+            <h5 align="right">Infantes:</h5>  
           </div>
           <div class="col-md-2 row">
             <div class="input-group spinner">
@@ -109,9 +110,14 @@
                 <button id="ninosCountDown" class="btn btn-default psgrCount" type="button"><i class="glyphicon glyphicon-triangle-bottom"></i></button>
               </div>
             </div>
-
+            <div class="input-group spinner">
+              <input type="text" id="infaCount" class="form-control psgrCount" value="0" min="0" max="10">
+              <div class="input-group-btn-vertical">
+                <button id="infaCountUp" class="btn btn-default psgrCount" type="button"><i class="glyphicon glyphicon-triangle-top"></i></button>
+                <button id="infaCountDown" class="btn btn-default psgrCount" type="button"><i class="glyphicon glyphicon-triangle-bottom"></i></button>
+              </div>
+            </div>
           </div>
-          
         </div>
         <div class="col-md-1 col-md-offset-10 menuOptions">
           <button type="button" class="btn btn-primary" id="searchFly">Buscar</button>
@@ -156,6 +162,7 @@
             </div>
           </div>
           <div class="col-md-4">
+            <div class="loader"></div>
             <div class="thumbnail" id="promo2">
               <a href="./images/city.jpg" target="_blank">
                 <img src="./images/city.jpg" alt="Lights" style="width:100%">

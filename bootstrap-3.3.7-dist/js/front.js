@@ -1,24 +1,3 @@
-$(document).ready(function(){
-	$('.spinUp').click(function(){
-		var target = $(this).data("target");
-		var val = parseInt(document.getElementById(target).value) + 1;
-		if (val > 4){
-			val = 4
-		}
-		document.getElementById(target).value=val ;
-	});
-});
-
-$(document).ready(function(){
-	$('.spinDown').click(function(){
-		var target = $(this).data("target");
-		var val = parseInt(document.getElementById(target).value) - 1;
-		if (val < 0){
-			val = 0
-		}
-		document.getElementById(target).value=val ;
-	});
-});
 
 $(document).ready(function(){
 	$("#idaYvuelta").change(function(){
@@ -71,7 +50,7 @@ $(document).ready(function(){
 					desID = cities[i].id;
 				}
 			}
-			var parameters = "adultos=" + $("#adultCount").val() +"&ninos=" +$("#ninosCount").val() + "&ori=" +  oriID + "&des=" + desID + "&fechaida=" + $("#departureDate").val().toString();
+			var parameters = "adultos=" + $("#adultCount").val() +"&ninos=" +$("#ninosCount").val()+ "&infant=" + $("#infaCount").val() + "&ori=" +  oriID + "&des=" + desID + "&fechaida=" + $("#departureDate").val().toString();
 			if ($("#idaYvuelta").is(':checked'))
 				parameters = parameters + "&llegada=" + ($("#arrivalDate").val()).toString();
 			document.location.href = "ChoosePage.html?"+ parameters;
@@ -182,6 +161,16 @@ $(document).ready(function(){
           $('#ninosCount').val( parseInt($('#ninosCount').val(), 10) - 1);
         }
   });
+  $('#infaCountUp').on('click', function() {
+    if(parseInt($('#infaCount').val(), 10) < $('#infaCount').attr('max')) {
+          $('#infaCount').val( parseInt($('#infaCount').val(), 10) + 1);
+        }
+  });
+  $('#infaCountDown').on('click', function() {
+    if(parseInt($('#infaCount').val(), 10) > $('#infaCount').attr('min')) {
+          $('#infaCount').val( parseInt($('#infaCount').val(), 10) - 1);
+        }
+  });
 });
 
 // Manejo de la API de vuelos
@@ -269,12 +258,14 @@ $(document).ready(function retrieveDeals() {
 		dataType: "jsonp",
 		success: function(data){
 			
+			$(".loader").css("display","none");
 			$.each(data.deals, function(index,value){
 				deals.push(value);
 			});
 			deals = shuffleArray(deals);
 
 			for(var i=1; i<7; i++){
+					$("#promo"+i).css("display","block");
 					var data = "./images/" + deals[i-1].city.name.split(",")[0] + ".jpg";
 					$("#promo"+i).find("a").attr("href", data);
 					$("#promo"+i).find("img").attr("src", data);

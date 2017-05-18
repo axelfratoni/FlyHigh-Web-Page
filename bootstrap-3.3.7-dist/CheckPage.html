@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>FlyHigh</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css">
+    <link rel="stylesheet" href="awesomplete-gh-pages/awesomplete.css" />
+    <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="awesomplete-gh-pages/awesomplete.js" async></script>
+    <!--<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/checkPage.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="backgroundimage">
+  <!-- Barra superior -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand smoothScroll" href="#main">FlyHigh</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid ">
+      <div class="row" id="main">
+        <div class="col-md-6 col-md-offset-3 mainMenu" >
+          <div class="centerText"> <h4> Datos de los pasajeros </h4> </div>
+          <div class="row menuOptions" id="personsDiv">
+              <template id="personTemplate">
+                  <div class="centerText" id="title"><h4></h4></div>
+                  <div class="row menuOptions form-group">
+                    <div class="col-md-1 col-from-label">Nombre: </div>
+                    <div class="col-md-3" id="name"></div>
+                    <div class="col-md-3" id="document"></div>
+                    <div class="col-md-2">Fecha de nacimiento: </div>
+                    <div class="col-md-2" id="birthDate"></div>
+                  </div>
+       
+              </template>
+          </div>
+
+          <div class="centerText"> <h4> Datos del pago </h4> </div>
+
+          <div class="row menuOptions">
+            <div class="col-md-3 col-md-offset-1">Tarjeta:</div>
+            <div class="col-md-6 col-md-offset-2">Fecha de expiracion y codigo de seguridad:</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3 col-md-offset-1" id="cardNumber"></div>
+            <div class="col-md-5 col-md-offset-2" id="expiryDateAndCVV"></div>
+          </div>
+          <div class="menuOptions row">
+            <div class="centerText form-group"> <h4> Informacion de cobro </h4> </div>
+            <div class="menuOptions row">
+              <div class="col-md-offset-1 col-md-1">Nombre:</div>
+              <div class="col-md-2" id="cardOwnerName"></div>
+              <div class="col-md-offset-3 col-md-2">Ciudad:</div>
+              <div class="col-md-3" id="cardOwnerCity"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-offset-1 col-md-1">Direccion: </div>
+              <div class="col-md-2" id="cardOwnerAddress"></div>
+              <div class="col-md-offset-3 col-md-2">Codigo postal: </div>
+              <div class="col-md-3" id="cardOwnerPostalCode"></div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-offset-1 col-md-1">Pais: </div>
+              <div class="col-md-2" id="cardOwnerCountry"></div>
+              <div class="col-md-offset-3 col-md-3">Numero de telefono: </div>
+              <div class="col-md-3" id="cardOwnerPhone"></div>
+            </div>
+            <div class="row menuOptions form-group">
+              <div class="col-md-1 ">
+                <button type="button" class="btn btn-primary myInputs" id="backButton">Volver</button>
+              </div>
+              <div class="col-md-1 col-md-offset-8">
+                <button type="button" class="btn btn-primary myInputs" id="nextButton">Confirmar Pago</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

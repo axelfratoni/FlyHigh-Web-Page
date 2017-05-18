@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>FlyHigh</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css">
+    <link rel="stylesheet" href="awesomplete-gh-pages/awesomplete.css" />
+    <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="awesomplete-gh-pages/awesomplete.js" async></script>
+    <!--<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/paymentPage.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="backgroundimage">
+  <!-- Barra superior -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand smoothScroll" href="#main">FlyHigh</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid ">
+      <div class="row" id="main">
+        <div class="col-md-6 col-md-offset-3 mainMenu" >
+          <div class="centerText"> <h4> Datos de pago </h4> </div>
+          <div class="row menuOptions">
+            <div class="col-md-2 col-md-offset-1">Tipo de tarjeta</div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle myInputs" id="cardTypeButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="cardTypeDropDown">
+                  <li><a href="#" data-value="visa" id="visa">VISA</a></li>
+                  <li><a href="#" data-value="mastercard" id="mastercard">Mastercard</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="row menuOptions">
+            <div class="col-md-3 col-md-offset-1">Numero de tarjeta</div>
+            <div class="col-md-5 col-md-offset-2">Fecha de expiracion y codigo de seguridad</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3 col-md-offset-1">
+              <input type="text" class="form-control myInputs" id="cardNumberInput">
+            </div>
+            <div class="col-md-1 col-md-offset-2">
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle myInputs" id="monthButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2" id="expiryMonthDropDown">
+                  <li><a href="#" data-value="ene" id="ene">01</a></li>
+                  <li><a href="#" data-value="feb" id="feb">02</a></li>
+                  <li><a href="#" data-value="mar" id="mar">03</a></li>
+                  <li><a href="#" data-value="apr" id="apr">04</a></li>
+                  <li><a href="#" data-value="may" id="may">05</a></li>
+                  <li><a href="#" data-value="jun" id="jun">06</a></li>
+                  <li><a href="#" data-value="jul" id="jul">07</a></li>
+                  <li><a href="#" data-value="aug" id="aug">08</a></li>
+                  <li><a href="#" data-value="sep" id="sep">09</a></li>
+                  <li><a href="#" data-value="oct" id="oct">10</a></li>
+                  <li><a href="#" data-value="nov" id="nov">11</a></li>
+                  <li><a href="#" data-value="dic" id="dic">12</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-1 form-group">
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle myInputs" id="yearButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu3" id="expiryYearDropDown">
+                  <li><a href="#" data-value="ene" id="siete">2017</a></li>
+                  <li><a href="#" data-value="feb" id="ocho">2018</a></li>
+                  <li><a href="#" data-value="mar" id="nueve">2019</a></li>
+                  <li><a href="#" data-value="apr" id="cero">2020</a></li>
+                  <li><a href="#" data-value="may" id="uno">2021</a></li>
+                  <li><a href="#" data-value="jun" id="dos">2022</a></li>
+                  <li><a href="#" data-value="jul" id="tres">2023</a></li>
+                  <li><a href="#" data-value="aug" id="cuatro">2024</a></li>
+                  <li><a href="#" data-value="sep" id="cinco">2025</a></li>
+                  <li><a href="#" data-value="oct" id="seis">2026</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <input type="text" class="form-control myInputs" id="cvvInput">
+            </div>
+          </div>
+          <div class="menuOptions row">
+            <div class="centerText form-group"> <h4> Informacion de cobro </h4> </div>
+            <div class="menuOptions row">
+              <div class="col-md-offset-1 col-md-1">Nombre</div>
+              <div class="col-md-offset-4 col-md-2">Ciudad</div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3 col-md-offset-1">
+                <input type="text" class="form-control myInputs" id="nameInput">
+              </div>
+              <div class="col-md-3 col-md-offset-2">
+                <input type="text" class="form-control myInputs" id="cityInput">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-offset-1 col-md-1">Direccion</div>
+              <div class="col-md-offset-4 col-md-2">Codigo postal</div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3 col-md-offset-1">
+                <input type="text" class="form-control myInputs" id="addressInput">
+              </div>
+              <div class="col-md-3 col-md-offset-2">
+                <input type="text" class="form-control myInputs" id="postalCodeInput">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-offset-1 col-md-1">Pais</div>
+              <div class="col-md-offset-4 col-md-3">Numero de telefono</div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3 col-md-offset-1">
+                <input type="text" class="form-control myInputs" id="countryInput">
+              </div>
+              <div class="col-md-3 col-md-offset-2">
+                <input type="text" class="form-control myInputs" id="phonenumberInput">
+              </div>
+            </div>
+            <div class="row menuOptions form-group">
+              <div class="col-md-1 col-md-offset-1">
+                <button type="button" class="btn btn-primary myInputs" id="backButton">Volver</button>
+              </div>
+              <div class="col-md-1 col-md-offset-8">
+                <button type="button" class="btn btn-primary myInputs" id="nextButton">Continuar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="errorBanner" class="col-md-8 col-md-offset-2">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

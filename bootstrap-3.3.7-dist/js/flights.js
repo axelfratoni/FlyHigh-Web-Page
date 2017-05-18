@@ -76,10 +76,10 @@ function handleVuelta(){
 	var arrDate = getParameterByName('llegada');
 	var adultCount = getParameterByName('adultos');
 	var ninosCount = getParameterByName('ninos');
-	var infantCount = 0;
+	var infantCount = getParameterByName('infant');;
 	var oriID = getParameterByName('ori');
 	var desID = getParameterByName('des');
-	var parameters = "adultos=" + adultCount +"&ninos=" + ninosCount + "&ori=" +  desID + "&des=" + oriID + "&fechaida=" + arrDate;
+	var parameters = "adultos=" + adultCount +"&ninos=" + ninosCount + "&infant=" + infantCount  + "&ori=" +  desID + "&des=" + oriID + "&fechaida=" + arrDate;
 	document.location.href = "ChoosePage.html?"+ parameters;
 }
 
@@ -88,7 +88,7 @@ $(document).ready(function(){
 	var arrDate = getParameterByName('llegada');
 	var adultCount = getParameterByName('adultos');
 	var ninosCount = getParameterByName('ninos');
-	var infantCount = 0;
+	var infantCount = getParameterByName('infant');
 	var oriID = getParameterByName('ori');
 	var desID = getParameterByName('des');
 
@@ -97,6 +97,7 @@ $(document).ready(function(){
 		url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + infantCount,
 		dataType: "jsonp",
 		success: function(data){
+			$(".loader").css("display","none");
 			$.each(data.flights, function(index,value){
 				flights.push(value);
 			});/*

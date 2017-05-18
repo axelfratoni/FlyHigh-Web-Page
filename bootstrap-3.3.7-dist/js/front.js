@@ -108,7 +108,7 @@ function validateOrigenDestino(val,target){
 }
 
 function validateDepartureDate(){
-	depDate = ($("#departureDate").val()).split("-");
+	depDate = ($("#departureDate").val()).split("/");
  	depDate = new Date(parseInt(depDate[0]),parseInt(depDate[1])-1,parseInt(depDate[2]));
 	actualDate = new Date();
 	if (!(!(depDate.getFullYear() - actualDate.getFullYear() <= 0 && depDate.getMonth() - actualDate.getMonth() <= 0) || depDate.getDate() - actualDate.getDate() >= 2) || isNaN(depDate.getTime())){
@@ -121,9 +121,9 @@ function validateDepartureDate(){
 function validateArrivalDate(){
 	if ($("#ida").is(':checked'))
 		return true
-	arrDate = ($("#arrivalDate").val()).split("-");
+	arrDate = ($("#arrivalDate").val()).split("/");
  	arrDate = new Date(parseInt(arrDate[0]),parseInt(arrDate[1])-1,parseInt(arrDate[2]));
- 	depDate = ($("#departureDate").val()).split("-");
+ 	depDate = ($("#departureDate").val()).split("/");
  	depDate = new Date(parseInt(depDate[0]),parseInt(depDate[1])-1,parseInt(depDate[2]));
  	if (isNaN(arrDate.getTime()) || !(!(arrDate.getFullYear() - depDate.getFullYear() <= 0 && arrDate.getMonth() - depDate.getMonth() <= 0) || arrDate.getDate() - depDate.getDate() >= 2)){
 		inputError("#arrivalDate");
@@ -328,4 +328,16 @@ $(document).ready(function(){
 			dealIndex += 1;
 		}
 	},6000);
+});	
+
+/* date pickers */
+$(document).ready(function(){
+	var options={
+        format: 'mm/dd/yyyy',
+        todayHighlight: true,
+        autoclose: true,
+      };
+    $("#departureDate").datepicker(options);
+    $("#arrivalDate").datepicker(options);
+    $("#birthDateInput").datepicker(options);
 });

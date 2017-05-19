@@ -18,6 +18,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/front.js"></script>
 
+    <!-- bootstrap datepicker -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -67,7 +71,7 @@
               <h5>Fecha de Partida:</h5>
             </label>
             <div class="col-md-4">
-              <input class="form-control myInputs" type="date" id="departureDate" placeholder="Ingrese su fecha de partida" >
+              <input class="form-control myInputs" type="text" id="departureDate" placeholder="mm/dd/yyyy" >
             </div>
           </div>
           <div class="form-group row" id="fechaLlegada">
@@ -75,7 +79,7 @@
               <h5>Fecha de Llegada:</h5>
             </label>
             <div class="col-md-4">
-              <input class="form-control myInputs" type="date" id="arrivalDate" placeholder="Ingrese su fecha de llegada" >
+              <input class="form-control myInputs" type="text" id="arrivalDate" placeholder="mm/dd/yyyy" >
             </div>
           </div>
         </div>

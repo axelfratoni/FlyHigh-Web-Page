@@ -57,6 +57,10 @@ $(document).ready(function(){
 			var parameters = "adultos=" + $("#adultCount").val() +"&ninos=" +$("#ninosCount").val()+ "&infant=" + $("#infaCount").val() + "&ori=" +  oriID + "&des=" + desID + "&fechaida=" + $("#departureDate").val().toString();
 			if ($("#idaYvuelta").is(':checked'))
 				parameters = parameters + "&llegada=" + ($("#arrivalDate").val()).toString();
+			if ($("#origen").val().split(" ")[0] == "Aeropuerto")
+				parameters = parameters + "&oriAe=" + getAeId($("#origen").val());
+			if ($("#destino").val().split(" ")[0] == "Aeropuerto")
+				parameters = parameters + "&desAe=" + getAeId($("#destino").val());
 			document.location.href = "ChoosePage.html?"+ parameters;
 		} else {
 			if(oriVal == 0) {
@@ -218,6 +222,24 @@ $(document).ready(function retrieveAirports(){
         });
 });
 
+function getAeId(name){
+	for (var i=0; i<airports.length; i++){
+		if(airports[i].description == name){
+			return airports[i].id;
+		}
+	}
+	return null;
+}
+
+function getCityFromAirp(name){
+	for (var i=0; i<airports.length; i++){
+		if(airports[i].description == name){
+			return airports[i].city.id;
+		}
+	}
+	return null;
+}
+
 $(document).ready(function() {
 	/*$(".placeInput").autocomplete({
 		minLength:1,
@@ -328,11 +350,26 @@ $(document).ready(function(){
 /* date pickers */
 $(document).ready(function(){
 	var options={
-        format: 'mm/dd/yyyy',
+        format: 'dd/mm/yyyy',
         todayHighlight: true,
         autoclose: true,
+        todayBtn:  1,
+     	startDate: '+2d'
       };
-    $("#departureDate").datepicker(options);
-    $("#arrivalDate").datepicker(options);
+    $("#departureDate").datepicker(options).on('changeDate', function (selected) {
+        var minDate = new Date(selected.date.valueOf());
+        $('#arrivalDate').datepicker('setStartDate', minDate);
+    });
+    
+    $("#arrivalDate").datepicker(options).on('changeDate', function (selected) {
+        var minDate = new Date(selected.date.valueOf());
+        $('#departureDate').datepicker('setEndDate', minDate);
+    });
     $("#birthDateInput").datepicker(options);
+});
+
+$(document).ready(function(){
+    $(".myInputs").val("");
+    $("#ida").prop("checked", true);
+    $("#idaYvuelta").prop("checked", false);
 });

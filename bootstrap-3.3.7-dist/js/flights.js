@@ -110,6 +110,10 @@ function handleVuelta(){
 	var oriID = getParameterByName('ori');
 	var desID = getParameterByName('des');
 	var parameters = "adultos=" + adultCount +"&ninos=" + ninosCount + "&ori=" +  desID + "&des=" + oriID + "&fechaida=" + arrDate;
+	if(getParameterByName('oriAe') != null)
+		parameters = parameters + '&desAe=' +  getParameterByName('oriAe');
+	if(getParameterByName('desAe') != null)
+		parameters = parameters + '&oriAe=' +  getParameterByName('desAe');
 	document.location.href = "ChoosePage.html?"+ parameters;
 }
 
@@ -122,7 +126,7 @@ $(document).ready(function(){
 	console.log(depDate + "  " + arrDate);
 	var adultCount = getParameterByName('adultos');
 	var ninosCount = getParameterByName('ninos');
-	var infantCount = 0;
+	var infantCount = getParameterByName('infant');
 	var oriID = getParameterByName('ori');
 	var desID = getParameterByName('des');
 
@@ -131,19 +135,15 @@ $(document).ready(function(){
 		url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + infantCount,
 		dataType: "jsonp",
 		success: function(data){
+			$(".loader").css("display","none");
 			$.each(data.flights, function(index,value){
-				console.log(value.price.adults.base_fare);
-				flights.push(value);
+				depAeId = value.outbound_routes[0].segments[0].departure.airport.id;
+				arrAeId = value.outbound_routes[0].segments[0].arrival.airport.id;
+				oriAe = getParameterByName('oriAe');
+				desAe = getParameterByName('desAe');
+				if((oriAe == null || oriAe == depAeId) && (desAe == null || desAe == arrAeId))
+					flights.push(value);
 			});
-			/*
-			for (var i = 0; i < flights.length-1; i++) {
-				console.log("Vuelo " + i);
-				console.log("Airline: " + flights[i].outbound_routes[0].segments[0].airline.id);
-				console.log("Duration: " + String(flights[i].outbound_routes[0].duration));
-				console.log("Precio: $" + flights[i].price.adults.base_fare);
-				console.log(" ");
-			}
-			*/
 			loadFlights();
 		}
 	});
@@ -151,7 +151,7 @@ $(document).ready(function(){
 
 function parseDate(date){
 	var aux = date.split("/");
-	return aux[2] + "-" + aux[0] + "-" + aux[1];
+	return aux[2] + "-" + aux[1] + "-" + aux[0];
 }
 
 function getParameterByName(name, url) {

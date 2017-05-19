@@ -12,6 +12,10 @@ $(document).ready(function(){
 	});
 });
 
+$(document).ready(function(){
+	localStorage.clear();
+});
+
 $(function() {
   // This will select everything with the class smoothScroll
   // This should prevent problems with carousel, scrollspy, etc...
@@ -248,7 +252,7 @@ $(document).ready(function() {
 		$(this).css("display","none");
 	});
 });
-	
+
 deals = []
 dealsReady = false;
 dealIndex = 2;
@@ -257,7 +261,7 @@ $(document).ready(function retrieveDeals() {
 		url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getlastminuteflightdeals&from=BUE",
 		dataType: "jsonp",
 		success: function(data){
-			
+
 			$(".loader").css("display","none");
 			$.each(data.deals, function(index,value){
 				deals.push(value);
@@ -319,7 +323,7 @@ $(document).ready(function(){
 			dealIndex += 1;
 		}
 	},6000);
-});	
+});
 
 /* date pickers */
 $(document).ready(function(){

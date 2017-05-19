@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/mystyle.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/validators.js"></script>
     <script type="text/javascript" src="js/infoPage.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -27,11 +28,23 @@
       <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">FlyHigh</a>
+            <a class="navbar-left smoothScroll" href="index.html">
+              <img src="./flyhigh.jpg" height="50" class="d-inline-block align-top">
+            </a>
           </div>
         </div>
       </nav>
+
       <div class="container-fluid ">
+        <div class="row" style="margin-top:10%;">
+          <div class="col-md-10 col-md-offset-1 flightMenu">
+            <div class="centerText" id="title"><h4>Ida</h4></div>
+            <div class="col-md-12" id="vuelosDivIda"></div>
+            <div class="centerText" id="title"><h4>Vuelta</h4></div>
+            <div class="col-md-12 " id="vuelosDivVuelta"></div>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-md-8 col-md-offset-2 mainMenu" id="personsDiv">
             <template id="personTemplate">
@@ -41,7 +54,7 @@
                   <h4>Nombre: </h4>
                 </label>
                 <div class="col-md-3 col-md-offset-1">
-                  <input type="text" class="form-control" id="nameInput" placeHolder="Nombre">
+                  <input type="text" class="form-control myInputs" id="nameInput" placeHolder="Nombre">
                 </div>
                 <div class="col-md-4 col-md-offset-1"><h4>Tipo de documento:</h4></div>
               </div>
@@ -50,14 +63,14 @@
                   <h4>Apellido:</h4>
                 </label>
                 <div class="col-md-3 col-md-offset-1">
-                  <input type="text" class="form-control" id="lastNameInput" placeHolder="Apellido">
+                  <input type="text" class="form-control myInputs" id="lastNameInput" placeHolder="Apellido">
                 </div>
                 <div id="dropDownDiv" class="col-md-1 col-md-offset-1"></div>
                 <div class="col-md-4">
-                  <input type="text" class="form-control" id="documentInput" placeHolder="Documento">
+                  <input type="text" class="form-control myInputs" id="documentInput" placeHolder="Documento">
                 </div>
               </div>
-                
+
               </div>
               <div class="row menuOptions form-group">
                 <div class="form-group">
@@ -65,22 +78,15 @@
                     <h4>Fecha de nacimiento:</h4>
                   </div>
                     <div class="col-md-3">
-                      <input type="date" class="form-control" id="birthDateInput" placeHolder="DD/MM/AAA">
-                    </div>
-                    <div class="col-md-4">
-                      <input class="form-control myInputs" type="text" id="birthDateInput" placeholder="mm/dd/yyyy" >
+                      <input type="date" class="form-control myInputs" id="birthDateInput" placeHolder="DD/MM/AAA">
                     </div>
                 </div>
-                <div class="col-md-1 col-md-offset-1"><h4>Sexo:</h4></div>
-                <label class="col-md-2 form-check-label">
-                  <input class="form-check-input" type="radio" name="maleFemale" id="male" value="option0" checked=""> Hombre
-                </label>
-                <label class="col-md-2 form-check-label">
-                  <input class="form-check-input" type="radio" name="maleFemale" id="female" value="option0"> Mujer
-                </label>
               </div>
-              
             </template>
+          </div>
+          <div class="row">
+            <div id="errorBanner" class="col-md-8 col-md-offset-2">
+            </div>
           </div>
         </div>
       </div>

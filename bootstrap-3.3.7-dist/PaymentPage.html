@@ -16,6 +16,7 @@
     <script src="awesomplete-gh-pages/awesomplete.js" async></script>
     <!--<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/validators.js"></script>
     <script type="text/javascript" src="js/paymentPage.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -31,12 +32,22 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand smoothScroll" href="#main">FlyHigh</a>
+          <a class="navbar-left smoothScroll" href="#main">
+            <img src="./flyhigh.jpg" height="50" class="d-inline-block align-top">
+          </a>
         </div>
       </div>
     </nav>
 
     <div class="container-fluid ">
+      <div class="row" style="margin-top:10%;">
+        <div class="col-md-10 col-md-offset-1 flightMenu">
+          <div class="centerText" id="title"><h4>Ida</h4></div>
+          <div class="col-md-12" id="vuelosDivIda"></div>
+          <div class="centerText" id="title"><h4>Vuelta</h4></div>
+          <div class="col-md-12 " id="vuelosDivVuelta"></div>
+        </div>
+      </div>
       <div class="row" id="main">
         <div class="col-md-6 col-md-offset-3 mainMenu" >
           <div class="centerText"> <h4> Datos de pago </h4> </div>
@@ -114,46 +125,71 @@
             <div class="centerText form-group"> <h4> Informacion de cobro </h4> </div>
             <div class="menuOptions row">
               <div class="col-md-offset-1 col-md-1">Nombre</div>
-              <div class="col-md-offset-4 col-md-2">Ciudad</div>
+              <div class="col-md-offset-4 col-md-2">DNI del titular</div>
             </div>
             <div class="row form-group">
               <div class="col-md-3 col-md-offset-1">
                 <input type="text" class="form-control myInputs" id="nameInput">
               </div>
               <div class="col-md-3 col-md-offset-2">
-                <input type="text" class="form-control myInputs" id="cityInput">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-offset-1 col-md-1">Direccion</div>
-              <div class="col-md-offset-4 col-md-2">Codigo postal</div>
-            </div>
-            <div class="row form-group">
-              <div class="col-md-3 col-md-offset-1">
-                <input type="text" class="form-control myInputs" id="addressInput">
-              </div>
-              <div class="col-md-3 col-md-offset-2">
-                <input type="text" class="form-control myInputs" id="postalCodeInput">
+                <input type="text" class="form-control myInputs" id="dniInput">
               </div>
             </div>
             <div class="row">
               <div class="col-md-offset-1 col-md-1">Pais</div>
-              <div class="col-md-offset-4 col-md-3">Numero de telefono</div>
+              <div class="col-md-offset-4 col-md-2">Provincia</div>
             </div>
             <div class="row form-group">
               <div class="col-md-3 col-md-offset-1">
                 <input type="text" class="form-control myInputs" id="countryInput">
               </div>
               <div class="col-md-3 col-md-offset-2">
+                <input type="text" class="form-control myInputs" id="provinceInput">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-offset-1 col-md-1">Ciudad</div>
+              <div class="col-md-offset-4 col-md-3">Codigo postal</div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3 col-md-offset-1">
+                <input type="text" class="form-control myInputs" id="cityInput">
+              </div>
+              <div class="col-md-3 col-md-offset-2">
+                <input type="text" class="form-control myInputs" id="postalCodeInput">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-offset-1 col-md-1">Direccion</div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3 col-md-offset-1">
+                <input type="text" class="form-control myInputs" id="addressInput">
+              </div>
+            </div>
+          </div>
+          <div class="menuOptions row">
+            <div class="centerText form-group"> <h4> Informacion de contacto </h4> </div>
+            <div class="row">
+              <div class="col-md-offset-1 col-md-1">Mail</div>
+              <div class="col-md-offset-4 col-md-3">Telefono</div>
+            </div>
+            <div class="row form-group">
+              <div class="col-md-3 col-md-offset-1">
+                <input type="text" class="form-control myInputs" id="mailInput">
+              </div>
+              <div class="col-md-3 col-md-offset-2">
                 <input type="text" class="form-control myInputs" id="phonenumberInput">
               </div>
             </div>
-            <div class="row menuOptions form-group">
-              <div class="col-md-1 col-md-offset-1">
-                <button type="button" class="btn btn-primary myInputs" id="backButton">Volver</button>
-              </div>
-              <div class="col-md-1 col-md-offset-8">
-                <button type="button" class="btn btn-primary myInputs" id="nextButton">Continuar</button>
+            <div class="menuOptions row">
+              <div class="row menuOptions form-group">
+                <div class="col-md-1 col-md-offset-1">
+                  <button type="button" class="btn btn-primary myInputs" id="backButton">Volver</button>
+                </div>
+                <div class="col-md-1 col-md-offset-8">
+                  <button type="button" class="btn btn-primary myInputs" id="nextButton">Continuar</button>
+                </div>
               </div>
             </div>
           </div>

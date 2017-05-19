@@ -23,7 +23,7 @@ $(document).ready(function(){
  		 localStorage.setItem("nombre", $("#nameInput").val());
  	 }
     if(validateForm()){
-			
+
 			saveInfo();
       console.log(localStorage.getItem("cardNumber"));
       window.alert("Bien pibe");
@@ -51,38 +51,38 @@ var errormessage = "";
 function validateForm(){
 	var ret = true;
   var num = $("#cardTypeButton").val();
-  if(num.length == 0){
+  if(lengthIsZero(num)){
     errormessage += "Seleccione algun tipo de tarjeta. ";
     inputError("#cardTypeButton");
 		ret = false;
   }
 
   num = $("#cardNumberInput").val();
-  if(num.length == 0 || num.search(/[^0-9]/) != -1 || num.length != 16){
+  if(validateCreditCardNumber(num)){
     errormessage += "Numero de tarjeta incorrecto. ";
     inputError("#cardNumberInput");
 		ret = false;
   }
   num = $("#monthButton").val();
-  if(num.length == 0){
+  if(lengthIsZero(num)){
     errormessage += "Seleccione el mes de vencimiento. ";
     inputError("#monthButton");
 		ret = false;
   }
 	num = $("#yearButton").val();
-  if(num.length == 0){
+  if(lengthIsZero(num)){
     errormessage += "Seleccione el año de vencimiento. ";
     inputError("#yearButton");
 		ret = false;
   }
   num = $("#cvvInput").val();
-  if(num.length == 0 || num.search(/[^0-9]/) != -1 || num.length != 3){
+  if(validateCvv(num)){
     errormessage += "Codigo de seguridad incorrecto. ";
     inputError("#cvvInput");
 		ret = false;
   }
   num = $("#nameInput").val();
-  if(num.length == 0 ){
+	if(lengthIsZero(num) ){
     errormessage += "Nombre invalido.";
     inputError("#nameInput");
 		ret = false;
@@ -92,30 +92,54 @@ function validateForm(){
       errormessage += "Ingrese su primer nombre y primer apellido. ";
       inputError("#nameInput");
 			ret = false;
-    }else if(num[0].search(/[^A-Za-z]/) != -1 || num[1].search(/[^A-Za-z]/) != -1){
+    }else if(validateName(num)){
       errormessage += "Nombre invalido. ";
       inputError("#nameInput");
 			ret = false;
     }
   }
+	num = $("#dniInput").val();
+	if(validatePhoneNumberInput(num)){
+		errormessage += "Numero de dni invalido.";
+		inputError("#dniInput");
+		ret = false;
+	}
+  num = $("#countryInput").val();
+  if(validateCountry(num) ){
+    errormessage += "Pais invalido. ";
+    inputError("#countryInput");
+		ret = false;
+  }
+	num = $("#provinceInput").val();
+	if(validateCountry(num)){
+		errormessage += "Provincia invalida.";
+		inputError("#provinceInput");
+		ret = false;
+	}
   num = $("#cityInput").val();
-  if(num.length == 0 || num.search(/[^A-Za-z\s]/) != -1 ){
+  if(validateCity(num)){
     errormessage += "Ciudad invalida. ";
     inputError("#cityInput");
 		ret = false;
   }
+	num = $("#postalCodeInput").val();
+	if(validatePostalCode(num)){
+		errormessage += "Codigo postal invalido.";
+		inputError("#postalCodeInput");
+		ret = false;
+	}
   num = $("#addressInput").val();
-  if(num.length != 0){
+  if(!lengthIsZero(num)){
     num = num.split(" ");
     for(var i = 0; i < num.length ; i++){
       if(i == num.length-1){
-        if(num[i].search(/[^0-9]/) != -1){
+        if(validateAddressNumber(num)){
           errormessage += "Direccion invalida.";
           inputError("#addressInput");
 					ret = false;
         }
       }else{
-        if(num[i].search(/[^A-Za-z]/) != -1 ){
+        if(validateAddressName(num[i]) ){
           errormessage += "Direccion invalida.";
           inputError("#addressInput");
 					ret = false;
@@ -127,21 +151,15 @@ function validateForm(){
     inputError("#addressInput");
 		ret = false;
   }
-  num = $("#postalCodeInput").val();
-  if(num.length == 0 || num.search(/[^0-9\s]/) != -1 || num.length != 4){
-    errormessage += "Direccion invalida.";
-    inputError("#postalCodeInput");
+	num = $("#mailInput").val();
+	if(validateEmail(num)){
+		console.log("xd");
+    errormessage += "Mail invalido.";
+    inputError("#mailInput");
 		ret = false;
   }
-
-  num = $("#countryInput").val();
-  if(num.length == 0 || num.search(/[^A-Za-z\s]/) != -1 ){
-    errormessage += "Pais invalido. ";
-    inputError("#countryInput");
-		ret = false;
-  }
-  num = $("#phonenumberInput").val();
-  if(num.length == 0 || num.search(/[^0-9]/) != -1 || num.length != 8){
+	num = $("#phonenumberInput").val();
+  if(validatePhoneNumberInput(num)){
     errormessage += "Numero de telefono invalido.";
     inputError("#phonenumberInput");
 		ret = false;
@@ -166,4 +184,40 @@ $(document).ready(function(){
 		$(this).css("border", "");
 		$(this).css("background-color", "");
 	});
+});
+
+//             0            1            2         3         4          5           6
+parameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate"];
+idaVuelta = ["Ida" , "Vuelta"];
+$(document).ready(function(){
+	console.log(localStorage.getItem(parameters[1] + idaVuelta[0]) + " hs");
+		$("#vuelosDivIda").load("FlightsTemplate.html", function(){
+			// Aca poner el logo no el id de aerolinea
+			var data = localStorage.getItem(parameters[0] + idaVuelta[0]);
+			$(this).find(".airportLogo").attr("src",data);
+			data = localStorage.getItem(parameters[1] + idaVuelta[0]) + " hs";
+			$(this).find(".duration").append('<p>'+ data +'</p>');
+			data = parseInt(localStorage.getItem(parameters[2] + idaVuelta[0]));
+			$(this).find(".price").append('<p>$'+ data +'</p>');
+			console.log(localStorage.getItem(parameters[5] + idaVuelta[0]).split(" ")[1]));
+			data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[0]).split(" ")[1]) + " hs";
+			$(this).find(".arrivalHourInfo").append('<p>'+ data +'</p>');
+			data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[0]).split(" ")[1]) + " hs";
+			$(this).find(".departureHourInfo").append('<p>'+ data +'</p>');
+		});
+		if(localStorage.getItem("idaYvuelta")){
+			$("#vuelosDivVuelta").load("FlightsTemplate.html", function(){
+				// Aca poner el logo no el id de aerolinea
+				var data = localStorage.getItem(parameters[0] + idaVuelta[1]);
+				$(this).find(".airportLogo").attr("src",data);
+				data = localStorage.getItem(parameters[1] + idaVuelta[1]) + " hs";
+				$(this).find(".duration").append('<p>'+ data +'</p>');
+				data = parseInt(localStorage.getItem(parameters[2] + idaVuelta[1]));
+				$(this).find(".price").append('<p>$'+ data +'</p>');
+				data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[1]).split(" ")[1]) + " hs";
+				$(this).find(".arrivalHourInfo").append('<p>'+ data +'</p>');
+				data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[1]).split(" ")[1]) + " hs";
+				$(this).find(".departureHourInfo").append('<p>'+ data +'</p>');
+			});
+		}
 });

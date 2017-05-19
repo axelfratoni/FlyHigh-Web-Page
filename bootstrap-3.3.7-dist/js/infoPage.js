@@ -1,5 +1,5 @@
-parametersLocalStorage = ["Name" , "LastName", "DocumentType", "Document", "BirthDate", "male", "female"];
-parametersId = ["nameInput" , "lastNameInput", "documentDropDown", "documentInput", "birthDateInput", "male", "female", "dropDownDiv", "dropDown"];
+parametersLocalStorage = ["Name" , "LastName", "DocumentType", "Document", "BirthDate"];
+parametersId = ["nameInput" , "lastNameInput", "documentDropDown", "documentInput", "birthDateInput", "dropDownDiv", "dropDown"];
 adult = ["adult" , "Adult"];
 kid = ["kid" , "Kid"];
 
@@ -13,11 +13,43 @@ function handleDropDown(){
 	 	$("#" + parametersId[2] + kid[1]+ arr[1]).val($(this).text());
 	    $("#" + parametersId[2] + kid[1]+ arr[1]).text($(this).text());
 	 }
-
 	});
 };
 
-
+//             0            1            2         3         4          5           6
+parameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate"];
+idaVuelta = ["Ida" , "Vuelta"];
+$(document).ready(function(){
+	console.log(localStorage.getItem(parameters[1] + idaVuelta[0]) + " hs");
+		$("#vuelosDivIda").load("FlightsTemplate.html", function(){
+			// Aca poner el logo no el id de aerolinea
+			var data = localStorage.getItem(parameters[0] + idaVuelta[0]);
+			$(this).find(".airportLogo").attr("src",data);
+			data = localStorage.getItem(parameters[1] + idaVuelta[0]) + " hs";
+			$(this).find(".duration").append('<p>'+ data +'</p>');
+			data = parseInt(localStorage.getItem(parameters[2] + idaVuelta[0]));
+			$(this).find(".price").append('<p>$'+ data +'</p>');
+			data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[0]).split(" ")[1]) + " hs";
+			$(this).find(".arrivalHourInfo").append('<p>'+ data +'</p>');
+			data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[0]).split(" ")[1]) + " hs";
+			$(this).find(".departureHourInfo").append('<p>'+ data +'</p>');
+		});
+		if(localStorage.getItem("idaYvuelta")){
+			$("#vuelosDivVuelta").load("FlightsTemplate.html", function(){
+				// Aca poner el logo no el id de aerolinea
+				var data = localStorage.getItem(parameters[0] + idaVuelta[1]);
+				$(this).find(".airportLogo").attr("src",data);
+				data = localStorage.getItem(parameters[1] + idaVuelta[1]) + " hs";
+				$(this).find(".duration").append('<p>'+ data +'</p>');
+				data = parseInt(localStorage.getItem(parameters[2] + idaVuelta[1]));
+				$(this).find(".price").append('<p>$'+ data +'</p>');
+				data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[1]).split(" ")[1]) + " hs";
+				$(this).find(".arrivalHourInfo").append('<p>'+ data +'</p>');
+				data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[1]).split(" ")[1]) + " hs";
+				$(this).find(".departureHourInfo").append('<p>'+ data +'</p>');
+			});
+		}
+});
 function handlePrevious(){
 	document.location.href = "ChoosePage.html";
 }
@@ -25,7 +57,6 @@ function handlePrevious(){
 
 
 function handleNext(){
-
 	if(validateForm() && typeof(Storage) !== "undefined"){
 		console.log($("#birthDateInputAdult1").val());
 		var ninosCount = getParameterByName('ninos');
@@ -36,8 +67,6 @@ function handleNext(){
 			localStorage.setItem(adult[0] + i + parametersLocalStorage[2], $("#" + parametersId[2] + adult[1] + i).val());
 			localStorage.setItem(adult[0] + i + parametersLocalStorage[3], $("#" + parametersId[3] + adult[1] + i).val());
 			localStorage.setItem(adult[0] + i + parametersLocalStorage[4], $("#" + parametersId[4] + adult[1] + i).val());
-			localStorage.setItem(adult[0] + i + parametersLocalStorage[5], $("#" + parametersId[5] + adult[1] + i).val());
-			localStorage.setItem(adult[0] + i + parametersLocalStorage[6], $("#" + parametersId[6] + adult[1] + i).val());
 		}
 		for(var i = 1; i <= ninosCount; i++){
 			localStorage.setItem(kid[0] + i + parametersLocalStorage[0], $("#" + parametersId[0] + kid[1] + i).val());
@@ -45,22 +74,94 @@ function handleNext(){
 			localStorage.setItem(kid[0] + i + parametersLocalStorage[2], $("#" + parametersId[2] + kid[1] + i).val());
 			localStorage.setItem(kid[0] + i + parametersLocalStorage[3], $("#" + parametersId[3] + kid[1] + i).val());
 			localStorage.setItem(kid[0] + i + parametersLocalStorage[4], $("#" + parametersId[4] + kid[1] + i).val());
-			localStorage.setItem(kid[0] + i + parametersLocalStorage[5], $("#" + parametersId[5] + kid[1] + i).val());
-			localStorage.setItem(kid[0] + i + parametersLocalStorage[6], $("#" + parametersId[6] + kid[1] + i).val());
 		}
 		localStorage.setItem("adultosCount", adultosCount);
 		localStorage.setItem("ninosCount", ninosCount);
 		document.location.href = "PaymentPage.html";
 	}
 };
+parametersId = ["nameInput" , "lastNameInput", "documentDropDown", "documentInput", "birthDateInput", "dropDownDiv", "dropDown"];
+var errormessage = "";
 
 function validateForm(){
-	return true;
-}
+	var ninosCount = getParameterByName('ninos');
+	var adultosCount = getParameterByName('adultos');
+	var ret = true;
+	for(var i = 1; i <= adultosCount; i++){
+		var num =$("#" + parametersId[0] + adult[1] + i).val();
+		if(onlyLetters(num)){
+			errormessage += "Nombre del adulto " + i + "es invalido.";
+			inputError("#" + parametersId[0] + adult[1] + i);
+			ret = false;
+		}
+		num = $("#" + parametersId[1] + adult[1] + i).val();
+		if(onlyLetters(num)){
+			errormessage += "Apellido del adulto " + i + "es invalido.";
+			inputError("#" + parametersId[1] + adult[1] + i);
+			ret = false;
+		}
+		num = $("#" + parametersId[2] + adult[1] + i).val();
+		if(lengthIsZero(num)){
+			errormessage += "Seleccione un documento para el adulto  " + i;
+			inputError("#" + parametersId[2] + adult[1] + i);
+			ret = false;
+		}
+		num = $("#" + parametersId[3] + adult[1] + i).val();
+		if(validatePhoneNumberInput(num)){
+			errormessage += "Documento del adulto " + i + " es invalido.";
+			inputError("#" + parametersId[3] + adult[1] + i);
+			ret = false;
+		}
+		num = $("#" + parametersId[4] + adult[1] + i).val();
+		if(validateBirthDateInput(num)){
+			errormessage += "Fecha de nacimiento del adulto " + i + " es invalido.";
+			inputError("#" + parametersId[4] + adult[1] + i);
+			ret = false;
+		}
+	}
+	for(var i = 1; i <= ninosCount; i++){
+		var num =$("#" + parametersId[0] + kid[1] + i).val();
+		if(onlyLetters(num)){
+			errormessage += "Nombre del niño " + i + "es invalido.";
+			inputError("#" + parametersId[0] + kid[1] + i);
+			ret = false;
+		}
+		num = $("#" + parametersId[1] + kid[1] + i).val();
+		if(onlyLetters(num)){
+			errormessage += "Apellido del niño " + i + "es invalido.";
+			inputError("#" + parametersId[1] + kid[1] + i);
+			ret = false;
+		}
+		num = $("#" + parametersId[2] + kid[1] + i).val();
+		if(lengthIsZero(num)){
+			errormessage += "Seleccione un documento para el niño  " + i;
+			inputError("#" + parametersId[2] + kid[1] + i);
+			ret = false;
+		}
+		num = $("#" + parametersId[3] + kid[1] + i).val();
+		if(validatePhoneNumberInput(num)){
+			errormessage += "Documento del niño " + i + " es invalido.";
+			inputError("#" + parametersId[3] + kid[1] + i);
+			ret = false;
+		}
+		num = $("#" + parametersId[4] + kid[1] + i).val();
+		if(validateBirthDateInput(num)){
+			errormessage += "Fecha de nacimiento del niño " + i + " es invalido.";
+			inputError("#" + parametersId[4] + kid[1] + i);
+			ret = false;
+		}
+	}
+	if(!ret){
+		$("#errorBanner").html("<div class=\"alert alert-danger alert-dismissable\">\
+							<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">×</a>\
+							<strong>Error:</strong> " + errormessage +
+						"</div>");
+	}
+	return ret;
+};
 
 function appendDropDowns(ninosCount, adultosCount){
 	for(var i = 1; i <= adultosCount ; i++){
-
 		$("#dropDownAdult" + i).append(function(){
 			return $(`<div class="dropdown">
 		  <button class="btn btn-default dropdown-toggle myInputs" id="documentDropDownAdult` + i + `" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -72,8 +173,6 @@ function appendDropDowns(ninosCount, adultosCount){
 		  </ul>
 		</div>`).click(handleDropDown);
 		});
-		console.log($("#dropDownAdult1"));
-
 	}
 	for(var i = 1; i <= ninosCount ; i++){
 		$("#dropDownKid" + i).append(function(){
@@ -91,6 +190,7 @@ function appendDropDowns(ninosCount, adultosCount){
 }
 
 $(document).ready(function(){
+	console.log()
 	var ninosCount = getParameterByName('ninos');
 	var adultosCount = getParameterByName('adultos');
 	var personsList = document.getElementById('personsDiv');
@@ -102,9 +202,7 @@ $(document).ready(function(){
 		tmpl.querySelector("#" + parametersId[1]).id = parametersId[1] + adult[1] + i;
 		tmpl.querySelector("#" + parametersId[3]).id = parametersId[3] + adult[1] + i;
 		tmpl.querySelector("#" + parametersId[4]).id = parametersId[4] + adult[1] + i;
-		tmpl.querySelector("#" + parametersId[5]).id = parametersId[5] + adult[1] + i;
-		tmpl.querySelector("#" + parametersId[6]).id = parametersId[6] + adult[1] + i;
-		tmpl.querySelector("#" + parametersId[7]).id = parametersId[8] + adult[1] + i;
+		tmpl.querySelector("#" + parametersId[5]).id = parametersId[6] + adult[1] + i;
 		personsList.appendChild(tmpl);
 	}
 	for(var i = 1; i <= ninosCount; i++){
@@ -114,9 +212,7 @@ $(document).ready(function(){
 		tmpl.querySelector("#" + parametersId[1]).id = parametersId[1] + kid[1] + i;
 		tmpl.querySelector("#" + parametersId[3]).id = parametersId[3] + kid[1] + i;
 		tmpl.querySelector("#" + parametersId[4]).id = parametersId[4] + kid[1] + i;
-		tmpl.querySelector("#" + parametersId[5]).id = parametersId[5] + kid[1] + i;
-		tmpl.querySelector("#" + parametersId[6]).id = parametersId[6] + kid[1] + i;
-		tmpl.querySelector("#" + parametersId[7]).id = parametersId[8] + kid[1] + i;
+		tmpl.querySelector("#" + parametersId[5]).id = parametersId[6] + kid[1] + i;
 		personsList.appendChild(tmpl);
 	}
 	appendDropDowns(ninosCount, adultosCount);
@@ -144,4 +240,20 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+function inputError(target){
+	$(target).css("border", "1px solid red");
+	$(target).css("background-color", "#FF9494");
+	$(target).css("color", "black");
+}
 
+$(document).ready(function(){
+	$(".myInputs").focusin(function(){
+		$(this).css("border", "");
+		$(this).css("background-color", "");
+	});
+});
+
+function parseHour(hour){
+	var h = hour.split(":");
+	return h[0]+":"+h[1];
+}

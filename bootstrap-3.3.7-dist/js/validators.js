@@ -31,7 +31,7 @@ function validateAddressName(num){
   return onlyLetters(num);
 }
 function validatePostalCode(num){
-  return onlyLetters(num) || num.length != 4;
+  return onlyNumbers(num) || num.length != 4;
 }
 function validateCountry(num){
   return onlyLettersAndSpace(num);
@@ -44,5 +44,5 @@ function validateEmail(num){
   return aux.length != 2 || aux[1].search(/[^A-Za-z.]/) != -1;
 }
 function validateBirthDateInput(num){
-  return true;
+  return false;
 }

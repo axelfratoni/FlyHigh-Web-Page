@@ -133,7 +133,7 @@ function validateForm(){
     num = num.split(" ");
     for(var i = 0; i < num.length ; i++){
       if(i == num.length-1){
-        if(validateAddressNumber(num)){
+        if(validateAddressNumber(num[i])){
           errormessage += "Direccion invalida.";
           inputError("#addressInput");
 					ret = false;
@@ -199,7 +199,6 @@ $(document).ready(function(){
 			$(this).find(".duration").append('<p>'+ data +'</p>');
 			data = parseInt(localStorage.getItem(parameters[2] + idaVuelta[0]));
 			$(this).find(".price").append('<p>$'+ data +'</p>');
-			console.log(localStorage.getItem(parameters[5] + idaVuelta[0]).split(" ")[1]));
 			data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[0]).split(" ")[1]) + " hs";
 			$(this).find(".arrivalHourInfo").append('<p>'+ data +'</p>');
 			data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[0]).split(" ")[1]) + " hs";
@@ -221,3 +220,8 @@ $(document).ready(function(){
 			});
 		}
 });
+
+function parseHour(hour){
+	var h = hour.split(":");
+	return h[0]+":"+h[1];
+}

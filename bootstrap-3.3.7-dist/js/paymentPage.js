@@ -88,11 +88,11 @@ function validateForm(){
 		ret = false;
   } else{
     num = num.split(" ");
-    if(num.length > 2){
+    if(num.length != 2){
       errormessage += "Ingrese su primer nombre y primer apellido. ";
       inputError("#nameInput");
 			ret = false;
-    }else if(validateName(num)){
+    }else if(validateName(num[0]) || validateName[1]){
       errormessage += "Nombre invalido. ";
       inputError("#nameInput");
 			ret = false;

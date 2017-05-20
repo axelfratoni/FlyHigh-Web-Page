@@ -21,12 +21,8 @@ function loadFlights(){
 				$(this).find(".airportLogo").attr("src",data);
 				$(this).find(".buy").append(function(){
 					if (getParameterByName('llegada') == null){
-						if(!localStorage.getItem('idaYVuelta')){
-							localStorage.setItem('idaYvuelta', false);
-						}
 						return $('<button class="btn btn-warning" data-target="'+ i +'">Comprar</button>').click(handleBuy);
 					}
-					localStorage.setItem('idaYvuelta', true);
 					return $('<button class="btn btn-warning" data-target="'+ i +'">Elegir y buscar vuelta</button>').click(handleVuelta);
 				});
 			});
@@ -92,9 +88,11 @@ function saveData(flight, viaje){
 
 function handleBuy(){
     var flight = flights[$(this).data("target")];
-		if(localStorage.getItem("idaYvuelta")){
+		if(localStorage.getItem('idaYvuelta') == "true"){
+			console.log("Vuelta");
 			saveData(flight, "Vuelta");
 		}else{
+			console.log("Ida");
 			saveData(flight, "Ida");
 		}
 		document.location.href = "InfoPage.html?adultos=" + getParameterByName('adultos') + "&ninos=" + getParameterByName('ninos') ;
@@ -130,9 +128,9 @@ $(document).ready(function(){
 	var oriID = getParameterByName('ori');
 	var desID = getParameterByName('des');
 
-	console.log("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + infantCount);
+	console.log("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=0");
 	$.ajax({
-		url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + infantCount,
+		url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + 0,
 		dataType: "jsonp",
 		success: function(data){
 			$(".loader").css("display","none");
@@ -147,6 +145,17 @@ $(document).ready(function(){
 			loadFlights();
 		}
 	});
+	console.log(localStorage.getItem('idaYvuelta'));
+	console.log(getParameterByName('llegada'));
+
+	if(getParameterByName('llegada') == null && localStorage.getItem("idaYvuelta") != "true"){
+		console.log("xD");
+		localStorage.setItem('idaYvuelta', false);
+	}else{
+		console.log(":p");
+		localStorage.setItem('idaYvuelta', true);
+	}
+	console.log(localStorage.getItem("idaYvuelta"));
 });
 
 function parseDate(date){

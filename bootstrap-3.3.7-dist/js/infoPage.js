@@ -20,6 +20,7 @@ function handleDropDown(){
 parameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate"];
 idaVuelta = ["Ida" , "Vuelta"];
 $(document).ready(function(){
+	console.log(localStorage.getItem("idaYvuelta"));
 	console.log(localStorage.getItem(parameters[1] + idaVuelta[0]) + " hs");
 		$("#vuelosDivIda").load("FlightsTemplate.html", function(){
 			// Aca poner el logo no el id de aerolinea
@@ -34,11 +35,12 @@ $(document).ready(function(){
 			data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[0]).split(" ")[1]) + " hs";
 			$(this).find(".departureHourInfo").append('<p>'+ data +'</p>');
 		});
-		if(localStorage.getItem("idaYvuelta")){
+		if(localStorage.getItem("idaYvuelta") == "true"){
 			$("#vuelosDivVuelta").load("FlightsTemplate.html", function(){
 				// Aca poner el logo no el id de aerolinea
 				var data = localStorage.getItem(parameters[0] + idaVuelta[1]);
 				$(this).find(".airportLogo").attr("src",data);
+				$("#titleVuelta").append( "<h4>Vuelta</h4>");
 				data = localStorage.getItem(parameters[1] + idaVuelta[1]) + " hs";
 				$(this).find(".duration").append('<p>'+ data +'</p>');
 				data = parseInt(localStorage.getItem(parameters[2] + idaVuelta[1]));

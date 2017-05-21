@@ -40,5 +40,30 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+	$("#nextButton").click(function(){
+		var pasajeros = [{"first_name": "pepe", "last_name": "pepe", "birthdate": "1990-06-02", "id_type": 1, id_number: "30000000"}];
+		var tarjeta =  {"number": "4567899999888", "expiration": "1231", "security_code": "213", "first_name": "pepe", "last_name": "pepon"};
+		var lugarPago = {"city": {"id": "BUE", "state": "Buenos Aires", "country": "AR"}, "zip_code": 123, "street": "asd 123", "floor": "", "apartment": ""};
+		var contacto = {"email": "asd@asd.com", "phones": ["12313"]};
+		var pago = {"installments": 1, "credit_card": tarjeta, "billing_address": lugarPago, "contact": contacto};
+		var preParse = {"flight_id": 93480, "passengers" : pasajeros, "payment": pago};
+		console.log(JSON.stringify(preParse));
+		var postParse = JSON.stringify(preParse);
+		$.ajax({
+		  type: "POST",
+		  url: 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight',
+		  data: postParse,
+		  dataType: "json",
+		  success: function(data){
+		  	console.log(JSON.stringify(data));
+		  },
+		  error: function(data){
+		  	console.log(JSON.stringify(data));
+		  }
+		});
+	});
+});
+
+$(document).ready(function(){
 	localStorage.setItem("paymentPage", "true");
 });

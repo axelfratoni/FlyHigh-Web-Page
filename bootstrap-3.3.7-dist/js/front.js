@@ -373,3 +373,8 @@ $(document).ready(function(){
     $("#ida").prop("checked", true);
     $("#idaYvuelta").prop("checked", false);
 });
+
+// para que no quede la info de alguna seleccion de vuelos anterior
+$(document).ready(function() {
+	sessionStorage.clear();
+});

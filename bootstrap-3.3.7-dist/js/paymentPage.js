@@ -23,6 +23,8 @@ $(document).ready(function() {
 
   if(sessionStorage.getItem("idaYvuelta") == "true"){
     var ticket2 = sessionStorage.getItem("vueltaTicket");
+    $("#ticketShowcase").append('<div class="centerText" id="titleVuelta"><h4>Vuelta</h4></div>');
+    $("#ticketShowcase").append('<div class="col-md-12 " id="vuelosDivVuelta"></div>');
     $("#vuelosDivVuelta").append(ticket2);
   }
 

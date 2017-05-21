@@ -264,8 +264,6 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
 	if(localStorage.getItem("paymentPage") == "true"){
-	  $("#cardNumberInput").val(localStorage.getItem("cardNumber"));
-	  $("#cvvInput").val(localStorage.getItem("cvv"));
 	  $("#nameInput").val(localStorage.getItem("cardOwnerName"));
 	  $("#cityInput").val(localStorage.getItem("cardOwnerCity"));
 	  $("#addressInput").val(localStorage.getItem("cardOwnerAddress"));
@@ -273,7 +271,7 @@ $(document).ready(function(){
 	  $("#countryInput").val(localStorage.getItem("cardOwnerCountry"));
 	  $("#phonenumberInput").val(localStorage.getItem("cardOwnerPhone"));
 		$("#mailInput").val(localStorage.getItem("cardOwnerMail"));
-		 $("#mailInput").val(localStorage.getItem("cardOwnerMail"));
+		$("#mailInput").val(localStorage.getItem("cardOwnerMail"));
 		$("#dniInput").val(localStorage.getItem("cardOwnerID"));
 		$("#provinceInput").val(localStorage.getItem("cardOwnerProvince"));
 

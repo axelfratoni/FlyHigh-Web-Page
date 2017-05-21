@@ -74,7 +74,9 @@ body, html {
 .menuOptions {
   margin-top: 5%;
 }
-
+.formTopMargin {
+  margin-top: 2.5%;
+}
 .chooseSort {
   margin-top: 5%;
 }

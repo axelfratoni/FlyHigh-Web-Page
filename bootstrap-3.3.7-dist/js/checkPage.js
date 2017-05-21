@@ -1,12 +1,15 @@
 $(document).ready(function(){
-	$("#cardNumber").text(localStorage.getItem("cardNumber"));
+	$("#cardNumber").text(localStorage.getItem("cardType") + " " + localStorage.getItem("cardNumber"));
 	$("#expiryDateAndCVV").text(localStorage.getItem("expiryMonth") + "/" + localStorage.getItem("expiryYear") + " " + localStorage.getItem("cvv"));
-	$("#cardOwnerName").text(localStorage.getItem("cardOwnerName").split(" ")[0]);
+	$("#cardOwnerName").text(localStorage.getItem("cardOwnerName"));
 	$("#cardOwnerCity").text(localStorage.getItem("cardOwnerCity"));
 	$("#cardOwnerAddress").text(localStorage.getItem("cardOwnerAddress"));
 	$("#cardOwnerPostalCode").text(localStorage.getItem("cardOwnerPostalCode"));
 	$("#cardOwnerCountry").text(localStorage.getItem("cardOwnerCountry"));
 	$("#cardOwnerPhone").text(localStorage.getItem("cardOwnerPhone"));
+	$("#cardOwnerProvince").text(localStorage.getItem("cardOwnerProvince"));
+	$("#cardOwnerMail").text(localStorage.getItem("cardOwnerMail"));
+	$("#cardOwnerID").text(localStorage.getItem("cardOwnerID"));
 
 	var personsList = document.getElementById('personsDiv');
 	var n = localStorage.getItem("adultosCount");
@@ -31,6 +34,7 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
 	$("#backButton").click(function(){
+		localStorage.setItem("cardNumber", null);
 		document.location.href = "PaymentPage.html";
 	});
 });

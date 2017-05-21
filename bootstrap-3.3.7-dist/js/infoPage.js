@@ -268,7 +268,7 @@ $(document).ready(function(){
                 </div>`).click(handlePrevious);
 	});
 	$("#buttonsRow").append(function(){
-		return $(`<div class=\"col-md-1\">
+		return $(`<div class=\"col-md-1 col-md-offset-9\">
                   <button type=\"button\" class=\"btn btn-primary\" id=\"nextButton\">Ir al pago</button>
                 </div>`).click(handleNext);
 	});

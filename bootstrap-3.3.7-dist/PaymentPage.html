@@ -27,7 +27,7 @@
     <![endif]-->
   </head>
 
-  <body class="backgroundimage parallax">
+  <body class="backgroundimage">
   <!-- Barra superior -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -39,11 +39,13 @@
       </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container-fluid ">
       <div class="row" style="margin-top:10%;">
-        <div class="col-md-10 col-md-offset-1 flightMenu" id="ticketShowcase">
+        <div class="col-md-10 col-md-offset-1 flightMenu">
           <div class="centerText" id="title"><h4>Ida</h4></div>
           <div class="col-md-12" id="vuelosDivIda"></div>
+          <div class="centerText" id="titleVuelta"></div>
+          <div class="col-md-12 " id="vuelosDivVuelta"></div>
         </div>
       </div>
       <div class="row" id="main">
@@ -115,8 +117,8 @@
                 </ul>
               </div>
             </div>
-            <div class="col-md-2">
-              <input type="text" class="form-control myInputs centerText" id="cvvInput">
+            <div class="col-md-1">
+              <input type="text" class="form-control myInputs" id="cvvInput">
             </div>
           </div>
           <div class="menuOptions row">

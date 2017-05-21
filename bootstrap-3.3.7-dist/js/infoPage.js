@@ -1,4 +1,4 @@
-parameterssessionStorage = ["Name" , "LastName", "DocumentType", "Document", "BirthDate"];
+parametersLocalStorage = ["Name" , "LastName", "DocumentType", "Document", "BirthDate"];
 parametersId = ["nameInput" , "lastNameInput", "documentDropDown", "documentInput", "birthDateInput", "dropDownDiv", "dropDown"];
 adult = ["adult" , "Adult"];
 kid = ["kid" , "Kid"];
@@ -20,28 +20,43 @@ function handleDropDown(){
 parameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate"];
 idaVuelta = ["Ida" , "Vuelta"];
 $(document).ready(function(){
-	console.log(sessionStorage.getItem("idaYvuelta"));
-	console.log(sessionStorage.getItem(parameters[1] + idaVuelta[0]) + " hs");
-
+	console.log(localStorage.getItem("idaYvuelta"));
+	console.log(localStorage.getItem(parameters[1] + idaVuelta[0]) + " hs");
+		$("#vuelosDivIda").load("FlightsTemplate.html", function(){
+			// Aca poner el logo no el id de aerolinea
+			var data = localStorage.getItem(parameters[0] + idaVuelta[0]);
+			$(this).find(".airportLogo").attr("src",data);
+			data = localStorage.getItem(parameters[1] + idaVuelta[0]) + " hs";
+			$(this).find(".duration").append('<p>'+ data +'</p>');
+			data = parseInt(localStorage.getItem(parameters[2] + idaVuelta[0]));
+			$(this).find(".price").append('<p>$'+ data +'</p>');
+			data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[0]).split(" ")[1]) + " hs";
+			$(this).find(".arrivalHourInfo").append('<p>'+ data +'</p>');
+			data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[0]).split(" ")[1]) + " hs";
+			$(this).find(".departureHourInfo").append('<p>'+ data +'</p>');
+		});
+		if(localStorage.getItem("idaYvuelta") == "true"){
+			$("#vuelosDivVuelta").load("FlightsTemplate.html", function(){
+				// Aca poner el logo no el id de aerolinea
+				var data = localStorage.getItem(parameters[0] + idaVuelta[1]);
+				$(this).find(".airportLogo").attr("src",data);
+				$("#titleVuelta").append( "<h4>Vuelta</h4>");
+				data = localStorage.getItem(parameters[1] + idaVuelta[1]) + " hs";
+				$(this).find(".duration").append('<p>'+ data +'</p>');
+				data = parseInt(localStorage.getItem(parameters[2] + idaVuelta[1]));
+				$(this).find(".price").append('<p>$'+ data +'</p>');
+				data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[1]).split(" ")[1]) + " hs";
+				$(this).find(".arrivalHourInfo").append('<p>'+ data +'</p>');
+				data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[1]).split(" ")[1]) + " hs";
+				$(this).find(".departureHourInfo").append('<p>'+ data +'</p>');
+			});
+		}
 });
-
 function handlePrevious(){
 	document.location.href = "ChoosePage.html";
 }
 
-$(document).ready(function() {
 
-  var ticket1 = sessionStorage.getItem("idaTicket");
-  $("#vuelosDivIda").append(ticket1);
-
-  if(sessionStorage.getItem("idaYvuelta") == "true"){
-    var ticket2 = sessionStorage.getItem("vueltaTicket");
-    $("#ticketShowcase").append('<div class="centerText" id="titleVuelta"><h4>Vuelta</h4></div>');
-    $("#ticketShowcase").append('<div class="col-md-12 " id="vuelosDivVuelta"></div>');
-    $("#vuelosDivVuelta").append(ticket2);
-  }
-
-});
 
 function handleNext(){
 	if(validateForm() && typeof(Storage) !== "undefined"){
@@ -49,21 +64,21 @@ function handleNext(){
 		var ninosCount = getParameterByName('ninos');
 		var adultosCount = getParameterByName('adultos');
 		for(var i = 1; i <= adultosCount; i++){
-			sessionStorage.setItem(adult[0] + i + parameterssessionStorage[0], $("#" + parametersId[0] + adult[1] + i).val());
-			sessionStorage.setItem(adult[0] + i + parameterssessionStorage[1], $("#" + parametersId[1] + adult[1] + i).val());
-			sessionStorage.setItem(adult[0] + i + parameterssessionStorage[2], $("#" + parametersId[2] + adult[1] + i).val());
-			sessionStorage.setItem(adult[0] + i + parameterssessionStorage[3], $("#" + parametersId[3] + adult[1] + i).val());
-			sessionStorage.setItem(adult[0] + i + parameterssessionStorage[4], $("#" + parametersId[4] + adult[1] + i).val());
+			localStorage.setItem(adult[0] + i + parametersLocalStorage[0], $("#" + parametersId[0] + adult[1] + i).val());
+			localStorage.setItem(adult[0] + i + parametersLocalStorage[1], $("#" + parametersId[1] + adult[1] + i).val());
+			localStorage.setItem(adult[0] + i + parametersLocalStorage[2], $("#" + parametersId[2] + adult[1] + i).val());
+			localStorage.setItem(adult[0] + i + parametersLocalStorage[3], $("#" + parametersId[3] + adult[1] + i).val());
+			localStorage.setItem(adult[0] + i + parametersLocalStorage[4], $("#" + parametersId[4] + adult[1] + i).val());
 		}
 		for(var i = 1; i <= ninosCount; i++){
-			sessionStorage.setItem(kid[0] + i + parameterssessionStorage[0], $("#" + parametersId[0] + kid[1] + i).val());
-			sessionStorage.setItem(kid[0] + i + parameterssessionStorage[1], $("#" + parametersId[1] + kid[1] + i).val());
-			sessionStorage.setItem(kid[0] + i + parameterssessionStorage[2], $("#" + parametersId[2] + kid[1] + i).val());
-			sessionStorage.setItem(kid[0] + i + parameterssessionStorage[3], $("#" + parametersId[3] + kid[1] + i).val());
-			sessionStorage.setItem(kid[0] + i + parameterssessionStorage[4], $("#" + parametersId[4] + kid[1] + i).val());
+			localStorage.setItem(kid[0] + i + parametersLocalStorage[0], $("#" + parametersId[0] + kid[1] + i).val());
+			localStorage.setItem(kid[0] + i + parametersLocalStorage[1], $("#" + parametersId[1] + kid[1] + i).val());
+			localStorage.setItem(kid[0] + i + parametersLocalStorage[2], $("#" + parametersId[2] + kid[1] + i).val());
+			localStorage.setItem(kid[0] + i + parametersLocalStorage[3], $("#" + parametersId[3] + kid[1] + i).val());
+			localStorage.setItem(kid[0] + i + parametersLocalStorage[4], $("#" + parametersId[4] + kid[1] + i).val());
 		}
-		sessionStorage.setItem("adultosCount", adultosCount);
-		sessionStorage.setItem("ninosCount", ninosCount);
+		localStorage.setItem("adultosCount", adultosCount);
+		localStorage.setItem("ninosCount", ninosCount);
 		document.location.href = "PaymentPage.html";
 	}
 };

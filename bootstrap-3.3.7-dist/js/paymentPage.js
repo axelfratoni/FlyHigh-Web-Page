@@ -16,20 +16,6 @@ $(function(){
 	});
 });
 
-$(document).ready(function() {
-
-  var ticket1 = sessionStorage.getItem("idaTicket");
-  $("#vuelosDivIda").append(ticket1);
-
-  if(sessionStorage.getItem("idaYvuelta") == "true"){
-    var ticket2 = sessionStorage.getItem("vueltaTicket");
-    $("#ticketShowcase").append('<div class="centerText" id="titleVuelta"><h4>Vuelta</h4></div>');
-    $("#ticketShowcase").append('<div class="col-md-12 " id="vuelosDivVuelta"></div>');
-    $("#vuelosDivVuelta").append(ticket2);
-  }
-
-});
-
 
 $(document).ready(function(){
 	$("#nextButton").click(function(){
@@ -102,11 +88,11 @@ function validateForm(){
 		ret = false;
   } else{
     num = num.split(" ");
-    if(num.length != 2){
+    if(num.length > 2){
       errormessage += "Ingrese su primer nombre y primer apellido. ";
       inputError("#nameInput");
 			ret = false;
-    }else if(validateName(num[0]) || validateName[1]){
+    }else if(validateName(num)){
       errormessage += "Nombre invalido. ";
       inputError("#nameInput");
 			ret = false;

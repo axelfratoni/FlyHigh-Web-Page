@@ -179,6 +179,27 @@ $(document).ready(function(){
           $('#infaCount').val( parseInt($('#infaCount').val(), 10) - 1);
         }
   });
+  $('#adultCountPUp').on('click', function(event) {
+  	event.preventDefault();
+    if(parseInt($('#adultCountP').val(), 10) < $('#adultCountP').attr('max') ) {
+          $('#adultCountP').val( parseInt($('#adultCountP').val(), 10) + 1);
+        }
+  });
+  $('#adultCountPDown').on('click', function() {
+    if(parseInt($('#adultCountP').val(), 10) > $('#adultCountP').attr('min')) {
+          $('#adultCountP').val( parseInt($('#adultCountP').val(), 10) - 1);
+        }
+  });
+  $('#ninosCountPUp').on('click', function() {
+    if(parseInt($('#ninosCountP').val(), 10) < $('#ninosCountP').attr('max')) {
+          $('#ninosCountP').val( parseInt($('#ninosCountP').val(), 10) + 1);
+        }
+  });
+  $('#ninosCountPDown').on('click', function() {
+    if(parseInt($('#ninosCountP').val(), 10) > $('#ninosCountP').attr('min')) {
+          $('#ninosCountP').val( parseInt($('#ninosCountP').val(), 10) - 1);
+        }
+  });
 });
 
 // Manejo de la API de vuelos
@@ -374,7 +395,125 @@ $(document).ready(function(){
     $("#idaYvuelta").prop("checked", false);
 });
 
-// para que no quede la info de alguna seleccion de vuelos anterior
-$(document).ready(function() {
-	sessionStorage.clear();
+/* Modal de promociones*/
+$(document).ready(function(){
+	$('#myModal').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget);
+		var promo = deals[((dealIndex - 3 + button.data("num")) % deals.length)];
+		var data = "./images/" + promo.city.name.split(",")[0] + ".jpg";
+		$("#myModal").find("img").attr("src", data);
+		console.log(promo.city.name.split(",")[0]);
+		findPromo(promo);
+	});
 });
+
+function findPromo(promo){
+	var oriID = "BUE";
+	var desID = promo.city.id;
+	var depDate = new Date((new Date).getTime() + 2*24*60*60*1000);
+	depDate = depDate.getFullYear() + "-" + (depDate.getMonth() + 1) + "-" + depDate.getDate();
+	var adultCount = 1;
+	var ninosCount = 0;
+	var infaCount = 0;
+	console.log("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + 0);
+	$.ajax({
+		url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + 0,
+		dataType: "jsonp",
+		success: function(data){
+			$.each(data.flights, function(index,value){
+				console.log(value.price.total.total);
+				if(promo.price == value.price.adults.base_fare){
+					console.log("found");
+					buyPromo(value);
+				}
+			});
+		}
+	});
+}
+
+function buyPromo(flight){
+
+}
+
+$(document).ready(function(){
+	$('#myModal').on('show.bs.modal', function () {
+		$('#myModal').bind( 'hide.bs.modal', dontClose );
+	});
+});
+
+function dontClose(){
+	console.log("no");
+	return false;
+}
+
+$(document).ready(function(){
+	$('#closeModal').click(function(){		
+		$('#myModal').unbind( 'hide.bs.modal', dontClose );
+	});
+});
+
+/*
+<div class="col-md-4">
+            <div class="thumbnail" id="promo1">
+              <a href="#myModal" target="_blank" data-toggle="modal" data-target="#myModal" data-num="1">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption">
+                  <p></p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="loader"></div>
+            <div class="thumbnail" id="promo2">
+              <a href="#myModal" target="_blank" data-toggle="modal" data-target="#myModal" data-num="2">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption">
+                  <p></p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="thumbnail" id="promo3">
+              <a href="#myModal" target="_blank" data-toggle="modal" data-target="#myModal" data-num="3">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption">
+                  <p></p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="thumbnail" id="promo4"> 
+              <a href="#myModal" target="_blank" data-toggle="modal" data-target="#myModal" data-num="4">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption">
+                  <p></p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="thumbnail" id="promo5">
+              <a href="#myModal" target="_blank" data-toggle="modal" data-target="#myModal" data-num="5">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption">
+                  <p></p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="thumbnail" id="promo6">
+              <a href="#myModal" target="_blank" data-toggle="modal" data-target="#myModal" data-num="6">
+                <img src="./images/city.jpg" alt="Lights" style="width:100%">
+                <div class="caption">
+                 <p></p>
+                </div>
+              </a>
+            </div>
+          </div>
+*/

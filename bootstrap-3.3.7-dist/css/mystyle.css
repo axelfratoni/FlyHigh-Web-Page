@@ -26,17 +26,18 @@ body, html {
 
 .flightStyle {
   background-color: white;
-  border-color: black;
+  border-radius: 10px;
   height: 100%;
   margin-bottom: 3%;
   margin-top: 3%;
+  border: 3px solid;
+  border-color: #2b7cb3;
 }
 
 .mainMenu, .filterMenu, .flightMenu {
   margin-top: 9%;
-  background-color: #ffe577;
-  opacity : 0.85;
-  /*background-color: rgb(255, 229, 119, 0.85);*/
+  //background-color: #ffe577;
+  background-color: rgb(255, 229, 119, 0.85);
   border-radius: 10px;
   border: 3px solid;
   border-color: #fec051;
@@ -168,7 +169,7 @@ body, html {
 .awesomplete mark {
   background: blue;
   font-weight: bold;
-}
+} 
 
 .pre-scrollable {
     max-height: 500px;
@@ -209,79 +210,81 @@ body, html {
   display: none;
 }
 
-/* flight tickets */
+.glyphicon.glyphicon-arrow-right {
+  font-size: 30px;
+}
 
-      #leftBorderTop{
-        border-radius: 15px 0 0 0px;  
-      }
-      #rightBorderTop{
-        border-radius: 0 15px 0 0;  
-      }   
-      #leftBorderBottom{
-        border-radius: 0 0 0 15px;
-      }
-      #rightBorderBottom{
-        border-radius: 0 0 15px 0;
-      }
-      #rowTicketTop{
-        border-radius: 15px 15px 0 0;
-      }
-      #rowTicketBottom{
-        border-radius: 0 0 15px 15px;
-      }
-      #filters{
-        background-color: #bfe5f2;
-        padding-left: 3em;
-        border-radius: 15px 15px 15px 15px;
-      }
-      #orderBy{
-        padding-bottom: 1em;
-      }
-      #header{
-          background-color: #aad5e6;
-      }
-      #breadcrumb{
-          background-color: #bfe5f2;
-      }
-      #flightForm{
-        background-color: #bfe5f2;
-        padding-bottom: 1em;
-        padding-top: 1em;
-      }
-      [id^="ticket"]{
-        padding-bottom: 1em;
-        padding-left: 1em;
-      }
-      .row-ticket{
-        color: black;
-        background-color: rgb(191, 191, 191, 0.85);
-        display: flex;
-        display: -webkit-flex;
-      }
-      .dark{
-        background-color: rgb(210, 210, 210, 0.85);
-      }  
-      .btn-grey {
-          background: #8b8a88;
-          color: #ffffff;
-      }
-      #dateFrom, #dateTo, #from, #to{
-        width: 10em;
-      }
-      #slider .ui-slider-range { 
+.oriID{
+  font-size: 20px;
+  font-weight: bold;
+}
 
-        background: #5683DE; 
-      }
-      .ui-widget-content .ui-state-default {
-        
-        background-color: #5683DE;
-      }
-      #load{
-        padding-top: 1em;
-        padding-bottom: 1em;
-        padding-right: 1em;
-        padding-right: 1em;
-      }
-      #loading{
-        text-align: center;
-      }
+.desID{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.tempFli1{
+  text-align: center;
+}
+
+.duration{
+  margin-top: 20%;
+  color: #00688B;
+}
+
+.fliNum{
+  margin-top: 20%;
+}
+
+.buy{
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.price{
+  text-align: center;
+  margin-top: 20%;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}

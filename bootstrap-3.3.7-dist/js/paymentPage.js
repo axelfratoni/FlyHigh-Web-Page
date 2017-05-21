@@ -16,6 +16,18 @@ $(function(){
 	});
 });
 
+$(document).ready(function() {
+
+  var ticket1 = sessionStorage.getItem("idaTicket");
+  $("#vuelosDivIda").append(ticket1);
+
+  if(sessionStorage.getItem("idaYvuelta") == "true"){
+    var ticket2 = sessionStorage.getItem("vueltaTicket");
+    $("#vuelosDivVuelta").append(ticket2);
+  }
+
+});
+
 
 $(document).ready(function(){
 	$("#nextButton").click(function(){

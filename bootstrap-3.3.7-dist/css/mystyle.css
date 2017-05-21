@@ -288,3 +288,11 @@ body, html {
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
+
+.thumbnail {
+    cursor:pointer;
+}
+
+.compraPromo{
+  margin-top: 20%;
+}

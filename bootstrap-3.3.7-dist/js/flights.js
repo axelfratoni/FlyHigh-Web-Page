@@ -43,22 +43,6 @@ function loadFlights(){
 					}
 					return $('<button class="btn btn-primary" data-target="'+ i +'">Comprar</button>').click(handleVuelta);
 				});
-				/*var data = parseHour(flight.outbound_routes[0].segments[0].departure.date.split(" ")[1]) + " hs";
-				$(this).find(".departureHourInfo").append('<p>'+ data +'</p>');
-				data = parseHour(flight.outbound_routes[0].segments[0].arrival.date.split(" ")[1]) + " hs";
-				$(this).find(".arrivalHourInfo").append('<p>'+ data +'</p>');
-				data = flight.outbound_routes[0].segments[0].duration + " hs";
-				$(this).find(".duration").append('<p>'+ data +'</p>');
-				data = parseInt(flight.price.total.total);
-				$(this).find(".price").append('<p>$'+ data +'</p>');
-				data = flight.outbound_routes[0].segments[0].airline.id;
-				$(this).find(".airportLogo").attr("src",data);
-				$(this).find(".buy").append(function(){
-					if (getParameterByName('llegada') == null){
-						return $('<button class="btn btn-warning" data-target="'+ i +'">Comprar</button>').click(handleBuy);
-					}
-					return $('<button class="btn btn-warning" data-target="'+ i +'">Elegir y buscar vuelta</button>').click(handleVuelta);
-				});*/
 			});
 		})(i,flight);
 	}
@@ -122,14 +106,14 @@ function saveData(flight, viaje){
 
 function handleBuy(){
     var flight = flights[$(this).data("target")];
-		if(localStorage.getItem('idaYvuelta') == "true"){
-			console.log("Vuelta");
-			saveData(flight, "Vuelta");
-		}else{
-			console.log("Ida");
-			saveData(flight, "Ida");
-		}
-		document.location.href = "InfoPage.html?adultos=" + getParameterByName('adultos') + "&ninos=" + getParameterByName('ninos') ;
+	if(localStorage.getItem('idaYvuelta') == "true"){
+		console.log("Vuelta");
+		saveData(flight, "Vuelta");
+	}else{
+		console.log("Ida");
+		saveData(flight, "Ida");
+	}
+	document.location.href = "InfoPage.html?adultos=" + getParameterByName('adultos') + "&ninos=" + getParameterByName('ninos') ;
 }
 
 function handleVuelta(){

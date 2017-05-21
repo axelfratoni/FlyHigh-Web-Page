@@ -396,14 +396,33 @@ $(document).ready(function(){
 });
 
 /* Modal de promociones*/
+clicked = 0;
+$(document).ready(function(){
+	$(".thumbnail").click(function(){
+		clicked = ((dealIndex - 3 + $(this).data("num")) % deals.length);
+		$('#myModal').modal("show");
+	});
+});
+
 $(document).ready(function(){
 	$('#myModal').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget);
-		var promo = deals[((dealIndex - 3 + button.data("num")) % deals.length)];
+		//var promo = deals[((dealIndex - 3 + button.data("num")) % deals.length)];
+		var promo = deals[clicked];
 		var data = "./images/" + promo.city.name.split(",")[0] + ".jpg";
 		$("#myModal").find("img").attr("src", data);
+		data = "Viaja de oferta a " + promo.city.name.split(",")[0];
+		$("#myModal").find(".modal-title").text(data);
+		$("#myModal").find(".compraPromo").data("target",clicked);
 		console.log(promo.city.name.split(",")[0]);
-		findPromo(promo);
+	});
+});
+
+$(document).ready(function(){
+	$(".compraPromo").click(function(){
+		console.log($(this).data("target"));
+		var target = $(this).data("target");
+		findPromo(deals[target]);
 	});
 });
 
@@ -412,27 +431,34 @@ function findPromo(promo){
 	var desID = promo.city.id;
 	var depDate = new Date((new Date).getTime() + 2*24*60*60*1000);
 	depDate = depDate.getFullYear() + "-" + (depDate.getMonth() + 1) + "-" + depDate.getDate();
-	var adultCount = 1;
-	var ninosCount = 0;
+	var adultCount = $("#adultCountP").val();
+	var ninosCount = $("#ninosCountP").val();
 	var infaCount = 0;
 	console.log("http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + 0);
 	$.ajax({
 		url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + 0,
 		dataType: "jsonp",
 		success: function(data){
-			$.each(data.flights, function(index,value){
-				console.log(value.price.total.total);
-				if(promo.price == value.price.adults.base_fare){
-					console.log("found");
-					buyPromo(value);
-				}
-			});
+			(function(cheapest){
+				$.each(data.flights, function(index,value){/*
+					if(promo.price == value.price.adults.base_fare){
+						console.log("found");
+						buyPromo(value);
+					}*/
+					if(cheapest == null || cheapest.price.total.total > value.price.total.total){
+						cheapest = value;
+					}
+				});
+				buyPromo(cheapest);
+			})(null);
 		}
 	});
 }
 
 function buyPromo(flight){
-
+	console.log(flight.price.total.total);
+	saveData(flight, "Ida");
+	document.location.href = "InfoPage.html?adultos=" + $("#adultCountP").val() + "&ninos=" + $("#ninosCountP").val() ;
 }
 
 $(document).ready(function(){
@@ -451,6 +477,25 @@ $(document).ready(function(){
 		$('#myModal').unbind( 'hide.bs.modal', dontClose );
 	});
 });
+
+parameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate"];
+
+function saveData(flight, viaje){
+	var airline = flight.outbound_routes[0].segments[0].airline.id;
+	var duration = flight.outbound_routes[0].duration;
+	var price = flight.price.total.total;
+	var depAirp = flight.outbound_routes[0].segments[0].departure.airport.id;
+	var arrAirp = flight.outbound_routes[0].segments[0].arrival.airport.id;
+	var arrDate = flight.outbound_routes[0].segments[0].arrival.date;
+	var depDate = flight.outbound_routes[0].segments[0].departure.date;
+	localStorage.setItem(parameters[0] + viaje , airline);
+	localStorage.setItem(parameters[1] + viaje , duration);
+	localStorage.setItem(parameters[2] + viaje , price );
+	localStorage.setItem(parameters[3] + viaje , depAirp);
+	localStorage.setItem(parameters[4] + viaje , arrAirp);
+	localStorage.setItem(parameters[5] + viaje , arrDate);
+	localStorage.setItem(parameters[6] + viaje , depDate);
+}
 
 /*
 <div class="col-md-4">

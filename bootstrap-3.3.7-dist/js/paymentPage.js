@@ -1,5 +1,5 @@
 months = ["ene" , "feb" , "mar" , "may" , "jun" , "jul" , "aug", "sep", "oct", "nov", "dic"]
-cards = ["visa" , "mastercard"]
+cards = ["visa" , "mastercard", "amex", "diners"]
 years = ["siete" , "ocho" , "nueve" , "cero" , "uno" , "dos" , "tres" , "cuatro" , "cinco", "seis"]
 $(function(){
 	 $(".dropdown-menu li a").click(function(){
@@ -19,17 +19,7 @@ $(function(){
 
 $(document).ready(function(){
 	$("#nextButton").click(function(){
-		if (typeof(Storage) !== "undefined") {
- 		 localStorage.setItem("nombre", $("#nameInput").val());
- 	 }
-    if(validateForm()){
-
-			saveInfo();
-      console.log(localStorage.getItem("cardNumber"));
-      window.alert("Bien pibe");
-      document.location.href = "CheckPage.html";
-
-    }
+		validateCreditCard();
   });
 });
 
@@ -53,45 +43,16 @@ function saveInfo(){
 }
 
 var errormessage = "";
-function validateForm(){
+function validateForm(creditCardIsInvalid){
 	var ret = true;
-  var num = $("#cardTypeButton").val();
-  if(lengthIsZero(num)){
-    errormessage += "Seleccione algun tipo de tarjeta. ";
-    inputError("#cardTypeButton");
-		ret = false;
-  }
-
-  num = $("#cardNumberInput").val();
-  if(validateCreditCardNumber(num)){
-    errormessage += "Numero de tarjeta incorrecto. ";
-    inputError("#cardNumberInput");
-		ret = false;
-  }
-  num = $("#monthButton").val();
-  if(lengthIsZero(num)){
-    errormessage += "Seleccione el mes de vencimiento. ";
-    inputError("#monthButton");
-		ret = false;
-  }
-	num = $("#yearButton").val();
-  if(lengthIsZero(num)){
-    errormessage += "Seleccione el año de vencimiento. ";
-    inputError("#yearButton");
-		ret = false;
-  }
-	if($("#monthButton").val() <= (new Date()).getMonth() && num == "2017"){
-		errormessage += "Tarjeta vencida ";
-		inputError("#yearButton");
-		inputError("#monthButton");
+	if(creditCardIsInvalid == "true"){
+		errormessage += "Tarjeta invalida.";
+		inputError($("#cardNumberInput"));
+	  inputError($("#monthButton"));
+	  inputError($("#yearButton"));
+	  inputError($("#cvvInput"));
 		ret = false;
 	}
-  num = $("#cvvInput").val();
-  if(validateCvv(num)){
-    errormessage += "Codigo de seguridad incorrecto. ";
-    inputError("#cvvInput");
-		ret = false;
-  }
   num = $("#nameInput").val();
 	if(lengthIsZero(num) ){
     errormessage += "Nombre invalido.";
@@ -274,7 +235,6 @@ $(document).ready(function(){
 		$("#mailInput").val(localStorage.getItem("cardOwnerMail"));
 		$("#dniInput").val(localStorage.getItem("cardOwnerID"));
 		$("#provinceInput").val(localStorage.getItem("cardOwnerProvince"));
-
 	}
 });
 
@@ -290,4 +250,39 @@ $(document).ready(function(){
 function parseHour(hour){
 	var h = hour.split(":");
 	return h[0]+":"+h[1];
+}
+function validateCreditCard(){
+  var cardNumber = $("#cardNumberInput").val();
+  var cardMonth = $("#monthButton").val();
+  var cardYear = $("#yearButton").val() - 2000;
+  var cardCVV = $("#cvvInput").val();
+  var url = "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=validatecreditcard&number=" + cardNumber + "&exp_date=" + cardMonth + cardYear + "&sec_code=" + cardCVV;
+  console.log(url);
+  $.ajax({
+          url: url,
+          dataType: "jsonp",
+          success: function(data){
+						debugger;
+						console.log(data);
+            if(data.valid != null){
+							if(validateForm("false")){
+								saveInfo();
+							}
+            }else{
+							console.log("LA CONCHA DE TU MADRE");
+							validateForm("true");
+						}
+          }
+  });
+}
+
+function validCreditCard(){
+	$("#cardNumberInput").css("border", "");
+	$("#cardNumberInput").css("background-color", "");
+	$("#monthButton").css("border", "");
+	$("#monthButton").css("background-color", "");
+	$("#yearButton").css("border", "");
+	$("#yearButton").css("background-color", "");
+	$("#cvvInput").css("border", "");
+	$("#cvvInput").css("background-color", "");
 }

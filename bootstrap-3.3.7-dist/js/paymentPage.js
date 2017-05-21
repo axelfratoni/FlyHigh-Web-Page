@@ -75,6 +75,12 @@ function validateForm(){
     inputError("#yearButton");
 		ret = false;
   }
+	if($("#monthButton").val() <= (new Date()).getMonth() && num == "2017"){
+		errormessage += "Tarjeta vencida ";
+		inputError("#yearButton");
+		inputError("#monthButton");
+		ret = false;
+	}
   num = $("#cvvInput").val();
   if(validateCvv(num)){
     errormessage += "Codigo de seguridad incorrecto. ";
@@ -88,7 +94,7 @@ function validateForm(){
 		ret = false;
   } else{
     num = num.split(" ");
-    if(num.length > 2){
+    if(num.length != 2){
       errormessage += "Ingrese su primer nombre y primer apellido. ";
       inputError("#nameInput");
 			ret = false;
@@ -153,7 +159,6 @@ function validateForm(){
   }
 	num = $("#mailInput").val();
 	if(validateEmail(num)){
-		console.log("xd");
     errormessage += "Mail invalido.";
     inputError("#mailInput");
 		ret = false;

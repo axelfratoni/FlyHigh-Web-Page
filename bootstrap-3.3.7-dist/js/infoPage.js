@@ -16,53 +16,100 @@ function handleDropDown(){
 	});
 };
 
-//             0            1            2         3         4          5           6
-parameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate"];
+//             0            1            2         3         4          5           6        7       8       9              10              11        12           13           14         15
+parameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate", "ori", "des", "arrAirpDesc", "depAirpDesc" , "number", "adultPrice", "kidPrice", "charges", "taxes"];
+
 idaVuelta = ["Ida" , "Vuelta"];
 $(document).ready(function(){
 	console.log(localStorage.getItem("idaYvuelta"));
 	console.log(localStorage.getItem(parameters[1] + idaVuelta[0]) + " hs");
+
+
 		$("#vuelosDivIda").load("FlightsTemplate.html", function(){
-			// Aca poner el logo no el id de aerolinea
-			var data = localStorage.getItem(parameters[0] + idaVuelta[0]);
-			$(this).find(".airportLogo").attr("src",data);
+			var data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[0])) + " hs";
+			$(this).find(".oriHora").find("p").text(data);
+			data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[0])) + " hs";
+			$(this).find(".desHora").find("p").text(data);
+			data = localStorage.getItem(parameters[3] + idaVuelta[0]);
+			$(this).find(".oriID").find("p").text(data);
+			data = localStorage.getItem(parameters[4] + idaVuelta[0]);
+			$(this).find(".desID").find("p").text(data);
+			data = localStorage.getItem(parameters[10] + idaVuelta[0]).split(",");
+			$(this).find(".ori").find("p").text(data[1] + ", " + data[2]);
+			data = localStorage.getItem(parameters[9] + idaVuelta[0]).split(",");
+			$(this).find(".des").find("p").text(data[1] + ", " + data[2]);
 			data = localStorage.getItem(parameters[1] + idaVuelta[0]) + " hs";
-			$(this).find(".duration").append('<p>'+ data +'</p>');
-			data = parseInt(localStorage.getItem(parameters[2] + idaVuelta[0]));
-			$(this).find(".price").append('<p>$'+ data +'</p>');
-			data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[0]).split(" ")[1]) + " hs";
-			$(this).find(".arrivalHourInfo").append('<p>'+ data +'</p>');
-			data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[0]).split(" ")[1]) + " hs";
-			$(this).find(".departureHourInfo").append('<p>'+ data +'</p>');
+			$(this).find(".duration").find("span").text(data);
+			data = "Nro:" + localStorage.getItem(parameters[11] + idaVuelta[0]);
+			$(this).find(".fliNum").find("p").text(data);
+			data = "U$D " + localStorage.getItem(parameters[2] + idaVuelta[0]);
+			$(this).find(".price").find("p").text(data);
+			data = "Adulto: $" + localStorage.getItem(parameters[12] + idaVuelta[0]);
+			$(this).find(".pAdulto").text(data);
+			if(localStorage.getItem("ninosCount") > 0){
+				$(this).find(".pNino").text(localStorage.getItem(parameters[13] + idaVuelta[0]));
+			}
+			data = "Cargo: $" + localStorage.getItem(parameters[14] + idaVuelta[0]);
+			$(this).find(".pCargo").text(data);
+			data = "Impuestos: $" + localStorage.getItem(parameters[15] + idaVuelta[0]);
+			$(this).find(".pImpuestos").text(data);
 		});
 		if(localStorage.getItem("idaYvuelta") == "true"){
 			$("#vuelosDivVuelta").load("FlightsTemplate.html", function(){
-				// Aca poner el logo no el id de aerolinea
-				var data = localStorage.getItem(parameters[0] + idaVuelta[1]);
-				$(this).find(".airportLogo").attr("src",data);
-				$("#titleVuelta").append( "<h4>Vuelta</h4>");
+				var data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[1])) + " hs";
+				$(this).find(".oriHora").find("p").text(data);
+				data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[1])) + " hs";
+				$(this).find(".desHora").find("p").text(data);
+				data = localStorage.getItem(parameters[3] + idaVuelta[1]);
+				$(this).find(".oriID").find("p").text(data);
+				data = localStorage.getItem(parameters[4] + idaVuelta[1]);
+				$(this).find(".desID").find("p").text(data);
+				data = localStorage.getItem(parameters[10] + idaVuelta[1]).split(",");
+				$(this).find(".ori").find("p").text(data[1] + ", " + data[2]);
+				data = localStorage.getItem(parameters[9] + idaVuelta[1]).split(",");
+				$(this).find(".des").find("p").text(data[1] + ", " + data[2]);
 				data = localStorage.getItem(parameters[1] + idaVuelta[1]) + " hs";
-				$(this).find(".duration").append('<p>'+ data +'</p>');
-				data = parseInt(localStorage.getItem(parameters[2] + idaVuelta[1]));
-				$(this).find(".price").append('<p>$'+ data +'</p>');
-				data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[1]).split(" ")[1]) + " hs";
-				$(this).find(".arrivalHourInfo").append('<p>'+ data +'</p>');
-				data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[1]).split(" ")[1]) + " hs";
-				$(this).find(".departureHourInfo").append('<p>'+ data +'</p>');
+				$(this).find(".duration").find("span").text(data);
+				data = "Nro:" + localStorage.getItem(parameters[11] + idaVuelta[1]);
+				$(this).find(".fliNum").find("p").text(data);
+				data = "U$D " + localStorage.getItem(parameters[2] + idaVuelta[1]);
+				$(this).find(".price").find("p").text(data);
+				data = "Adulto: $" + localStorage.getItem(parameters[12] + idaVuelta[1]);
+				$(this).find(".pAdulto").text(data);
+				if(localStorage.getItem("ninosCount") > 0){
+					$(this).find(".pNino").text(localStorage.getItem(parameters[13] + idaVuelta[1]));
+				}
+				data = "Cargo: $" + localStorage.getItem(parameters[14] + idaVuelta[1]);
+				$(this).find(".pCargo").text(data);
+				data = "Impuestos: $" + localStorage.getItem(parameters[15] + idaVuelta[1]);
+				$(this).find(".pImpuestos").text(data);
 			});
 		}
 });
 function handlePrevious(){
-	document.location.href = "ChoosePage.html";
+	var aux = "";
+	if(localStorage.getItem("idaYvuelta") == "true"){24/05/2017
+		console.log(1);
+		aux = "adultos=" + localStorage.getItem("adultosCount") +"&ninos=" + localStorage.getItem("ninosCount") + "&infant=0&ori=" +  localStorage.getItem("oriVuelta") + "&des=" + localStorage.getItem("desVuelta") + "&fechaida=" + parseDate(localStorage.getItem("depDateVuelta").split(" ")[0]);
+	}else{
+		console.log(2);
+		aux = "adultos=" + localStorage.getItem("adultosCount") +"&ninos=" + localStorage.getItem("ninosCount") + "&infant=0&ori=" +  localStorage.getItem("oriIda") + "&des=" + localStorage.getItem("desIda") + "&fechaida=" + parseDate(localStorage.getItem("depDateIda").split(" ")[0]);
+	}
+	console.log(aux);
+	document.location.href = "ChoosePage.html?" + aux;
 }
-
-
+function parseDate(num){
+	num = num.split("-");
+	return num[2] + "/" + num[1] + "/" + num[0];
+}
+24/05/2017
 
 function handleNext(){
+	console.log($("#birthDateInputAdult1").val());
+
 	if(validateForm() && typeof(Storage) !== "undefined"){
-		console.log($("#birthDateInputAdult1").val());
-		var ninosCount = getParameterByName('ninos');
-		var adultosCount = getParameterByName('adultos');
+		var ninosCount = localStorage.getItem("ninosCount");
+		var adultosCount = localStorage.getItem("adultosCount");
 		for(var i = 1; i <= adultosCount; i++){
 			localStorage.setItem(adult[0] + i + parametersLocalStorage[0], $("#" + parametersId[0] + adult[1] + i).val());
 			localStorage.setItem(adult[0] + i + parametersLocalStorage[1], $("#" + parametersId[1] + adult[1] + i).val());
@@ -86,8 +133,8 @@ parametersId = ["nameInput" , "lastNameInput", "documentDropDown", "documentInpu
 var errormessage = "";
 
 function validateForm(){
-	var ninosCount = getParameterByName('ninos');
-	var adultosCount = getParameterByName('adultos');
+	var ninosCount = localStorage.getItem("ninosCount");
+	var adultosCount = localStorage.getItem("adultosCount");
 	var ret = true;
 	for(var i = 1; i <= adultosCount; i++){
 		var num =$("#" + parametersId[0] + adult[1] + i).val();
@@ -115,7 +162,7 @@ function validateForm(){
 			ret = false;
 		}
 		num = $("#" + parametersId[4] + adult[1] + i).val();
-		if(validateBirthDateInput(num)){
+		if(validateBirthDateInput(num, "adult")){
 			errormessage += "Fecha de nacimiento del adulto " + i + " es invalido.";
 			inputError("#" + parametersId[4] + adult[1] + i);
 			ret = false;
@@ -147,7 +194,7 @@ function validateForm(){
 			ret = false;
 		}
 		num = $("#" + parametersId[4] + kid[1] + i).val();
-		if(validateBirthDateInput(num)){
+		if(validateBirthDateInput(num, "kid")){
 			errormessage += "Fecha de nacimiento del niño " + i + " es invalido.";
 			inputError("#" + parametersId[4] + kid[1] + i);
 			ret = false;
@@ -193,8 +240,8 @@ function appendDropDowns(ninosCount, adultosCount){
 
 $(document).ready(function(){
 	console.log()
-	var ninosCount = getParameterByName('ninos');
-	var adultosCount = getParameterByName('adultos');
+	var ninosCount = localStorage.getItem("ninosCount");
+	var adultosCount = localStorage.getItem("adultosCount");
 	var personsList = document.getElementById('personsDiv');
 	var last;
 	for(var i = 1; i <= adultosCount; i++){

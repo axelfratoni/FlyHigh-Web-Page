@@ -36,8 +36,9 @@ body, html {
 
 .mainMenu, .filterMenu, .flightMenu {
   margin-top: 9%;
-  //background-color: #ffe577;
-  background-color: rgb(255, 229, 119, 0.85);
+  background-color: #ffe577;
+  opacity : 0.85;
+  /*background-color: rgb(255, 229, 119, 0.85);*/
   border-radius: 10px;
   border: 3px solid;
   border-color: #fec051;
@@ -169,7 +170,7 @@ body, html {
 .awesomplete mark {
   background: blue;
   font-weight: bold;
-} 
+}
 
 .pre-scrollable {
     max-height: 500px;
@@ -290,9 +291,9 @@ body, html {
 }
 
 .thumbnail {
-    cursor:pointer;
+ cursor:pointer;
 }
 
 .compraPromo{
-  margin-top: 20%;
+ margin-top: 20%;
 }

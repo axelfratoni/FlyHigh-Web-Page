@@ -41,8 +41,45 @@ function validatePhoneNumberInput(num){
 }
 function validateEmail(num){
   var aux = num.split("@");
-  return aux.length != 2 || aux[1].search(/[^A-Za-z.]/) != -1;
+  if(aux.length != 2)
+    return true;
+  var aux2 = aux[1].split(".");
+  return aux[1].search(/[^A-Za-z.]/) != -1 || aux[0].search(/[^A-Za-z.]/) != -1 || aux2.length < 2;
 }
-function validateBirthDateInput(num){
+
+function validateBirthDateInput(num, type){
+  if(lengthIsZero(num))
+    return true;
+  var aux = num.split("-");
+  var today = new Date();
+  console.log(today.getFullYear());
+  if(type == "adult"){
+    if((today.getFullYear() - aux[0]) < 18){
+      console.log(1);
+      return true;
+    }else if((today.getYear() - aux[0]) == 18){
+      if((today.getMonth() - aux[1]) < 0){
+        console.log(2);
+        return true;
+      }else if((today.getMonth() - aux[2]) == 0){
+        if((today.getDate() - aux[2]) < 0){
+          console.log(3);
+          return true;
+        }
+      }
+    }
+  }else{
+    if((today.getYear() - aux[0]) < 3){
+      return true;
+    }else if((today.getYear() - aux[0]) == 3){
+      if((today.getMonth() - aux[1]) < 0){
+        return true;
+      }else if((today.getMonth() - aux[2]) == 0){
+        if((today.getDate() - aux[2]) < 0){
+          return true;
+        }
+      }
+    }
+  }
   return false;
 }

@@ -43,6 +43,10 @@ $(document).ready(function(){
 		var depDateVal = validateDepartureDate();
 		var arrDateVal = validateArrivalDate();
 		var passVal = validatePassengers();
+		var adultos = $("#adultCount").val();
+		localStorage.setItem("adultosCount", adultos);
+		var ninos= $("#ninosCount").val();
+		localStorage.setItem("ninosCount",ninos);
 		if(oriVal && desVal && depDateVal && arrDateVal && passVal){
 			var oriID = null;
 			var desID = null;
@@ -54,7 +58,7 @@ $(document).ready(function(){
 					desID = cities[i].id;
 				}
 			}
-			var parameters = "adultos=" + $("#adultCount").val() +"&ninos=" +$("#ninosCount").val()+ "&infant=" + $("#infaCount").val() + "&ori=" +  oriID + "&des=" + desID + "&fechaida=" + $("#departureDate").val().toString();
+			var parameters = "adultos=" + adultos +"&ninos=" + adultos + "&infant=" + $("#infaCount").val() + "&ori=" +  oriID + "&des=" + desID + "&fechaida=" + $("#departureDate").val().toString();
 			if ($("#idaYvuelta").is(':checked'))
 				parameters = parameters + "&llegada=" + ($("#arrivalDate").val()).toString();
 			if ($("#origen").val().split(" ")[0] == "Aeropuerto")
@@ -381,7 +385,7 @@ $(document).ready(function(){
         var minDate = new Date(selected.date.valueOf());
         $('#arrivalDate').datepicker('setStartDate', minDate);
     });
-    
+
     $("#arrivalDate").datepicker(options).on('changeDate', function (selected) {
         var minDate = new Date(selected.date.valueOf());
         $('#departureDate').datepicker('setEndDate', minDate);
@@ -426,6 +430,7 @@ $(document).ready(function(){
 	});
 });
 
+
 function findPromo(promo){
 	var oriID = "BUE";
 	var desID = promo.city.id;
@@ -456,7 +461,6 @@ function findPromo(promo){
 }
 
 function buyPromo(flight){
-	console.log(flight.price.total.total);
 	saveData(flight, "Ida");
 	document.location.href = "InfoPage.html?adultos=" + $("#adultCountP").val() + "&ninos=" + $("#ninosCountP").val() ;
 }
@@ -473,14 +477,16 @@ function dontClose(){
 }
 
 $(document).ready(function(){
-	$('#closeModal').click(function(){		
+	$('#closeModal').click(function(){
 		$('#myModal').unbind( 'hide.bs.modal', dontClose );
 	});
 });
 
-parameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate"];
+savingParameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate", "ori", "des", "arrAirpDesc", "depAirpDesc" , "number", "adultPrice", "kidPrice", "charges", "taxes"];
 
 function saveData(flight, viaje){
+	localStorage.setItem("adultosCount", $("#adultCountP").val());
+	localStorage.setItem("ninosCount", $("#ninosCountP").val());
 	var airline = flight.outbound_routes[0].segments[0].airline.id;
 	var duration = flight.outbound_routes[0].duration;
 	var price = flight.price.total.total;
@@ -488,15 +494,45 @@ function saveData(flight, viaje){
 	var arrAirp = flight.outbound_routes[0].segments[0].arrival.airport.id;
 	var arrDate = flight.outbound_routes[0].segments[0].arrival.date;
 	var depDate = flight.outbound_routes[0].segments[0].departure.date;
-	localStorage.setItem(parameters[0] + viaje , airline);
-	localStorage.setItem(parameters[1] + viaje , duration);
-	localStorage.setItem(parameters[2] + viaje , price );
-	localStorage.setItem(parameters[3] + viaje , depAirp);
-	localStorage.setItem(parameters[4] + viaje , arrAirp);
-	localStorage.setItem(parameters[5] + viaje , arrDate);
-	localStorage.setItem(parameters[6] + viaje , depDate);
+	var ori = null;
+	var dest = null;
+	for(i=0; i<cities.length-1; i++){
+		if($("#origen").val() == cities[i].name){
+			ori = cities[i].id;
+		}
+		if($("#destino").val() == cities[i].name){
+			des = cities[i].id;
+		}
+	}
+//var ori = getParameterByName('ori');
+//var dest = getParameterByName('des');
+	var arrAirpDesc = flight.outbound_routes[0].segments[0].arrival.airport.description;
+	var depAirpDesc = flight.outbound_routes[0].segments[0].departure.airport.description;
+	var number = flight.outbound_routes[0].segments[0].number;
+	var adultPrice = parseInt(flight.price.adults.base_fare);
+	if(localStorage.getItem("ninosCount") > 0){
+		localStorage.setItem(savingParameters[13] + viaje, parseInt(flight.price.children.base_fare));
+	}
+	var charges = parseInt(flight.price.total.charges);
+	var taxes = parseInt(flight.price.total.taxes);
+	localStorage.setItem(savingParameters[0] + viaje , airline);
+	localStorage.setItem(savingParameters[1] + viaje , duration);
+	localStorage.setItem(savingParameters[2] + viaje , price );
+	localStorage.setItem(savingParameters[3] + viaje , depAirp);
+	localStorage.setItem(savingParameters[4] + viaje , arrAirp);
+	localStorage.setItem(savingParameters[5] + viaje , arrDate);
+	localStorage.setItem(savingParameters[6] + viaje , depDate);
+	localStorage.setItem(savingParameters[7] + viaje , ori);
+	localStorage.setItem(savingParameters[8] + viaje , dest);
+	localStorage.setItem(savingParameters[9] + viaje , arrAirpDesc);
+	localStorage.setItem(savingParameters[10] + viaje , depAirpDesc);
+	localStorage.setItem(savingParameters[11] + viaje , number);
+	localStorage.setItem(savingParameters[12] + viaje , adultPrice);
+	localStorage.setItem(savingParameters[14] + viaje , charges);
+	localStorage.setItem(savingParameters[15] + viaje , taxes);
+	console.log("DEST: " + dest);
+	console.log(localStorage.getItem(savingParameters[8] + viaje) +  " , " + dest);
 }
-
 /*
 <div class="col-md-4">
             <div class="thumbnail" id="promo1">
@@ -532,7 +568,7 @@ function saveData(flight, viaje){
         </div>
         <div class="row">
           <div class="col-md-4">
-            <div class="thumbnail" id="promo4"> 
+            <div class="thumbnail" id="promo4">
               <a href="#myModal" target="_blank" data-toggle="modal" data-target="#myModal" data-num="4">
                 <img src="./images/city.jpg" alt="Lights" style="width:100%">
                 <div class="caption">

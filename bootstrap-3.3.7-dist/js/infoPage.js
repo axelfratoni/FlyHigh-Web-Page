@@ -21,10 +21,6 @@ parameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate",
 
 idaVuelta = ["Ida" , "Vuelta"];
 $(document).ready(function(){
-	console.log(localStorage.getItem("idaYvuelta"));
-	console.log(localStorage.getItem(parameters[1] + idaVuelta[0]) + " hs");
-
-
 		$("#vuelosDivIda").load("FlightsTemplate.html", function(){
 			var data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[0])) + " hs";
 			$(this).find(".oriHora").find("p").text(data);
@@ -88,24 +84,23 @@ $(document).ready(function(){
 });
 function handlePrevious(){
 	var aux = "";
-	if(localStorage.getItem("idaYvuelta") == "true"){24/05/2017
-		console.log(1);
+	if(localStorage.getItem("esPromo") == "true"){
+		document.location.href = "index.html";
+	}
+	if(localStorage.getItem("idaYvuelta") == "true"){
 		aux = "adultos=" + localStorage.getItem("adultosCount") +"&ninos=" + localStorage.getItem("ninosCount") + "&infant=0&ori=" +  localStorage.getItem("oriVuelta") + "&des=" + localStorage.getItem("desVuelta") + "&fechaida=" + parseDate(localStorage.getItem("depDateVuelta").split(" ")[0]);
 	}else{
-		console.log(2);
 		aux = "adultos=" + localStorage.getItem("adultosCount") +"&ninos=" + localStorage.getItem("ninosCount") + "&infant=0&ori=" +  localStorage.getItem("oriIda") + "&des=" + localStorage.getItem("desIda") + "&fechaida=" + parseDate(localStorage.getItem("depDateIda").split(" ")[0]);
 	}
-	console.log(aux);
 	document.location.href = "ChoosePage.html?" + aux;
 }
+
 function parseDate(num){
 	num = num.split("-");
 	return num[2] + "/" + num[1] + "/" + num[0];
 }
-24/05/2017
 
 function handleNext(){
-	console.log($("#birthDateInputAdult1").val());
 
 	if(validateForm() && typeof(Storage) !== "undefined"){
 		var ninosCount = localStorage.getItem("ninosCount");
@@ -129,6 +124,7 @@ function handleNext(){
 		document.location.href = "PaymentPage.html";
 	}
 };
+
 parametersId = ["nameInput" , "lastNameInput", "documentDropDown", "documentInput", "birthDateInput", "dropDownDiv", "dropDown"];
 var errormessage = "";
 
@@ -239,7 +235,6 @@ function appendDropDowns(ninosCount, adultosCount){
 }
 
 $(document).ready(function(){
-	console.log()
 	var ninosCount = localStorage.getItem("ninosCount");
 	var adultosCount = localStorage.getItem("adultosCount");
 	var personsList = document.getElementById('personsDiv');

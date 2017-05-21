@@ -485,6 +485,7 @@ $(document).ready(function(){
 savingParameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate", "ori", "des", "arrAirpDesc", "depAirpDesc" , "number", "adultPrice", "kidPrice", "charges", "taxes"];
 
 function saveData(flight, viaje){
+	localStorage.setItem("esPromo", "true");
 	localStorage.setItem("adultosCount", $("#adultCountP").val());
 	localStorage.setItem("ninosCount", $("#ninosCountP").val());
 	var airline = flight.outbound_routes[0].segments[0].airline.id;

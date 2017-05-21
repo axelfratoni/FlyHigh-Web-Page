@@ -7,7 +7,7 @@ $(document).ready(function(){
 	$("#cardOwnerPostalCode").text(localStorage.getItem("cardOwnerPostalCode"));
 	$("#cardOwnerCountry").text(localStorage.getItem("cardOwnerCountry"));
 	$("#cardOwnerPhone").text(localStorage.getItem("cardOwnerPhone"));
-	
+
 	var personsList = document.getElementById('personsDiv');
 	var n = localStorage.getItem("adultosCount");
 	for(var i = 1; i <= n ; i++){
@@ -16,7 +16,6 @@ $(document).ready(function(){
 		tmpl.querySelector('#name').innerText = localStorage.getItem("adult" + i + "Name") + " " + localStorage.getItem("adult" + i + "LastName");
 		tmpl.querySelector('#document').innerText = localStorage.getItem("adult" + i + "DocumentType" ) + " : " + localStorage.getItem("adult" + i + "Document" );
 		tmpl.querySelector('#birthDate').innerText = localStorage.getItem("adult" + i + "BirthDate");
-
 		personsList.appendChild(tmpl);
 	}
 	var n = localStorage.getItem("ninosCount");
@@ -27,10 +26,15 @@ $(document).ready(function(){
 		tmpl.querySelector('#name').innerText = localStorage.getItem("kid" + i + "Name") + " " + localStorage.getItem("kid" + i + "LastName");;
 		tmpl.querySelector('#document').innerText = localStorage.getItem("kid" + i + "DocumentType" ) + " : " + localStorage.getItem("kid" + i + "Document");
 		tmpl.querySelector('#birthDate').innerText = localStorage.getItem("kid" + i + "BirthDate");
-
 		personsList.appendChild(tmpl);
 	}
+});
+$(document).ready(function(){
+	$("#backButton").click(function(){
+		document.location.href = "PaymentPage.html";
+	});
+});
 
-
-	
+$(document).ready(function(){
+	localStorage.setItem("paymentPage", "true");
 });

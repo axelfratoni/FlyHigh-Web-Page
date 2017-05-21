@@ -95,6 +95,7 @@ function handlePrevious(){
 	document.location.href = "ChoosePage.html?" + aux;
 }
 
+
 function parseDate(num){
 	num = num.split("-");
 	return num[2] + "/" + num[1] + "/" + num[0];
@@ -271,8 +272,29 @@ $(document).ready(function(){
                   <button type=\"button\" class=\"btn btn-primary\" id=\"nextButton\">Ir al pago</button>
                 </div>`).click(handleNext);
 	});
+	if(localStorage.getItem("infoPage") == "true"){
+		loadData();
+	}
 });
 
+function loadData(){
+	var ninosCount = localStorage.getItem("ninosCount");
+	var adultosCount = localStorage.getItem("adultosCount");
+	for(var i = 1; i <= adultosCount; i++){
+		$("#" + parametersId[0] + adult[1] + i).val(localStorage.getItem(adult[0] + i + parametersLocalStorage[0]));
+		$("#" + parametersId[1] + adult[1] + i).val(localStorage.getItem(adult[0] + i + parametersLocalStorage[1]));
+		$("#" + parametersId[2] + adult[1] + i).val(localStorage.getItem(adult[0] + i + parametersLocalStorage[2]));
+		$("#" + parametersId[3] + adult[1] + i).val(localStorage.getItem(adult[0] + i + parametersLocalStorage[3]));
+		$("#" + parametersId[4] + adult[1] + i).val(localStorage.getItem(adult[0] + i + parametersLocalStorage[4]));
+	}
+	for(var i = 1; i <= ninosCount; i++){
+		$("#" + parametersId[0] + kid[1] + i).val(localStorage.getItem(kid[0] + i + parametersLocalStorage[0]));
+		$("#" + parametersId[1] + kid[1] + i).val(localStorage.getItem(kid[0] + i + parametersLocalStorage[1]));
+		$("#" + parametersId[2] + kid[1] + i).val(localStorage.getItem(kid[0] + i + parametersLocalStorage[2]));
+		$("#" + parametersId[3] + kid[1] + i).val(localStorage.getItem(kid[0] + i + parametersLocalStorage[3]));
+		$("#" + parametersId[4] + kid[1] + i).val(localStorage.getItem(kid[0] + i + parametersLocalStorage[4]));
+	}
+}
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;

@@ -45,7 +45,8 @@ function loadFlights(){
 				});
 			});
 		})(i,flight);
-	}
+	}	
+	startPagination();	
 };
 
 function joinHour(hour){
@@ -57,6 +58,34 @@ function parseHour(hour){
 	var h = hour.split(":");
 	return h[0]+":"+h[1];
 }
+loaded = 0;
+function startPagination(){
+	$("#vuelosDiv .vuelos").each(function(){
+		$(this).css("display","none");
+	});
+	loaded = 10;
+	loadMore();
+}
+
+function loadMore(){
+	(function(i){
+		$("#vuelosDiv .vuelos").each(function(){
+			if(i >= (loaded))
+				return;
+			$(this).css("display","block");
+			i += 1;
+		});
+	})(0);
+}
+
+$(document).ready(function(){
+	$("#vuelosDiv").scroll(function(){
+		if((100 * loaded) < $("#vuelosDiv").scrollTop()){
+			loaded += 10;
+			loadMore();
+		}
+	});
+});
 
 $(document).ready(function(){
 	$("#minDur").click(function(){
@@ -64,6 +93,7 @@ $(document).ready(function(){
 			return $(a).data("dur") > $(b).data("dur");
 		}).appendTo("#vuelosDiv");
 		$("#orderBy").find("p").text("Menor duración");
+		startPagination();
 	});
 });
 
@@ -73,6 +103,7 @@ $(document).ready(function(){
 			return $(a).data("price") > $(b).data("price");
 		}).appendTo("#vuelosDiv");
 		$("#orderBy").find("p").text("Menor precio");
+		startPagination();
 	});
 });
 
@@ -82,6 +113,7 @@ $(document).ready(function(){
 			return $(a).data("air") > $(b).data("air");
 		}).appendTo("#vuelosDiv");
 		$("#orderBy").find("p").text("Aerolínea");
+		startPagination();
 	});
 });
 

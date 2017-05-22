@@ -215,8 +215,8 @@ function appendDropDowns(ninosCount, adultosCount){
 		    <span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu" id="documentDropDown">
-		    <li><a href="#" data-value="dniAdult-` + i + `" id="dniAdult-` + i + `">DNI</a></li>
-		    <li><a href="#" data-value="pasAdult-` + i + `" id="pasAdult-` + i + `">Pasaporte</a></li>
+		    <li><a href="#!" data-value="dniAdult-` + i + `" id="dniAdult-` + i + `">DNI</a></li>
+		    <li><a href="#!" data-value="pasAdult-` + i + `" id="pasAdult-` + i + `">Pasaporte</a></li>
 		  </ul>
 		</div>`).click(handleDropDown);
 		});
@@ -228,8 +228,8 @@ function appendDropDowns(ninosCount, adultosCount){
 		    <span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu" id="documentDropDown">
-		    <li><a href="#" data-value="dniKid-` + i + `" id="dniKid-` + i + `">DNI</a></li>
-		    <li><a href="#" data-value="pasKid-` + i + `" id="pasKid-` + i + `">Pasaporte</a></li>
+		    <li><a href="#!" data-value="dniKid-` + i + `" id="dniKid-` + i + `">DNI</a></li>
+		    <li><a href="#!" data-value="pasKid-` + i + `" id="pasKid-` + i + `">Pasaporte</a></li>
 		  </ul>
 		</div>`).click(handleDropDown);
 		});

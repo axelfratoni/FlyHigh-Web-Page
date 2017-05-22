@@ -32,30 +32,34 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-left smoothScroll" href="#main">
-            <img src="./flyhigh.jpg" height="50" class="d-inline-block align-top">
+          <a class="navbar-left smoothScroll" href="index.html">
+            <img src="./flyhigh.jpg" height="62" class="d-inline-block align-top">
           </a>
         </div>
       </div>
     </nav>
 
     <div class="container-fluid ">
-      <div class="row" style="margin-top:10%;">
+      <div class="row" style="margin-top:5%;">
         <div class="col-md-10 col-md-offset-1 flightMenu">
-          <div class="centerText" id="title"><h4>Ida</h4></div>
+          <div class="centerText" id="title"></div>
           <div class="col-md-12" id="vuelosDivIda"></div>
           <div class="centerText" id="titleVuelta"></div>
           <div class="col-md-12 " id="vuelosDivVuelta"></div>
         </div>
       </div>
       <div class="row" id="main">
-        <div class="col-md-6 col-md-offset-3 mainMenu" >
+        <div class="col-md-6 col-md-offset-3 paymentMenu" >
           <div class="centerText"> <h4> Datos de pago </h4> </div>
           <div class="row menuOptions">
-            <div class="col-md-2 col-md-offset-1">Tipo de tarjeta</div>
+            <div class="col-md-3 col-md-offset-1">Numero de tarjeta</div>
+            <div class="col-md-3 col-md-offset-2">Tipo de tarjeta</div>
           </div>
           <div class="row">
-            <div class="col-md-2 col-md-offset-1">
+            <div class="col-md-3 col-md-offset-1">
+              <input type="text" class="form-control myInputs" id="cardNumberInput">
+            </div>
+            <div class="col-md-3 col-md-offset-2">
               <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle myInputs" id="cardTypeButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   <span class="caret"></span>
@@ -71,15 +75,12 @@
           </div>
 
           <div class="row menuOptions">
-            <div class="col-md-3 col-md-offset-1">Numero de tarjeta</div>
-            <div class="col-md-5 col-md-offset-2">Fecha de expiracion y codigo de seguridad</div>
+            <div class="col-md-4 col-md-offset-1">Fecha de expiracion </div>
+            <div class="col-md-4 col-md-offset-1">Codigo de seguridad</div>
           </div>
 
           <div class="row">
-            <div class="col-md-3 col-md-offset-1">
-              <input type="text" class="form-control myInputs" id="cardNumberInput">
-            </div>
-            <div class="col-md-1 col-md-offset-2">
+            <div class="col-md-1 col-md-offset-1">
               <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle myInputs" id="monthButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   <span class="caret"></span>
@@ -119,7 +120,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-md-2 col-md-offset-1">
+            <div class="col-md-2 col-md-offset-3">
               <input type="text" class="form-control myInputs centerText" id="cvvInput">
             </div>
           </div>
@@ -189,7 +190,7 @@
                 <div class="col-md-1 col-md-offset-1">
                   <button type="button" class="btn btn-primary myInputs" id="backButton">Volver</button>
                 </div>
-                <div class="col-md-1 col-md-offset-8">
+                <div class="col-md-1 col-md-offset-7">
                   <button type="button" class="btn btn-primary myInputs" id="nextButton">Continuar</button>
                 </div>
               </div>

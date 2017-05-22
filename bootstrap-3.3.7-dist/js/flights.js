@@ -228,7 +228,13 @@ $(document).ready(function(){
 	if(getParameterByName('llegada') == null && localStorage.getItem("idaYvuelta") != "true"){
 		console.log("xD");
 		localStorage.setItem('idaYvuelta', false);
+		$("#seleccionDe").append("<h4>Seleccion de Ida</h4>");
 	}else{
+		if(getParameterByName('llegada') != null) {
+			$("#seleccionDe").append("<h4>Seleccion de Ida</h4>");
+		} else {
+			$("#seleccionDe").append("<h4>Seleccion de Vuelta</h4>");
+		}
 		console.log(":p");
 		localStorage.setItem('idaYvuelta', true);
 	}

@@ -28,15 +28,15 @@
 
   <body class="backgroundimage parallax">
   <!-- Barra superior -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-left smoothScroll" href="index.html">
-            <img src="./flyhigh.jpg" height="50" class="d-inline-block align-top">
-          </a>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-left smoothScroll" href="index.html">
+              <img src="./flyhigh.jpg" height="62" class="d-inline-block align-top">
+            </a>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
 
     <div class="container-fluid ">
       <div class="row" id="main">
@@ -44,64 +44,68 @@
           <div class="centerText"> <h4> Datos de los pasajeros </h4> </div>
           <div class="row formTopMargin" id="personsDiv">
               <template id="personTemplate">
-                  <div class="centerText" id="title"><h4></h4></div>
+                  <div class="centerText"><b id="title"></b></div>
                   <div class="row formTopMargin form-group">
-                    <div class="col-md-1 col-from-label">Nombre: </div>
+                    <div class="col-md-offset-1 col-md-2 col-from-label"><b>Nombre: </b></div>
                     <div class="col-md-3" id="name"></div>
                     <div class="col-md-3" id="document"></div>
-                    <div class="col-md-3">Fecha de nacimiento: </div>
+                  </div>
+                  <div class="row formTopMargin form-group">
+                    <div class="col-md-offset-1 col-md-4"><b>Fecha de nacimiento: </b></div>
                     <div class="col-md-2" id="birthDate"></div>
                   </div>
 
               </template>
           </div>
 
-          <div class="centerText"> <h4> Datos del pago </h4> </div>
-          <div class="row formTopMargin">
-            <div class="col-md-3 col-md-offset-1" >Tarjeta:</div>
-            <div class="col-md-6 col-md-offset-2">Fecha de expiracion y codigo de seguridad:</div>
-          </div>
-          <div class="row formTopMargin">
-            <div class="col-md-4 col-md-offset-1" id="cardNumber"></div>
-            <div class="col-md-5 col-md-offset-1" id="expiryDateAndCVV"></div>
+          <div class="menuOptions row">
+            <div class="centerText"> <h4> Datos del pago </h4> </div>
+            <div class="row formTopMargin">
+              <div class="col-md-2 col-md-offset-1" ><b>Tarjeta:</b></div>
+              <div class="col-md-6" id="cardNumber"></div>
+            </div>
+            <div class="row formTopMargin">
+              <div class="col-md-7 col-md-offset-1"><b>Fecha de expiracion y codigo de seguridad:</b></div>
+              <div class="col-md-3" id="expiryDateAndCVV"></div>
+            </div>
           </div>
           <div class="menuOptions row">
             <div class="centerText form-group"> <h4> Informacion de cobro </h4> </div>
             <div class="row">
-              <div class="col-md-3 centerText">Nombre y apellido:</div>
+              <div class="col-md-2 col-md-offset-1"><b>Nombre:</b></div>
               <div class="col-md-3" id="cardOwnerName"></div>
-              <div class="col-md-3 centerText">DNI del titular:</div>
-              <div class="col-md-3" id="cardOwnerID"></div>
+              <div class="col-md-3"><b>DNI del titular:</b></div>
+              <div class="col-md-2" id="cardOwnerID"></div>
             </div>
             <div class="row">
-              <div class="col-md-3 centerText">Pais: </div>
+              <div class="col-md-2 col-md-offset-1"><b>Pais: </b></div>
               <div class="col-md-3" id="cardOwnerCountry"></div>
-              <div class="col-md-3 centerText">Provincia: </div>
-              <div class="col-md-3" id="cardOwnerProvince"></div>
+              <div class="col-md-3"><b>Provincia: </b></div>
+              <div class="col-md-2" id="cardOwnerProvince"></div>
             </div>
             <div class="row">
-              <div class="col-md-3 centerText">Ciudad:</div>
+              <div class="col-md-2 col-md-offset-1"><b>Ciudad:</b></div>
               <div class="col-md-3" id="cardOwnerCity"></div>
-              <div class="col-md-3 centerText">Codigo postal: </div>
-              <div class="col-md-3" id="cardOwnerPostalCode"></div>
+              <div class="col-md-3"><b>Codigo postal:</b></div>
+              <div class="col-md-2" id="cardOwnerPostalCode"></div>
             </div>
             <div class="row">
-              <div class="col-md-3 centerText">Direccion: </div>
-              <div class="col-md-3" id="cardOwnerAddress"></div>
+              <div class="col-md-2 col-md-offset-1"><b>Direccion:</b> </div>
+              <div class="col-md-7" id="cardOwnerAddress"></div>
             </div>
+            <div class="menuOptions row">
             <div class="centerText form-group"> <h4> Informacion de contacto </h4> </div>
-            <div class="row">
-              <div class="col-md-3 centerText">Mail: </div>
-              <div class="col-md-3" id="cardOwnerMail"></div>
-              <div class="col-md-3 centerText">Numero de telefono: </div>
-              <div class="col-md-3" id="cardOwnerPhone"></div>
+              <div class="col-md-2 col-md-offset-1"><b>Mail: </b></div>
+              <div class="col-md-2" id="cardOwnerMail"></div>
+              <div class="col-md-2 col-md-offset-1"><b>Telefono: </b></div>
+              <div class="col-md-2" id="cardOwnerPhone"></div>
             </div>
 
             <div class="row menuOptions form-group">
-              <div class="col-md-1 ">
+              <div class="col-md-1 col-md-offset-1">
                 <button type="button" class="btn btn-primary myInputs" id="backButton">Volver</button>
               </div>
-              <div class="col-md-1 col-md-offset-8">
+              <div class="col-md-1 col-md-offset-6">
                 <button type="button" class="btn btn-primary myInputs" id="nextButton">Confirmar Pago</button>
               </div>
             </div>

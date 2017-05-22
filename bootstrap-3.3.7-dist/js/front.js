@@ -391,9 +391,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 	var options={
         format: 'dd/mm/yyyy',
-        todayHighlight: true,
         autoclose: true,
-        todayBtn:  1,
      	startDate: '+2d'
       };
     $("#departureDate").datepicker(options).on('changeDate', function (selected) {

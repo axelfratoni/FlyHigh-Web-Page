@@ -29,16 +29,16 @@
         <div class="container">
           <div class="navbar-header">
             <a class="navbar-left smoothScroll" href="index.html">
-              <img src="./flyhigh.jpg" height="50" class="d-inline-block align-top">
+              <img src="./flyhigh.jpg" height="62" class="d-inline-block align-top">
             </a>
           </div>
         </div>
       </nav>
 
       <div class="container-fluid ">
-        <div class="row" style="margin-top:10%;">
+        <div class="row" style="margin-top:5%">
           <div class="col-md-10 col-md-offset-1 flightMenu">
-            <div class="centerText" id="title"><h4>Ida</h4></div>
+            <div class="centerText" id="title"></div>
             <div class="col-md-12" id="vuelosDivIda"></div>
             <div class="centerText" id="titleVuelta"></div>
             <div class="col-md-12 " id="vuelosDivVuelta"></div>
@@ -46,9 +46,9 @@
         </div>
 
         <div class="row">
-          <div class="col-md-8 col-md-offset-2 mainMenu" id="personsDiv">
+          <div class="col-md-8 col-md-offset-2 passengerInfoMenu" id="personsDiv">
             <template id="personTemplate">
-              <div class="centerText" id="title"><h4></h4></div>
+              <div class="centerText"><h4 id="title"></h4></div>
               <div class="row menuOptions form-group">
                 <label class="col-md-1 col-from-label" for="nameInput">
                   <h4>Nombre: </h4>
@@ -56,25 +56,30 @@
                 <div class="col-md-3 col-md-offset-1">
                   <input type="text" class="form-control myInputs" id="nameInput" placeHolder="Nombre">
                 </div>
-                <div class="col-md-4 col-md-offset-1"><h4>Tipo de documento:</h4></div>
-              </div>
-              <div class="row menuOptions form-group">
-                <label class="col-md-1 col-from-label" for="lastNameInput">
+                <label class="col-md-1 col-from-label col-md-offset-1" for="lastNameInput">
                   <h4>Apellido:</h4>
                 </label>
                 <div class="col-md-3 col-md-offset-1">
                   <input type="text" class="form-control myInputs" id="lastNameInput" placeHolder="Apellido">
                 </div>
-                <div id="dropDownDiv" class="col-md-1 col-md-offset-1"></div>
-                <div class="col-md-4">
+              </div>
+              <div class="row menuOptions form-group">
+                <div class="col-md-2">
+                  <h4>Documento:</h4>
+                </div>
+                <div class="col-md-3">
                   <input type="text" class="form-control myInputs" id="documentInput" placeHolder="Documento">
                 </div>
+                <div class="col-md-1 col-md-offset-1">
+                  <h4>Tipo:</h4>
+                </div>
+                <div id="dropDownDiv" class="col-md-1"></div>
               </div>
 
               </div>
               <div class="row menuOptions form-group">
                 <div class="form-group">
-                  <div class="col-md-2 col-from-label" for="birthDateInput">
+                  <div class="col-md-4 col-from-label" for="birthDateInput">
                     <h4>Fecha de nacimiento:</h4>
                   </div>
                     <div class="col-md-3">
@@ -82,6 +87,7 @@
                     </div>
                 </div>
               </div>
+              <div class="row bottom-buffer"></div>
             </template>
           </div>
           <div class="row">

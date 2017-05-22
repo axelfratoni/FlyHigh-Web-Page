@@ -43,7 +43,8 @@ $(document).ready(function(){
 			data = "Adulto: $" + localStorage.getItem(parameters[12] + idaVuelta[0]);
 			$(this).find(".pAdulto").text(data);
 			if(localStorage.getItem("ninosCount") > 0){
-				$(this).find(".pNino").text(localStorage.getItem(parameters[13] + idaVuelta[0]));
+				data = "Niño: $" + localStorage.getItem(parameters[13] + idaVuelta[0])
+				$(this).find(".pNino").text(data);
 			}
 			data = "Cargo: $" + localStorage.getItem(parameters[14] + idaVuelta[0]);
 			$(this).find(".pCargo").text(data);

@@ -133,7 +133,9 @@ function validateArrivalDate(){
 }
 
 function validatePassengers(){
-	if(parseInt($("#adultCount").val()) + parseInt($("#ninosCount").val()) == 0){
+	adul = parseInt($("#adultCount").val());
+	nino = parseInt($("#ninosCount").val());  
+	if(adul > 10 || adul < 1 || nino > 10 || nino < 0){
 		inputError(".psgrCount");
 		return false
 	}
@@ -437,11 +439,22 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$(".compraPromo").click(function(){
-		console.log($(this).data("target"));
-		var target = $(this).data("target");
-		findPromo(deals[target]);
+		if (validatePassengersPromo) {		
+			var target = $(this).data("target");
+			findPromo(deals[target]);
+		}
 	});
 });
+
+function validatePassengersPromo(){
+	adul = parseInt($("#adultCountP").val());
+	nino = parseInt($("#ninosCountP").val());  
+	if(adul > 10 || adul < 1 || nino > 10 || nino < 0){
+		inputError(".psgrCountP");
+		return false
+	}
+	return true;
+}
 
 
 function findPromo(promo){

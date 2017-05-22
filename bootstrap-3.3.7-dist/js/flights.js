@@ -21,16 +21,22 @@ function loadFlights(){
 				$(this).find(".ori").find("p").text(data[1] + ", " + data[2]);
 				data = flight.outbound_routes[0].segments[0].arrival.airport.description.split(",");
 				$(this).find(".des").find("p").text(data[1] + ", " + data[2]);
-				data =  flight.outbound_routes[0].segments[0].duration + " hs";
+				data =  flight.outbound_routes[0].segments[0].duration + "hs";
 				$(this).find(".duration").find("span").text(data);
 				data = "Nro:" + flight.outbound_routes[0].segments[0].number;
 				$(this).find(".fliNum").find("p").text(data);
-				data = "U$D " + parseInt(flight.price.total.total);
+				data = parseInvDate(flight.outbound_routes[0].segments[0].departure.date.split(" ")[0]);
+				$(this).find(".oriFecha").find("p").text(data);
+				data = parseInvDate(flight.outbound_routes[0].segments[0].arrival.date.split(" ")[0]);
+				$(this).find(".desFecha").find("p").text(data);
+				data = flight.outbound_routes[0].segments[0].airline.name;
+				$(this).find(".aeroName").find("p").text(data);
+				data = "U$D " + parseInt(flight.price.total.total);				
 				$(this).find(".price").find("p").text(data);
 				data = "Adulto: $" + parseInt(flight.price.adults.base_fare);
 				$(this).find(".pAdulto").text(data);
 				if(localStorage.getItem("ninosCount") > 0){
-					data = "Nino: $" + parseInt(flight.price.children.base_fare);
+					data = "Niño: $" + parseInt(flight.price.children.base_fare);
 					$(this).find(".pNino").text(data);
 				}
 				data = "Cargo: $" + parseInt(flight.price.total.charges);
@@ -58,12 +64,36 @@ function parseHour(hour){
 	var h = hour.split(":");
 	return h[0]+":"+h[1];
 }
+
+priceFrom = 0;
+priceTo = 1000000;
+$(document).ready(function(){
+	$("#applyFilters").click(function(){
+		priceFrom = ($("#minPrice").val() == "")? 0: parseInt($("#minPrice").val());
+		priceTo = ($("#maxPrice").val() == "")? 1000000: parseInt($("#maxPrice").val());
+		startPagination();
+	});
+});
+
+$(document).ready(function(){
+	$("#clearFilters").click(function(){
+		$("#minPrice").val("");
+		$("#maxPrice").val("");
+		priceFrom = 0;
+		priceTo = 1000000;
+		startPagination();
+	});
+});
+
 loaded = 0;
+actual = 0;
 function startPagination(){
 	$("#vuelosDiv .vuelos").each(function(){
 		$(this).css("display","none");
 	});
 	loaded = 10;
+	actual = 0;
+	$("#notFound").css("display","none");
 	loadMore();
 }
 
@@ -72,10 +102,16 @@ function loadMore(){
 		$("#vuelosDiv .vuelos").each(function(){
 			if(i >= (loaded))
 				return;
-			$(this).css("display","block");
-			i += 1;
+			if(parseInt($(this).data("price")) >= priceFrom && parseInt($(this).data("price")) <= priceTo){
+				$(this).css("display","block");
+				i += 1;
+				actual += 1;
+			}
 		});
 	})(0);
+	if (actual == 0){
+		$("#notFound").css("display","block");
+	}
 }
 
 $(document).ready(function(){
@@ -239,6 +275,11 @@ $(document).ready(function(){
 function parseDate(date){
 	var aux = date.split("/");
 	return aux[2] + "-" + aux[1] + "-" + aux[0];
+}
+
+function parseInvDate(date){
+	var aux = date.split("-");
+	return aux[2] + "/" + aux[1] + "/" + aux[0];
 }
 
 function getParameterByName(name, url) {

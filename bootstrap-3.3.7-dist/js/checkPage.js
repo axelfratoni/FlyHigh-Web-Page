@@ -45,59 +45,49 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+
 	$("#nextButton").click(function(){
 		var pasajeros = [];
 		var n = localStorage.getItem("adultosCount");
 		for(var i = 1; i <= n ; i++){
-			pasajeros.push(addPassenger("Adult", i));
+			pasajeros.push(addPassenger("adult", i));
 		}
 		n = localStorage.getItem("ninosCount");
 		for(var i = 1; i <= n ; i++){
-			pasajeros.push(addPassenger("Kid", i));
+			pasajeros.push(addPassenger("kid", i));
 		}
-		var tarjeta =  {"number": localStorage.getItem("cardNumber"), "expiration": localStorage.getItem("expiryMonth") + (localStorage.getItem("expiryYear")-2000), "security_code": localStorage.getItem("cvv"), "first_name": localStorage.getItem("cardOwnerName").split(" ")[0], "last_name": localStorage.getItem("cardOwnerName").split(" ")[1]};
-		$("#cardOwnerCity").text(localStorage.getItem("cardOwnerCity"));
-		$("#cardOwnerAddress").text(localStorage.getItem("cardOwnerAddress"));
-		$("#cardOwnerPostalCode").text(localStorage.getItem("cardOwnerPostalCode"));
-		$("#cardOwnerCountry").text(localStorage.getItem("cardOwnerCountry"));
-		$("#cardOwnerPhone").text(localStorage.getItem("cardOwnerPhone"));
-		$("#cardOwnerProvince").text(localStorage.getItem("cardOwnerProvince"));
-		$("#cardOwnerMail").text(localStorage.getItem("cardOwnerMail"));
-		$("#cardOwnerID").text(localStorage.getItem("cardOwnerID"));
-
-		var lugarPago = {"city": {"id": "BUE", "state": "Buenos Aires", "country": "AR"}, "zip_code": 123, "street": "asd 123", "floor": "", "apartment": ""};
-		var contacto = {"email": "asd@asd.com", "phones": ["12313"]};
-		var pago = {"installments": 1, "credit_card": tarjeta, "billing_address": lugarPago, "contact": contacto};
-		var preParse = {"flight_id": 93480, "passengers" : pasajeros, "payment": pago};
-		console.log(JSON.stringify(preParse));
+		var phoneNumber = localStorage.getItem("cardOwnerPhone").slice(0,4) + "-" + localStorage.getItem("cardOwnerPhone").slice(4,8);
+		var credit_card =  {"number": localStorage.getItem("cardNumber"), "expiration": localStorage.getItem("expiryMonth") + (localStorage.getItem("expiryYear")-2000), "security_code": localStorage.getItem("cvv"), "first_name": localStorage.getItem("cardOwnerName").split(" ")[0], "last_name": localStorage.getItem("cardOwnerName").split(" ")[1]};
+		var billing_address = {"city": {"id": localStorage.getItem("cardOwnerCityId"), "state": localStorage.getItem("cardOwnerProvince"), "country": { "id": localStorage.getItem("cardOwnerCountryId")}}, "zip_code": parseInt(localStorage.getItem("cardOwnerPostalCode")), "street": localStorage.getItem("cardOwnerAddress"), "floor": "", "apartment": ""}
+		var contact = {"email": localStorage.getItem("cardOwnerMail"), "phones": [phoneNumber]};
+		var pago = {"installments": 0, "credit_card": credit_card, "billing_address": billing_address};
+		var preParse = {"flight_id": parseInt(localStorage.getItem("numberIda")), "passengers" : pasajeros, "payment": pago , "contact": contact};
 		var postParse = JSON.stringify(preParse);
-		$.ajax({
+		console.log(postParse);
+		var ajaxRequest = $.ajax({
 		  type: "POST",
 		  url: 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight',
 		  data: postParse,
-		  dataType: "json",
-		  success: function(data){
-		  	console.log(JSON.stringify(data));
-		  },
-		  error: function(data){
-		  	console.log(JSON.stringify(data));
-		  }
+		 	contentType: "application/json; charset=utf-8",
+		  dataType: "json"
+		  });
+		ajaxRequest.done(function(data){
+			console.log(JSON.stringify(data));
 		});
 	});
 });
 function addPassenger(age, i){
-	var fname = $("#name" + age + i).split(" ")[0];
-	var lname = $("#name" + age + i).split(" ")[1];
-	var birthDate = $("birthDate" + age + i);
+	var fname = localStorage.getItem(age + i + "Name");
+	var lname = localStorage.getItem(age + i + "LastName");
+	var birthDate = localStorage.getItem(age + i + "BirthDate");
 	var idType;
-	if($("#document" + age + i).split(" ")[0] == "DNI"){
-		idType = 1;
-	}else{
-		idType = 2;
+	if(localStorage.getItem(age + i + "DocumentType" ) == "DNI"){	idType = 1;
+	}else{	idType = 2;
 	}
-	var id = $("#document" + age + i).split(" ")[2];
+	var id = localStorage.getItem(age + i + "Document");
 	return {"first_name": fname, "last_name": lname, "birthdate": birthDate, "id_type": idType, "id_number": id};
 }
+
 $(document).ready(function(){
 	localStorage.setItem("paymentPage", "true");
 });

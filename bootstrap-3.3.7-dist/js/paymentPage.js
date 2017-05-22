@@ -23,7 +23,7 @@ $(document).ready(function(){
   });
 });
 
-function saveInfo(){
+function saveInfo(cityId, countryId){
   localStorage.setItem("cardType", $("#cardTypeButton").val());
   localStorage.setItem("cardNumber", $("#cardNumberInput").val());
   localStorage.setItem("expiryMonth", $("#monthButton").val());
@@ -38,7 +38,8 @@ function saveInfo(){
 	localStorage.setItem("cardOwnerMail", $("#mailInput").val());
 	localStorage.setItem("cardOwnerID", $("#dniInput").val());
 	localStorage.setItem("cardOwnerProvince", $("#provinceInput").val());
-
+	localStorage.setItem("cardOwnerCityId", cityId);
+	localStorage.setItem("cardOwnerCountryId", countryId);
 
 }
 
@@ -257,10 +258,13 @@ function validateLocation(){
 	var isCorrect = false;
 	var ret = true;
 	var country = $("#countryInput").val();
+	var cityID;
+	var countryID;
 	console.log("pais: " + country);
 	for(var i = 0; i < countries.length; i++){
 		console.log("comparing countries: " + countries[i].name);
 		if(country == countries[i].name){
+			countryID = countries[i].id;
 			isCorrect = true;
 			break;
 		}
@@ -275,7 +279,8 @@ function validateLocation(){
 	console.log("provincia: " + state);
 	for(var i = 0; i < cities.length; i++){
 		console.log("comparing states: " +cities[i].name.split(", ")[1]);
-		if(state == cities[i].name.split(", ")[1]){
+		if(state == cities[i].name.split(", ")[1] && cities[i].country.id == countryID){
+			cityID = cities[i].id;
 			isCorrect = true;
 			break;
 		}
@@ -290,7 +295,7 @@ function validateLocation(){
 	console.log("ciudad: " + city);
 	for(var i = 0; i < cities.length; i++){
 		console.log("comparing cities: " +cities[i].name.split(",")[0]);
-		if(city == cities[i].name.split(",")[0]){
+		if(city == cities[i].name.split(",")[0] && cityID == cities[i].id ){
 			isCorrect = true;
 			break;
 		}
@@ -302,7 +307,7 @@ function validateLocation(){
 	}
 	if(ret == true){
 		if(validateForm("false")){
-			saveInfo();
+			saveInfo(cityID, countryID);
 			document.location.href = "CheckPage.html";
 		}
 	}else{

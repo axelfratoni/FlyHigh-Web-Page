@@ -139,10 +139,17 @@ $(document).ready(function(){
 		  });
 		ajaxRequest.done(function(data){
 			console.log(JSON.stringify(data));
-			$("#confirmBanner").html("<div class=\"alert alert-success alert-dismissable\">\
-      		<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">×</a>\
-      		<strong>Exito!</strong> Has reservado tu vuelo. <a href=\"index.html\"> Volver al inicio.\
-    		</a></div>");
+			//if(data.booking == true) {
+				$("#confirmBanner").html("<div class=\"alert alert-success alert-dismissable\">\
+	      		<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">×</a>\
+	      		<strong>Exito!</strong> Has reservado tu vuelo. <a href=\"index.html\"> Volver al inicio.\
+	    		</a></div>");
+			//} else {
+			//	$("#confirmBanner").html("<div class=\"alert alert-danger alert-dismissable\">\
+	      	//	<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">×</a>\
+	      	//	<strong>Ha ocurrido un error en la solicitud.</strong> Intente de vuelta mas tarde. <a href=\"index.html\"> Volver al inicio.\
+	    	//	</a></div>");
+			//}
 			window.scrollTo(0,document.body.scrollHeight);
 		});
 	});

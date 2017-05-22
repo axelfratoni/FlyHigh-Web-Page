@@ -19,6 +19,8 @@ $(document).ready(function(){
 			$(this).find(".duration").find("span").text(data);
 			data = "Nro:" + localStorage.getItem(parameters[11] + idaVuelta[0]);
 			$(this).find(".fliNum").find("p").text(data);
+			data = localStorage.getItem(parameters[0] + idaVuelta[0]);
+			$(this).find(".aeroName").find("p").text(data);
 			data = "U$D " + localStorage.getItem(parameters[2] + idaVuelta[0]);
 			$(this).find(".price").find("p").text(data);
 			data = "Adulto: $" + localStorage.getItem(parameters[12] + idaVuelta[0]);
@@ -32,6 +34,7 @@ $(document).ready(function(){
 			$(this).find(".pImpuestos").text(data);
 		});
 		if(localStorage.getItem("idaYvuelta") == "true"){
+			$("#titleVuelta").append("<h4>Vuelta</h4>");
 			$("#vuelosDivVuelta").load("FlightsTemplate.html", function(){
 				var data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[1])) + " hs";
 				$(this).find(".oriHora").find("p").text(data);
@@ -49,6 +52,8 @@ $(document).ready(function(){
 				$(this).find(".duration").find("span").text(data);
 				data = "Nro:" + localStorage.getItem(parameters[11] + idaVuelta[1]);
 				$(this).find(".fliNum").find("p").text(data);
+				data = localStorage.getItem(parameters[0] + idaVuelta[1]);
+				$(this).find(".aeroName").find("p").text(data);
 				data = "U$D " + localStorage.getItem(parameters[2] + idaVuelta[1]);
 				$(this).find(".price").find("p").text(data);
 				data = "Adulto: $" + localStorage.getItem(parameters[12] + idaVuelta[1]);
@@ -158,7 +163,7 @@ $(document).ready(function(){
           	}
 		  });
 		ajaxRequest.done(function(data){
-			
+
 		});
 	});
 });

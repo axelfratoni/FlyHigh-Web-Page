@@ -13,6 +13,11 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+	$("#jsHabil").css("display","none");
+	$(".jsCheck").css("display","block");
+});
+
+$(document).ready(function(){
 	localStorage.clear();
 });
 
@@ -58,6 +63,10 @@ $(document).ready(function(){
 					desID = cities[i].id;
 				}
 			}
+			if (oriID == null)
+				oriID = getCityFromAirp($("#origen").val());
+			if (desID == null)
+				desID = getCityFromAirp($("#destino").val());
 			var parameters = "adultos=" + adultos +"&ninos=" + adultos + "&infant=" + $("#infaCount").val() + "&ori=" +  oriID + "&des=" + desID + "&fechaida=" + $("#departureDate").val().toString();
 			if ($("#idaYvuelta").is(':checked'))
 				parameters = parameters + "&llegada=" + ($("#arrivalDate").val()).toString();
@@ -214,6 +223,7 @@ $(document).ready(function retrieveCities(){
 	$.ajax({
           url: "http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities&page=" + cityPage,
           dataType: "jsonp",
+          timeout: 10000,
           success: function(data){
           		$.each(data.cities, function(index, value) {
 	        		cities.push(value);
@@ -223,6 +233,9 @@ $(document).ready(function retrieveCities(){
           			cityPage += 1;
           			retrieveCities();
           		}
+          },
+          error: function(){
+          	alert("Algo salió mal. Comprobá tu conexión de internet y recargá la página.");
           }
         });
 });

@@ -206,6 +206,7 @@ $(document).ready(function(){
 	$.ajax({
 		url: "http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getonewayflights&from=" + oriID + "&to=" + desID + "&dep_date=" + depDate + "&adults=" + adultCount + "&children=" + ninosCount + "&infants=" + 0,
 		dataType: "jsonp",
+		timeout: 10000,
 		success: function(data){
 			$(".loader").css("display","none");
 			$.each(data.flights, function(index,value){
@@ -217,7 +218,10 @@ $(document).ready(function(){
 					flights.push(value);
 			});
 			loadFlights();
-		}
+		},
+		error: function(){
+          	alert("Algo salió mal. Comprobá tu conexión de internet y recargá la página.");
+          }
 	});
 	console.log(localStorage.getItem('idaYvuelta'));
 	console.log(getParameterByName('llegada'));

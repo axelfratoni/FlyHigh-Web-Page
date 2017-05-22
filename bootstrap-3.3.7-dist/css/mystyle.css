@@ -18,6 +18,10 @@ body, html {
     background-repeat: no-repeat;
 }
 
+.jsCheck{
+  display: none;
+}
+
 .iframeStyle{
   margin-top: 9%;
   width: 800px;

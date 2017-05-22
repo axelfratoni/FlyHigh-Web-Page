@@ -1,3 +1,69 @@
+parameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate", "ori", "des", "arrAirpDesc", "depAirpDesc" , "number", "adultPrice", "kidPrice", "charges", "taxes"];
+
+idaVuelta = ["Ida" , "Vuelta"];
+$(document).ready(function(){
+		$("#vuelosDivIda").load("FlightsTemplate.html", function(){
+			var data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[0])) + " hs";
+			$(this).find(".oriHora").find("p").text(data);
+			data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[0])) + " hs";
+			$(this).find(".desHora").find("p").text(data);
+			data = localStorage.getItem(parameters[3] + idaVuelta[0]);
+			$(this).find(".oriID").find("p").text(data);
+			data = localStorage.getItem(parameters[4] + idaVuelta[0]);
+			$(this).find(".desID").find("p").text(data);
+			data = localStorage.getItem(parameters[10] + idaVuelta[0]).split(",");
+			$(this).find(".ori").find("p").text(data[1] + ", " + data[2]);
+			data = localStorage.getItem(parameters[9] + idaVuelta[0]).split(",");
+			$(this).find(".des").find("p").text(data[1] + ", " + data[2]);
+			data = localStorage.getItem(parameters[1] + idaVuelta[0]) + " hs";
+			$(this).find(".duration").find("span").text(data);
+			data = "Nro:" + localStorage.getItem(parameters[11] + idaVuelta[0]);
+			$(this).find(".fliNum").find("p").text(data);
+			data = "U$D " + localStorage.getItem(parameters[2] + idaVuelta[0]);
+			$(this).find(".price").find("p").text(data);
+			data = "Adulto: $" + localStorage.getItem(parameters[12] + idaVuelta[0]);
+			$(this).find(".pAdulto").text(data);
+			if(localStorage.getItem("ninosCount") > 0){
+				$(this).find(".pNino").text(localStorage.getItem(parameters[13] + idaVuelta[0]));
+			}
+			data = "Cargo: $" + localStorage.getItem(parameters[14] + idaVuelta[0]);
+			$(this).find(".pCargo").text(data);
+			data = "Impuestos: $" + localStorage.getItem(parameters[15] + idaVuelta[0]);
+			$(this).find(".pImpuestos").text(data);
+		});
+		if(localStorage.getItem("idaYvuelta") == "true"){
+			$("#vuelosDivVuelta").load("FlightsTemplate.html", function(){
+				var data = parseHour(localStorage.getItem(parameters[6] + idaVuelta[1])) + " hs";
+				$(this).find(".oriHora").find("p").text(data);
+				data = parseHour(localStorage.getItem(parameters[5] + idaVuelta[1])) + " hs";
+				$(this).find(".desHora").find("p").text(data);
+				data = localStorage.getItem(parameters[3] + idaVuelta[1]);
+				$(this).find(".oriID").find("p").text(data);
+				data = localStorage.getItem(parameters[4] + idaVuelta[1]);
+				$(this).find(".desID").find("p").text(data);
+				data = localStorage.getItem(parameters[10] + idaVuelta[1]).split(",");
+				$(this).find(".ori").find("p").text(data[1] + ", " + data[2]);
+				data = localStorage.getItem(parameters[9] + idaVuelta[1]).split(",");
+				$(this).find(".des").find("p").text(data[1] + ", " + data[2]);
+				data = localStorage.getItem(parameters[1] + idaVuelta[1]) + " hs";
+				$(this).find(".duration").find("span").text(data);
+				data = "Nro:" + localStorage.getItem(parameters[11] + idaVuelta[1]);
+				$(this).find(".fliNum").find("p").text(data);
+				data = "U$D " + localStorage.getItem(parameters[2] + idaVuelta[1]);
+				$(this).find(".price").find("p").text(data);
+				data = "Adulto: $" + localStorage.getItem(parameters[12] + idaVuelta[1]);
+				$(this).find(".pAdulto").text(data);
+				if(localStorage.getItem("ninosCount") > 0){
+					$(this).find(".pNino").text(localStorage.getItem(parameters[13] + idaVuelta[1]));
+				}
+				data = "Cargo: $" + localStorage.getItem(parameters[14] + idaVuelta[1]);
+				$(this).find(".pCargo").text(data);
+				data = "Impuestos: $" + localStorage.getItem(parameters[15] + idaVuelta[1]);
+				$(this).find(".pImpuestos").text(data);
+			});
+		}
+});
+
 $(document).ready(function(){
 	$("#cardNumber").text(localStorage.getItem("cardType") + " " + localStorage.getItem("cardNumber"));
 	$("#expiryDateAndCVV").text(localStorage.getItem("expiryMonth") + "/" + localStorage.getItem("expiryYear") + " " + localStorage.getItem("cvv"));
@@ -91,3 +157,8 @@ function addPassenger(age, i){
 $(document).ready(function(){
 	localStorage.setItem("paymentPage", "true");
 });
+
+function parseHour(hour){
+	var h = hour.split(":");
+	return h[0]+":"+h[1];
+}

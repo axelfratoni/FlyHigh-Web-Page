@@ -24,6 +24,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
   </head>
 
   <body class="backgroundimage parallax">
@@ -39,8 +40,17 @@
       </nav>
 
     <div class="container-fluid ">
+      <div class="row" style="margin-top:5%;">
+        <div class="col-md-10 col-md-offset-1 flightMenu">
+          <div class="centerText" id="title"></div>
+          <div class="col-md-12" id="vuelosDivIda"></div>
+          <div class="centerText" id="titleVuelta"></div>
+          <div class="col-md-12 " id="vuelosDivVuelta"></div>
+        </div>
+      </div>
+
       <div class="row" id="main">
-        <div class="col-md-6 col-md-offset-3 mainMenu" >
+        <div class="col-md-6 col-md-offset-3 checkMenu" >
           <div class="centerText"> <h4> Datos de los pasajeros </h4> </div>
           <div class="row formTopMargin" id="personsDiv">
               <template id="personTemplate">

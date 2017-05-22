@@ -50,7 +50,7 @@ body, html {
   letter-spacing: 2px;
 }
 
-.passengerInfoMenu, .paymentMenu {
+.passengerInfoMenu, .paymentMenu, .checkMenu {
   margin-top: 3%;
   background-color: #ffe577;
   //opacity : 0.85;

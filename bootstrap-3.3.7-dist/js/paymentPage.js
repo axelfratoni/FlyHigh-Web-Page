@@ -76,24 +76,6 @@ function validateForm(creditCardIsInvalid){
 		inputError("#dniInput");
 		ret = false;
 	}
-  num = $("#countryInput").val();
-  if(validateCountry(num) ){
-    errormessage += "Pais invalido. ";
-    inputError("#countryInput");
-		ret = false;
-  }
-	num = $("#provinceInput").val();
-	if(validateCountry(num)){
-		errormessage += "Provincia invalida.";
-		inputError("#provinceInput");
-		ret = false;
-	}
-  num = $("#cityInput").val();
-  if(validateCity(num)){
-    errormessage += "Ciudad invalida. ";
-    inputError("#cityInput");
-		ret = false;
-  }
 	num = $("#postalCodeInput").val();
 	if(validatePostalCode(num)){
 		errormessage += "Codigo postal invalido.";
@@ -262,20 +244,134 @@ function validateCreditCard(){
           url: url,
           dataType: "jsonp",
           success: function(data){
-						debugger;
-						console.log(data);
             if(data.valid != null){
-							if(validateForm("false")){
-								saveInfo();
-							}
+							validateLocation();
             }else{
-							console.log("LA CONCHA DE TU MADRE");
 							validateForm("true");
 						}
           }
   });
 }
 
+function validateLocation(){
+	var isCorrect = false;
+	var ret = true;
+	var country = $("#countryInput").val();
+	console.log("pais: " + country);
+	for(var i = 0; i < countries.length; i++){
+		console.log("comparing countries: " + countries[i].name);
+		if(country == countries[i].name){
+			isCorrect = true;
+			break;
+		}
+	}
+	if(isCorrect == false){
+		errormessage += "Pais invalido.";
+		inputError("#countryInput");
+		ret = false;
+	}
+	isCorrect = false;
+	var state = $("#provinceInput").val();
+	console.log("provincia: " + state);
+	for(var i = 0; i < cities.length; i++){
+		console.log("comparing states: " +cities[i].name.split(", ")[1]);
+		if(state == cities[i].name.split(", ")[1]){
+			isCorrect = true;
+			break;
+		}
+	}
+	if(isCorrect == false){
+		errormessage += "Provincia invalida.";
+		inputError("#provinceInput");
+		ret = false;
+	}
+	isCorrect = false;
+	var city = $("#cityInput").val();
+	console.log("ciudad: " + city);
+	for(var i = 0; i < cities.length; i++){
+		console.log("comparing cities: " +cities[i].name.split(",")[0]);
+		if(city == cities[i].name.split(",")[0]){
+			isCorrect = true;
+			break;
+		}
+	}
+	if(isCorrect == false){
+		errormessage += "Ciudad invalida.";
+		inputError("#cityInput");
+		ret = false;
+	}
+	if(ret == true){
+		if(validateForm("false")){
+			saveInfo();
+			document.location.href = "CheckPage.html";
+		}
+	}else{
+		validateForm("false");
+	}
+}
+
+
+countries = [];
+countryPage = 1;
+$(document).ready(function retrieveCountries(){
+	$.ajax({
+          url: "http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcountries&page=" + countryPage,
+          dataType: "jsonp",
+          success: function(data){
+          		$.each(data.countries, function(index, value) {
+	        		countries.push(value);
+        		});
+          		if(countries.length < data.total){
+          			countryPage += 1;
+          			retrieveCountries();
+          		}else{
+								console.log(countries);
+							}
+          }
+        });
+});
+
+cities = [];
+optionNames = [];
+cityPage = 1;
+$(document).ready(function retrieveCities(){
+	$.ajax({
+          url: "http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getcities&page=" + cityPage,
+          dataType: "jsonp",
+          success: function(data){
+          		$.each(data.cities, function(index, value) {
+	        		cities.push(value);
+	        		optionNames.push(value.name);
+        		});
+          		if(cities.length < data.total){
+          			cityPage += 1;
+          			retrieveCities();
+          		}else{
+								console.log(cities);
+							}
+          }
+        });
+});
+/*
+num = $("#countryInput").val();
+if(validateCountry(num) ){
+	errormessage += "Pais invalido. ";
+	inputError("#countryInput");
+	ret = false;
+}
+num = $("#provinceInput").val();
+if(validateCountry(num)){
+	errormessage += "Provincia invalida.";
+	inputError("#provinceInput");
+	ret = false;
+}
+num = $("#cityInput").val();
+if(validateCity(num)){
+	errormessage += "Ciudad invalida. ";
+	inputError("#cityInput");
+	ret = false;
+}
+*/
 function validCreditCard(){
 	$("#cardNumberInput").css("border", "");
 	$("#cardNumberInput").css("background-color", "");

@@ -90,8 +90,6 @@ $(document).ready(function(){
 });
 function handlePrevious(){
 	var aux = "";
-	console.log(localStorage.getItem("esPromo"));
-	debugger;
 	if(localStorage.getItem("esPromo") == "true"){
 		document.location.href = "index.html";
 		return;

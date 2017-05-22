@@ -511,7 +511,7 @@ function saveData(flight, viaje){
 	localStorage.setItem("esPromo", "true");
 	localStorage.setItem("adultosCount", $("#adultCountP").val());
 	localStorage.setItem("ninosCount", $("#ninosCountP").val());
-	var airline = flight.outbound_routes[0].segments[0].airline.id;
+	var airline = flight.outbound_routes[0].segments[0].airline.name;
 	var duration = flight.outbound_routes[0].duration;
 	var price = flight.price.total.total;
 	var depAirp = flight.outbound_routes[0].segments[0].departure.airport.id;

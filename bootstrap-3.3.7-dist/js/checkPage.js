@@ -162,9 +162,6 @@ $(document).ready(function(){
           		alert("Algo salió mal. Comprobá tu conexión de internet y recargá la página.");
           	}
 		  });
-		ajaxRequest.done(function(data){
-
-		});
 	});
 });
 function addPassenger(age, i){

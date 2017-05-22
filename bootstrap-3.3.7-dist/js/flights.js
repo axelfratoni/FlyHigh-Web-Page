@@ -156,7 +156,7 @@ $(document).ready(function(){
 savingParameters = ["airline" , "duration" , "price", "depAirp", "arrAirp", "arrDate", "depDate", "ori", "des", "arrAirpDesc", "depAirpDesc" , "number", "adultPrice", "kidPrice", "charges", "taxes"];
 
 function saveData(flight, viaje){
-	var airline = flight.outbound_routes[0].segments[0].airline.id;
+	var airline = flight.outbound_routes[0].segments[0].airline.name;
 	var duration = flight.outbound_routes[0].duration;
 	var price = flight.price.total.total;
 	var depAirp = flight.outbound_routes[0].segments[0].departure.airport.id;

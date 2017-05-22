@@ -190,20 +190,13 @@ function saveData(flight, viaje){
 	localStorage.setItem(savingParameters[12] + viaje , adultPrice);
 	localStorage.setItem(savingParameters[14] + viaje , charges);
 	localStorage.setItem(savingParameters[15] + viaje , taxes);
-
-
-
-	console.log("DEST: " + dest);
-	console.log(localStorage.getItem(savingParameters[8] + viaje) +  " , " + dest);
 }
 
 function handleBuy(){
     var flight = flights[$(this).data("target")];
 		if(localStorage.getItem('idaYvuelta') == "true"){
-			console.log("Vuelta");
 			saveData(flight, "Vuelta");
 		}else{
-			console.log("Ida");
 			saveData(flight, "Ida");
 		}
 		document.location.href = "InfoPage.html" ;
@@ -230,7 +223,6 @@ $(document).ready(function(){
 	var arrDate = getParameterByName('llegada');
 	if(arrDate != null)
 		arrDate = parseDate(arrDate);
-	console.log(depDate + "  " + arrDate);
 	var adultCount = localStorage.getItem("adultosCount");
 	var ninosCount = localStorage.getItem("ninosCount")
 	var infantCount = getParameterByName('infant');
@@ -258,11 +250,7 @@ $(document).ready(function(){
           	alert("Algo salió mal. Comprobá tu conexión de internet y recargá la página.");
           }
 	});
-	console.log(localStorage.getItem('idaYvuelta'));
-	console.log(getParameterByName('llegada'));
-
 	if(getParameterByName('llegada') == null && localStorage.getItem("idaYvuelta") != "true"){
-		console.log("xD");
 		localStorage.setItem('idaYvuelta', false);
 		$("#seleccionDe").append("<h4>Seleccion de Ida</h4>");
 	}else{
@@ -271,10 +259,8 @@ $(document).ready(function(){
 		} else {
 			$("#seleccionDe").append("<h4>Seleccion de Vuelta</h4>");
 		}
-		console.log(":p");
 		localStorage.setItem('idaYvuelta', true);
 	}
-	console.log(localStorage.getItem("idaYvuelta"));
 });
 
 function parseDate(date){

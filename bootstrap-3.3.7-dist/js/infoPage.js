@@ -85,8 +85,11 @@ $(document).ready(function(){
 });
 function handlePrevious(){
 	var aux = "";
+	console.log(localStorage.getItem("esPromo"));
+	debugger;
 	if(localStorage.getItem("esPromo") == "true"){
 		document.location.href = "index.html";
+		return;
 	}
 	if(localStorage.getItem("idaYvuelta") == "true"){
 		aux = "adultos=" + localStorage.getItem("adultosCount") +"&ninos=" + localStorage.getItem("ninosCount") + "&infant=0&ori=" +  localStorage.getItem("oriVuelta") + "&des=" + localStorage.getItem("desVuelta") + "&fechaida=" + parseDate(localStorage.getItem("depDateVuelta").split(" ")[0]);

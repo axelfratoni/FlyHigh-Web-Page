@@ -52,18 +52,14 @@ function validateBirthDateInput(num, type){
     return true;
   var aux = num.split("-");
   var today = new Date();
-  console.log(today.getFullYear());
   if(type == "adult"){
     if((today.getFullYear() - aux[0]) < 18){
-      console.log(1);
       return true;
     }else if((today.getYear() - aux[0]) == 18){
       if((today.getMonth() - aux[1]) < 0){
-        console.log(2);
         return true;
       }else if((today.getMonth() - aux[2]) == 0){
         if((today.getDate() - aux[2]) < 0){
-          console.log(3);
           return true;
         }
       }

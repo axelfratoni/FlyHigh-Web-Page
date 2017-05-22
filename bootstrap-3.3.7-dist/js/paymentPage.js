@@ -260,9 +260,7 @@ function validateLocation(){
 	var country = $("#countryInput").val();
 	var cityID;
 	var countryID;
-	console.log("pais: " + country);
 	for(var i = 0; i < countries.length; i++){
-		console.log("comparing countries: " + countries[i].name);
 		if(country == countries[i].name){
 			countryID = countries[i].id;
 			isCorrect = true;
@@ -276,9 +274,7 @@ function validateLocation(){
 	}
 	isCorrect = false;
 	var state = $("#provinceInput").val();
-	console.log("provincia: " + state);
 	for(var i = 0; i < cities.length; i++){
-		console.log("comparing states: " +cities[i].name.split(", ")[1]);
 		if(state == cities[i].name.split(", ")[1] && cities[i].country.id == countryID){
 			cityID = cities[i].id;
 			isCorrect = true;
@@ -292,9 +288,7 @@ function validateLocation(){
 	}
 	isCorrect = false;
 	var city = $("#cityInput").val();
-	console.log("ciudad: " + city);
 	for(var i = 0; i < cities.length; i++){
-		console.log("comparing cities: " +cities[i].name.split(",")[0]);
 		if(city == cities[i].name.split(",")[0] && cityID == cities[i].id ){
 			isCorrect = true;
 			break;
@@ -329,9 +323,7 @@ $(document).ready(function retrieveCountries(){
           		if(countries.length < data.total){
           			countryPage += 1;
           			retrieveCountries();
-          		}else{
-								console.log(countries);
-							}
+          		}
           }
         });
 });
@@ -351,9 +343,7 @@ $(document).ready(function retrieveCities(){
           		if(cities.length < data.total){
           			cityPage += 1;
           			retrieveCities();
-          		}else{
-								console.log(cities);
-							}
+          		}
           }
         });
 });

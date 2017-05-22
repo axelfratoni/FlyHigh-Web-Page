@@ -134,7 +134,7 @@ function validateArrivalDate(){
 
 function validatePassengers(){
 	adul = parseInt($("#adultCount").val());
-	nino = parseInt($("#ninosCount").val());  
+	nino = parseInt($("#ninosCount").val());
 	if(adul > 10 || adul < 1 || nino > 10 || nino < 0){
 		inputError(".psgrCount");
 		return false
@@ -431,13 +431,12 @@ $(document).ready(function(){
 		data = "Viaja de oferta a " + promo.city.name.split(",")[0];
 		$("#myModal").find(".modal-title").text(data);
 		$("#myModal").find(".compraPromo").data("target",clicked);
-		console.log(promo.city.name.split(",")[0]);
 	});
 });
 
 $(document).ready(function(){
 	$(".compraPromo").click(function(){
-		if (validatePassengersPromo) {		
+		if (validatePassengersPromo) {
 			var target = $(this).data("target");
 			findPromo(deals[target]);
 		}
@@ -446,7 +445,7 @@ $(document).ready(function(){
 
 function validatePassengersPromo(){
 	adul = parseInt($("#adultCountP").val());
-	nino = parseInt($("#ninosCountP").val());  
+	nino = parseInt($("#ninosCountP").val());
 	if(adul > 10 || adul < 1 || nino > 10 || nino < 0){
 		inputError(".psgrCountP");
 		return false
@@ -486,6 +485,7 @@ function findPromo(promo){
 
 function buyPromo(flight){
 	saveData(flight, "Ida");
+
 	document.location.href = "InfoPage.html?adultos=" + $("#adultCountP").val() + "&ninos=" + $("#ninosCountP").val() ;
 }
 
@@ -496,7 +496,6 @@ $(document).ready(function(){
 });
 
 function dontClose(){
-	console.log("no");
 	return false;
 }
 
@@ -555,8 +554,6 @@ function saveData(flight, viaje){
 	localStorage.setItem(savingParameters[12] + viaje , adultPrice);
 	localStorage.setItem(savingParameters[14] + viaje , charges);
 	localStorage.setItem(savingParameters[15] + viaje , taxes);
-	console.log("DEST: " + dest);
-	console.log(localStorage.getItem(savingParameters[8] + viaje) +  " , " + dest);
 }
 /*
 <div class="col-md-4">

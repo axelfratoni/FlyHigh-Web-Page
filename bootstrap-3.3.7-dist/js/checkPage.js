@@ -139,6 +139,11 @@ $(document).ready(function(){
 		  });
 		ajaxRequest.done(function(data){
 			console.log(JSON.stringify(data));
+			$("#confirmBanner").html("<div class=\"alert alert-success alert-dismissable\">\
+      		<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">×</a>\
+      		<strong>Exito!</strong> Has reservado tu vuelo. <a href=\"index.html\"> Volver al inicio.\
+    		</a></div>");
+			window.scrollTo(0,document.body.scrollHeight);
 		});
 	});
 });

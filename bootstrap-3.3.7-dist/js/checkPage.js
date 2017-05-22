@@ -132,26 +132,33 @@ $(document).ready(function(){
 		var postParse = (JSON.stringify(preParse)).replace(/{/gi,"%7b").replace(/ /gi,"%20").replace(/}/gi,"%7d");
 		var link = 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2' + "&booking=" + postParse;
 		console.log(link);
-		var ajaxRequest = $.ajax({
-		  type: "POST",
-		  url: link,
+		$.ajax({
+		  	type: "POST",
+		  	url: link,
+		  	timeout: 10000,
+	  		success: function(data){
+  				console.log(JSON.stringify(data));
+				if(data.booking == true) {
+					$("#confirmBanner").html("<div class=\"alert alert-success alert-dismissable\">\
+		      		<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">×</a>\
+		      		<strong>Exito!</strong> Has reservado tu vuelo. <a href=\"index.html\"> Volver al inicio.\
+		    		</a></div>");
+		    		$("#nextButton").css("display","none");
+		    		$("#backButton").css("display","none");
+				} else {
+					$("#confirmBanner").html("<div class=\"alert alert-danger alert-dismissable\">\
+		      		<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">×</a>\
+		      		<strong>Ha ocurrido un error en la solicitud.</strong> Intente de vuelta mas tarde. <a href=\"index.html\"> Volver al inicio.\
+		    		</a></div>");
+				}
+				window.scrollTo(0,document.body.scrollHeight);
+	  		},
+	  		error: function(){
+          		alert("Algo salió mal. Comprobá tu conexión de internet y recargá la página.");
+          	}
 		  });
 		ajaxRequest.done(function(data){
-			console.log(JSON.stringify(data));
-			if(data.booking == true) {
-				$("#confirmBanner").html("<div class=\"alert alert-success alert-dismissable\">\
-	      		<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">×</a>\
-	      		<strong>Exito!</strong> Has reservado tu vuelo. <a href=\"index.html\"> Volver al inicio.\
-	    		</a></div>");
-	    		$("#nextButton").css("display","none");
-	    		$("#backButton").css("display","none");
-			} else {
-				$("#confirmBanner").html("<div class=\"alert alert-danger alert-dismissable\">\
-	      		<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">×</a>\
-	      		<strong>Ha ocurrido un error en la solicitud.</strong> Intente de vuelta mas tarde. <a href=\"index.html\"> Volver al inicio.\
-	    		</a></div>");
-			}
-			window.scrollTo(0,document.body.scrollHeight);
+			
 		});
 	});
 });

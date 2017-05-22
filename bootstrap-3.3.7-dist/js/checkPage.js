@@ -121,21 +121,20 @@ $(document).ready(function(){
 		n = localStorage.getItem("ninosCount");
 		for(var i = 1; i <= n ; i++){
 			pasajeros.push(addPassenger("kid", i));
-		}
+		}/*
 		var phoneNumber = localStorage.getItem("cardOwnerPhone").slice(0,4) + "-" + localStorage.getItem("cardOwnerPhone").slice(4,8);
 		var credit_card =  {"number": localStorage.getItem("cardNumber"), "expiration": localStorage.getItem("expiryMonth") + (localStorage.getItem("expiryYear")-2000), "security_code": localStorage.getItem("cvv"), "first_name": localStorage.getItem("cardOwnerName").split(" ")[0], "last_name": localStorage.getItem("cardOwnerName").split(" ")[1]};
 		var billing_address = {"city": {"id": localStorage.getItem("cardOwnerCityId"), "state": localStorage.getItem("cardOwnerProvince"), "country": { "id": localStorage.getItem("cardOwnerCountryId")}}, "zip_code": parseInt(localStorage.getItem("cardOwnerPostalCode")), "street": localStorage.getItem("cardOwnerAddress"), "floor": "", "apartment": ""}
 		var contact = {"email": localStorage.getItem("cardOwnerMail"), "phones": [phoneNumber]};
-		var pago = {"installments": 0, "credit_card": credit_card, "billing_address": billing_address};
-		var preParse = {"flight_id": parseInt(localStorage.getItem("numberIda")), "passengers" : pasajeros, "payment": pago , "contact": contact};
-		var postParse = JSON.stringify(preParse);
-		console.log(postParse);
+		var pago = {"installments": 0, "credit_card": credit_card, "billing_address": billing_address};*/
+		//var preParse = {"flight_id": parseInt(localStorage.getItem("numberIda")), "passengers" : pasajeros, "payment": pago , "contact": contact};
+		var preParse = {"flight_id":93480,"passengers":[{"first_name":"John","last_name":"Doe","birthdate":"1969-06-02","id_type":1,"id_number":"17155171"}],"payment":{"installments":6,"credit_card":{"number":"4567899999888","expiration":"1213","security_code":"123","first_name":"John","last_name":"Doe"},"billing_address":{"city":{"id":"BUE","state":"Buenos Aires","country":{"id":"AR"}},"zip_code":1435,"street":"Av. Madero 299","floor":"","apartment":""}},"contact":{"email":"john.doe@hotmail.com","phones":["555-5555"]}}
+		var postParse = (JSON.stringify(preParse)).replace(/{/gi,"%7b").replace(/ /gi,"%20").replace(/}/gi,"%7d");
+		var link = 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight2' + "&booking=" + postParse;
+		console.log(link);
 		var ajaxRequest = $.ajax({
 		  type: "POST",
-		  url: 'http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=bookflight',
-		  data: postParse,
-		 	contentType: "application/json; charset=utf-8",
-		  dataType: "json"
+		  url: link,
 		  });
 		ajaxRequest.done(function(data){
 			console.log(JSON.stringify(data));

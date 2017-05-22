@@ -36,7 +36,7 @@ function loadFlights(){
 				data = "Adulto: $" + parseInt(flight.price.adults.base_fare);
 				$(this).find(".pAdulto").text(data);
 				if(localStorage.getItem("ninosCount") > 0){
-					data = "Nino: $" + parseInt(flight.price.children.base_fare);
+					data = "Niño: $" + parseInt(flight.price.children.base_fare);
 					$(this).find(".pNino").text(data);
 				}
 				data = "Cargo: $" + parseInt(flight.price.total.charges);
